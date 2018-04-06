@@ -1,2 +1,1 @@
-# lms-stats
-LMS statistics project
+## lms-stats

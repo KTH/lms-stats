@@ -1,0 +1,289 @@
+<html>
+<head>
+
+<script src="chartist.js" ></script>
+<script src="chartist-plugin-barlabels.js"></script>
+<link rel="stylesheet" type="text/css" href="chartist.css">
+
+</head>
+
+<body>
+
+<h1>KTH Canvas: Statistics</h1>
+Statistics for the KTH Canvas instance. Data is accumlated since the system was deployed May 2016.
+<br><br>
+
+<div class="ct-chart1 ct-minor-seventh"></div>
+
+<script>
+
+fetch('/kths')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+
+    new Chartist.Bar('.ct-chart1', {
+      labels: ['Published courses','Active Teachers','Active Students','Discussion Posts','Video/audio recordings','Uploaded files','Student submissions'],
+      series: [myJson[0].courses,myJson[0].teachers,myJson[0].students,myJson[0].discussion_topics,myJson[0].media_objects,myJson[0].attachments,myJson[0].assignments]
+    }, {
+      distributeSeries: true,
+        chartPadding: {
+          right: 40,
+          left: 40,
+          top: 40,
+          bottom: 40
+        },
+        axisY: {
+          labelInterpolationFnc: function(value) {
+            return (value / 1000) + 'k';
+        }
+    },
+        plugins: [
+          Chartist.plugins.ctBarLabels(
+            {
+              labelOffset: {
+                y: -5
+              },
+            })
+          ],
+    });
+  });
+</script>
+
+<h1>KTH Canvas: published courses/unit</h1>
+
+Number of courses with the status "published". This includes imported courses, manually created courses and sandboxes/demos.<br><br>
+
+<div class="ct-chart2 ct-minor-seventh"></div>
+
+<script>
+async function drawGraph(){
+  const responseABE = await fetch('/abes')
+  const myJsonABE = await responseABE.json()
+  const responseBIO = await fetch('/bios')
+  const myJsonBIO = await responseBIO.json()
+  const responseCHE = await fetch('/ches')
+  const myJsonCHE = await responseCHE.json()
+  const responseCSC = await fetch('/cscs')
+  const myJsonCSC = await responseCSC.json()
+  const responseECE = await fetch('/eces')
+  const myJsonECE = await responseECE.json()
+  const responseEES = await fetch('/eess')
+  const myJsonEES = await responseEES.json()
+  const responseICT = await fetch('/icts')
+  const myJsonICT = await responseICT.json()
+  const responseITM = await fetch('/itms')
+  const myJsonITM = await responseITM.json()
+  const responseSCI = await fetch('/scis')
+  const myJsonSCI = await responseSCI.json()
+  const responseSTH = await fetch('/sths')
+  const myJsonSTH = await responseSTH.json()
+  const responseUF = await fetch('/ufs')
+  const myJsonUF = await responseUF.json()
+
+    new Chartist.Bar('.ct-chart2', {
+      labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI','UF'],
+      series: [
+        [myJsonABE[0].courses, myJsonCSC[0].courses, myJsonITM[0].courses, myJsonCHE[0].courses, myJsonSCI[0].courses, myJsonUF[0].courses],
+        [null, myJsonEES[0].courses, myJsonECE[0].courses, myJsonBIO[0].courses, null, null],
+        [null, myJsonICT[0].courses, null, myJsonSTH[0].courses, null, null]
+      ]
+    }, {
+      stackBars: true,
+      chartPadding: {
+        right: 40,
+        left: 40,
+        top: 40,
+        bottom: 40
+      },
+        plugins: [
+          Chartist.plugins.ctBarLabels(
+            {
+              labelOffset: {
+                y: 17
+              },
+                labelClass: 'ct-label-white',
+              })
+            ],
+    });
+}
+
+drawGraph()
+
+</script>
+
+<h1>KTH Canvas: active teachers/unit</h1>
+
+This is the number of users with a teacher role (Teacher, Course responsible, examinator and TA). Please note that one person can be listed as "teacher" on more than one of the school due to roles being set on each course.
+<br><br>
+
+<div class="ct-chart3 ct-minor-seventh"></div>
+
+<script>
+async function drawGraph(){
+  const responseABE = await fetch('/abes')
+  const myJsonABE = await responseABE.json()
+  const responseBIO = await fetch('/bios')
+  const myJsonBIO = await responseBIO.json()
+  const responseCHE = await fetch('/ches')
+  const myJsonCHE = await responseCHE.json()
+  const responseCSC = await fetch('/cscs')
+  const myJsonCSC = await responseCSC.json()
+  const responseECE = await fetch('/eces')
+  const myJsonECE = await responseECE.json()
+  const responseEES = await fetch('/eess')
+  const myJsonEES = await responseEES.json()
+  const responseICT = await fetch('/icts')
+  const myJsonICT = await responseICT.json()
+  const responseITM = await fetch('/itms')
+  const myJsonITM = await responseITM.json()
+  const responseSCI = await fetch('/scis')
+  const myJsonSCI = await responseSCI.json()
+  const responseSTH = await fetch('/sths')
+  const myJsonSTH = await responseSTH.json()
+  const responseUF = await fetch('/ufs')
+  const myJsonUF = await responseUF.json()
+
+    new Chartist.Bar('.ct-chart3', {
+      labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI','UF'],
+      series: [
+        [myJsonABE[0].teachers, myJsonCSC[0].teachers, myJsonITM[0].teachers, myJsonCHE[0].teachers, myJsonSCI[0].teachers, myJsonUF[0].teachers],
+        [null, myJsonEES[0].teachers, myJsonECE[0].teachers, myJsonBIO[0].teachers, null, null],
+        [null, myJsonICT[0].teachers, null, myJsonSTH[0].teachers, null, null]
+      ]
+    }, {
+      stackBars: true,
+        showLabel: true,
+        chartPadding: {
+          right: 40,
+          left: 40,
+          top: 40,
+          bottom: 40
+        },
+
+        plugins: [
+          Chartist.plugins.ctBarLabels(
+            {
+              labelOffset: {
+                y: 17
+              },
+              labelClass: 'ct-label-white',
+            })
+          ],
+        });
+      }
+drawGraph()
+
+</script>
+
+<h1>KTH Canvas: active students/unit</h1>
+
+This is the number of users with a student role (admitted and registrered) on courses offered by each school/UF that has logged into the system. Please note that one person can be listed as "student" on more than one of the school due to roles being set on each course.
+<br><br>
+
+<div class="ct-chart4 ct-minor-seventh"></div>
+
+<script>
+async function drawGraph(){
+  const responseABE = await fetch('/abes')
+  const myJsonABE = await responseABE.json()
+  const responseBIO = await fetch('/bios')
+  const myJsonBIO = await responseBIO.json()
+  const responseCHE = await fetch('/ches')
+  const myJsonCHE = await responseCHE.json()
+  const responseCSC = await fetch('/cscs')
+  const myJsonCSC = await responseCSC.json()
+  const responseECE = await fetch('/eces')
+  const myJsonECE = await responseECE.json()
+  const responseEES = await fetch('/eess')
+  const myJsonEES = await responseEES.json()
+  const responseICT = await fetch('/icts')
+  const myJsonICT = await responseICT.json()
+  const responseITM = await fetch('/itms')
+  const myJsonITM = await responseITM.json()
+  const responseSCI = await fetch('/scis')
+  const myJsonSCI = await responseSCI.json()
+  const responseSTH = await fetch('/sths')
+  const myJsonSTH = await responseSTH.json()
+  const responseUF = await fetch('/ufs')
+  const myJsonUF = await responseUF.json()
+
+    new Chartist.Bar('.ct-chart4', {
+      labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
+      series: [
+        [myJsonABE[0].students, myJsonCSC[0].students, myJsonITM[0].students, myJsonCHE[0].students, myJsonSCI[0].students, myJsonUF[0].students],
+        [null, myJsonEES[0].students, myJsonECE[0].students, myJsonBIO[0].students, null, null],
+        [null, myJsonICT[0].students, null, myJsonSTH[0].students, null, null]
+      ]
+    },
+    {
+      stackBars: true,
+        showLabel: true,
+        chartPadding: {
+          right: 40,
+          left: 40,
+          top: 40,
+          bottom: 40
+        },
+        plugins: [
+          Chartist.plugins.ctBarLabels(
+            {
+              labelOffset: {
+                y: 17
+              },
+              labelClass: 'ct-label-white',
+            })
+          ],
+        });
+      }
+drawGraph()
+
+</script>
+
+
+<h1>KTH Canvas: activity/views per category</h1>
+Total number of pageviews since 2016-05-10 on KTH Canvas instance grouped by category.
+<br><br>
+
+<div class="ct-chart5 ct-minor-seventh"></div>
+
+<script>
+fetch('/ktha')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+
+    new Chartist.Bar('.ct-chart5', {
+      labels: ['Announcements','Assignments','Discussions','Files','Grades','Groups','Modules','Pages','Quizzes'],
+      series: [myJson[0].by_category[0].views, myJson[0].by_category[1].views, myJson[0].by_category[4].views, myJson[0].by_category[5].views, myJson[0].by_category[7].views, myJson[0].by_category[8].views, myJson[0].by_category[9].views, myJson[0].by_category[11].views, myJson[0].by_category[12].views]
+    }, {
+      distributeSeries: true,
+      chartPadding: {
+        right: 40,
+        left: 40,
+        top: 40,
+        bottom: 40
+      },
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: -5
+            },
+          })
+        ],
+        axisY: {
+          labelInterpolationFnc: function(value) {
+            return (value / 1000000) + 'M';
+          }
+        }
+      });
+    });
+
+</script>
+
+</body>
+
+</html>
