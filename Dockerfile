@@ -18,6 +18,7 @@ COPY ["config", "config"]
 COPY ["package.json", "package.json"]
 COPY ["app.js", "app.js"]
 COPY ["server", "server"]
+COPY ["public", "public"]
 
 EXPOSE 3000 3000
 
