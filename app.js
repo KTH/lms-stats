@@ -335,7 +335,7 @@ app.get('/api/lms-stats/sths', async function(req, res){
   res.json(results);
 });
 
-app.get('/api/lms-statssthsl', async function(req, res){
+app.get('/api/lms-stats/sthsl', async function(req, res){
   const results= await STHSL()
   console.log('kommer skicka:', results)
   res.json(results);
