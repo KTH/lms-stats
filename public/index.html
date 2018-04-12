@@ -4,68 +4,8 @@
 async function drawGraph(){
   const responseKTHS = await fetch('/api/lms-stats/kths')
   const myJsonKTHS = await responseKTHS.json()
-
-
-  new Chartist.Bar('.ct-chart1', {
-    labels: ['Published courses','Active Teachers','Active Students','Discussion Posts','Video/audio recordings','Uploaded files','Student submissions'],
-    series: [myJsonKTHS[0].courses,myJsonKTHS[0].teachers,myJsonKTHS[0].students,myJsonKTHS[0].discussion_topics,myJsonKTHS[0].media_objects,myJsonKTHS[0].attachments,myJsonKTHS[0].assignments]
-  }, {
-    distributeSeries: true,
-      chartPadding: {
-        right: 40,
-        left: 40,
-        top: 40,
-        bottom: 40
-      },
-      axisY: {
-        labelInterpolationFnc: function(value) {
-          return (value / 1000) + 'k';
-      }
-  },
-      plugins: [
-        Chartist.plugins.ctBarLabels(
-          {
-            labelOffset: {
-              y: -5
-            },
-          })
-        ],
-  });
-
-
   const responseKTHA = await fetch('/api/lms-stats/ktha')
   const myJsonKTHA = await responseKTHA.json()
-
-  new Chartist.Bar('.ct-chart5', {
-    labels: ['Announcements','Assignments','Discussions','Files','Grades','Groups','Modules','Pages','Quizzes'],
-    series: [myJsonKTHA[0].by_category[0].views, myJsonKTHA[0].by_category[1].views, myJsonKTHA[0].by_category[4].views, myJsonKTHA[0].by_category[5].views, myJsonKTHA[0].by_category[7].views, myJsonKTHA[0].by_category[8].views, myJsonKTHA[0].by_category[9].views, myJsonKTHA[0].by_category[11].views, myJsonKTHA[0].by_category[12].views]
-  }, {
-    distributeSeries: true,
-    chartPadding: {
-      right: 40,
-      left: 40,
-      top: 40,
-      bottom: 40
-    },
-    plugins: [
-      Chartist.plugins.ctBarLabels(
-        {
-          labelOffset: {
-            y: -5
-          },
-        })
-      ],
-      axisY: {
-        labelInterpolationFnc: function(value) {
-          return (value / 1000000) + 'M';
-        }
-      }
-
-  });
-
-
-
-
   const responseABES = await fetch('/api/lms-stats/abes')
   const myJsonABES = await responseABES.json()
   const responseABESL = await fetch('/api/lms-stats/abesl')
@@ -108,6 +48,32 @@ async function drawGraph(){
   const myJsonSTHSL = await responseSTHSL.json()
   const responseUF = await fetch('/api/lms-stats/ufs')
   const myJsonUF = await responseUF.json()
+
+new Chartist.Bar('.ct-chart1', {
+    labels: ['Published courses','Active Teachers','Active Students','Discussion Posts','Video/audio recordings','Uploaded files','Student submissions'],
+    series: [myJsonKTHS[0].courses,myJsonKTHS[0].teachers,myJsonKTHS[0].students,myJsonKTHS[0].discussion_topics,myJsonKTHS[0].media_objects,myJsonKTHS[0].attachments,myJsonKTHS[0].assignments]
+  }, {
+    distributeSeries: true,
+      chartPadding: {
+        right: 40,
+        left: 40,
+        top: 40,
+        bottom: 40
+      },
+      axisY: {
+        labelInterpolationFnc: function(value) {
+          return (value / 1000) + 'k';
+      }
+  },
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: -5
+            },
+          })
+        ],
+  });
 
 
 
@@ -228,6 +194,34 @@ async function drawGraph(){
             })
           ],
         });
+  
+  
+  new Chartist.Bar('.ct-chart5', {
+    labels: ['Announcements','Assignments','Discussions','Files','Grades','Groups','Modules','Pages','Quizzes'],
+    series: [myJsonKTHA[0].by_category[0].views, myJsonKTHA[0].by_category[1].views, myJsonKTHA[0].by_category[4].views, myJsonKTHA[0].by_category[5].views, myJsonKTHA[0].by_category[7].views, myJsonKTHA[0].by_category[8].views, myJsonKTHA[0].by_category[9].views, myJsonKTHA[0].by_category[11].views, myJsonKTHA[0].by_category[12].views]
+  }, {
+    distributeSeries: true,
+    chartPadding: {
+      right: 40,
+      left: 40,
+      top: 40,
+      bottom: 40
+    },
+    plugins: [
+      Chartist.plugins.ctBarLabels(
+        {
+          labelOffset: {
+            y: -5
+          },
+        })
+      ],
+      axisY: {
+        labelInterpolationFnc: function(value) {
+          return (value / 1000000) + 'M';
+        }
+      }
+
+  });
 
 
 
