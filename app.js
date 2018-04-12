@@ -233,7 +233,7 @@ app.get('/api/lms-stats/abesl', async function(req, res){
   res.json(results);
 });
 
-app.get('/bios', async function(req, res){
+app.get('/api/lms-stats/bios', async function(req, res){
   const results= await BIOS()
   console.log('kommer skicka:', results)
   res.json(results);
