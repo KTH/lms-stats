@@ -173,7 +173,7 @@ async function drawGraph(){
   });
 
   new Chartist.Bar('.ct-chart10', {
-    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI','UF'],
+    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI'],
     series: [
       [myJsonABESL[0].courses, myJsonCSCSL[0].courses, myJsonITMSL[0].courses, myJsonCHESL[0].courses, myJsonSCISL[0].courses],
       [0, myJsonEESSL[0].courses, myJsonECESL[0].courses, myJsonBIOSL[0].courses, 0],
