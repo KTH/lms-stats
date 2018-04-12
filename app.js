@@ -202,146 +202,146 @@ return statistics
 
 app.use('/api/lms-stats/',express.static('public'))
 
-app.get('/kthet', async function(req, res){
+app.get('/api/lms-stats/kthet', async function(req, res){
   const results= await KTHET()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
 
-app.get('/kths', async function(req, res){
+app.get('/api/lms-stats/kths', async function(req, res){
   const results= await KTHS()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/ktha', async function(req, res){
+app.get('/api/lms-stats/ktha', async function(req, res){
   const results= await KTHA()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/abes', async function(req, res){
+app.get('/api/lms-stats/abes', async function(req, res){
   const results= await ABES()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/abesl', async function(req, res){
+app.get('/api/lms-stats/abesl', async function(req, res){
   const results= await ABESL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/bios', async function(req, res){
+app.get('/api/lms-stats/bios', async function(req, res){
   const results= await BIOS()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/biosl', async function(req, res){
+app.get('/api/lms-stats/biosl', async function(req, res){
   const results= await BIOSL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/ches', async function(req, res){
+app.get('/api/lms-stats/ches', async function(req, res){
   const results= await CHES()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/chesl', async function(req, res){
+app.get('/api/lms-stats/chesl', async function(req, res){
   const results= await CHESL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/cscs', async function(req, res){
+app.get('/api/lms-stats/cscs', async function(req, res){
   const results= await CSCS()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/cscsl', async function(req, res){
+app.get('/api/lms-stats/cscsl', async function(req, res){
   const results= await CSCSL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/eces', async function(req, res){
+app.get('/api/lms-stats/eces', async function(req, res){
   const results= await ECES()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/ecesl', async function(req, res){
+app.get('/api/lms-stats/ecesl', async function(req, res){
   const results= await ECESL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/eess', async function(req, res){
+app.get('/api/lms-stats/eess', async function(req, res){
   const results= await EESS()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/eessl', async function(req, res){
+app.get('/api/lms-stats/eessl', async function(req, res){
   const results= await EESSL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/icts', async function(req, res){
+app.get('/api/lms-stats/icts', async function(req, res){
   const results= await ICTS()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/ictsl', async function(req, res){
+app.get('/api/lms-stats/ictsl', async function(req, res){
   const results= await ICTSL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/itms', async function(req, res){
+app.get('/api/lms-stats/itms', async function(req, res){
   const results= await ITMS()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/itmsl', async function(req, res){
+app.get('/api/lms-stats/itmsl', async function(req, res){
   const results= await ITMSL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/scis', async function(req, res){
+app.get('/api/lms-stats/scis', async function(req, res){
   const results= await SCIS()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/scisl', async function(req, res){
+app.get('/api/lms-stats/scisl', async function(req, res){
   const results= await SCISL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/sths', async function(req, res){
+app.get('/api/lms-stats/sths', async function(req, res){
   const results= await STHS()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/sthsl', async function(req, res){
+app.get('/api/lms-stats/sthsl', async function(req, res){
   const results= await STHSL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
-app.get('/ufs', async function(req, res){
+app.get('/api/lms-stats/ufs', async function(req, res){
   const results= await UFS()
   console.log('kommer skicka:', results)
   res.json(results);
