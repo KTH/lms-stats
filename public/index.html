@@ -1,73 +1,71 @@
-
-<html>
-<head>
-
-
-<script src="chartist.js" ></script>
-<script src="chartist-plugin-barlabels.js"></script>
-<link rel="stylesheet" type="text/css" href="chartist.css">
-
-</head>
-
-<body>
-
-
-<h1>KTH Canvas: Statistics</h1>
-Statistics for the KTH Canvas instance. Data is accumlated since the system was deployed May 2016.
-<br><br>
-<div class="ct-chart1 ct-minor-seventh"></div>
-<br><br>
-
-<h1>KTH Canvas: Activity/views per content category</h1>
-Total number of pageviews since 2016-05-10 on KTH Canvas instance grouped by category.
-<br><br>
-<div class="ct-chart5 ct-minor-seventh"></div>
-<br><br>
-
-<h1>KTH Canvas: Currently published courses/school</h1>
-Total number of all courses with the current status "published". This includes all courses (imported courses, manually created courses and sandboxes/demos).<br><br>
-<br><br>
-<div class="ct-chart2 ct-minor-seventh"></div>
-<br><br>
-
-<h1>KTH Canvas: Currently published Ladok-courses/school</h1>
-Total number of Ladok-courses with the current status "published".<br><br>
-<br><br>
-<div class="ct-chart10 ct-minor-seventh"></div>
-<br><br>
-
-<h1>KTH Canvas: active teachers/school</h1>
-This is the number of users with a teacher role (Teacher, Course responsible, examinator and TA). Please note that one person can be listed as "teacher" on more than one of the school due to roles being set on each course.
-<br><br>
-<div class="ct-chart3 ct-minor-seventh"></div>
-<br><br>
-
-<h1>KTH Canvas: active students/school</h1>
-This is the number of users with a student role (admitted and registrered) on courses offered by each school/UF that has logged into the system. Please note that one person can be listed as "student" on more than one of the school due to roles being set on each course.
-<br><br>
-<div class="ct-chart4 ct-minor-seventh"></div>
-<br><br>
-
-<h1>KTH Canvas: uploaded files/unit</h1>
-<div class="ct-chart6 ct-minor-seventh"></div>
-<br><br>
-
-<h1>KTH Canvas: student assignement submissions/school</h1>
-<div class="ct-chart7 ct-minor-seventh"></div>
-<br><br>
-
-<h1>KTH Canvas: discussion posts/school</h1>
-<div class="ct-chart8 ct-minor-seventh"></div>
-
-
 <script>
 
 
 async function drawGraph(){
   const responseKTHS = await fetch('/api/lms-stats/kths')
   const myJsonKTHS = await responseKTHS.json()
+
+
+  new Chartist.Bar('.ct-chart1', {
+    labels: ['Published courses','Active Teachers','Active Students','Discussion Posts','Video/audio recordings','Uploaded files','Student submissions'],
+    series: [myJsonKTHS[0].courses,myJsonKTHS[0].teachers,myJsonKTHS[0].students,myJsonKTHS[0].discussion_topics,myJsonKTHS[0].media_objects,myJsonKTHS[0].attachments,myJsonKTHS[0].assignments]
+  }, {
+    distributeSeries: true,
+      chartPadding: {
+        right: 40,
+        left: 40,
+        top: 40,
+        bottom: 40
+      },
+      axisY: {
+        labelInterpolationFnc: function(value) {
+          return (value / 1000) + 'k';
+      }
+  },
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: -5
+            },
+          })
+        ],
+  });
+
+
   const responseKTHA = await fetch('/api/lms-stats/ktha')
   const myJsonKTHA = await responseKTHA.json()
+
+  new Chartist.Bar('.ct-chart5', {
+    labels: ['Announcements','Assignments','Discussions','Files','Grades','Groups','Modules','Pages','Quizzes'],
+    series: [myJsonKTHA[0].by_category[0].views, myJsonKTHA[0].by_category[1].views, myJsonKTHA[0].by_category[4].views, myJsonKTHA[0].by_category[5].views, myJsonKTHA[0].by_category[7].views, myJsonKTHA[0].by_category[8].views, myJsonKTHA[0].by_category[9].views, myJsonKTHA[0].by_category[11].views, myJsonKTHA[0].by_category[12].views]
+  }, {
+    distributeSeries: true,
+    chartPadding: {
+      right: 40,
+      left: 40,
+      top: 40,
+      bottom: 40
+    },
+    plugins: [
+      Chartist.plugins.ctBarLabels(
+        {
+          labelOffset: {
+            y: -5
+          },
+        })
+      ],
+      axisY: {
+        labelInterpolationFnc: function(value) {
+          return (value / 1000000) + 'M';
+        }
+      }
+
+  });
+
+
+
+
   const responseABES = await fetch('/api/lms-stats/abes')
   const myJsonABES = await responseABES.json()
   const responseABESL = await fetch('/api/lms-stats/abesl')
@@ -114,31 +112,7 @@ async function drawGraph(){
 
 
 
-  new Chartist.Bar('.ct-chart1', {
-    labels: ['Published courses','Active Teachers','Active Students','Discussion Posts','Video/audio recordings','Uploaded files','Student submissions'],
-    series: [myJsonKTHS[0].courses,myJsonKTHS[0].teachers,myJsonKTHS[0].students,myJsonKTHS[0].discussion_topics,myJsonKTHS[0].media_objects,myJsonKTHS[0].attachments,myJsonKTHS[0].assignments]
-  }, {
-    distributeSeries: true,
-      chartPadding: {
-        right: 40,
-        left: 40,
-        top: 40,
-        bottom: 40
-      },
-      axisY: {
-        labelInterpolationFnc: function(value) {
-          return (value / 1000) + 'k';
-      }
-  },
-      plugins: [
-        Chartist.plugins.ctBarLabels(
-          {
-            labelOffset: {
-              y: -5
-            },
-          })
-        ],
-  });
+
 
   new Chartist.Bar('.ct-chart2', {
     labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI','UF'],
@@ -255,32 +229,7 @@ async function drawGraph(){
           ],
         });
 
-        new Chartist.Bar('.ct-chart5', {
-          labels: ['Announcements','Assignments','Discussions','Files','Grades','Groups','Modules','Pages','Quizzes'],
-          series: [myJsonKTHA[0].by_category[0].views, myJsonKTHA[0].by_category[1].views, myJsonKTHA[0].by_category[4].views, myJsonKTHA[0].by_category[5].views, myJsonKTHA[0].by_category[7].views, myJsonKTHA[0].by_category[8].views, myJsonKTHA[0].by_category[9].views, myJsonKTHA[0].by_category[11].views, myJsonKTHA[0].by_category[12].views]
-        }, {
-          distributeSeries: true,
-          chartPadding: {
-            right: 40,
-            left: 40,
-            top: 40,
-            bottom: 40
-          },
-          plugins: [
-            Chartist.plugins.ctBarLabels(
-              {
-                labelOffset: {
-                  y: -5
-                },
-              })
-            ],
-            axisY: {
-              labelInterpolationFnc: function(value) {
-                return (value / 1000000) + 'M';
-              }
-            }
 
-        });
 
   new Chartist.Bar('.ct-chart6', {
     labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
@@ -370,10 +319,3 @@ async function drawGraph(){
 drawGraph()
 
 </script>
-
-
-
-
-</body>
-
-</html>
