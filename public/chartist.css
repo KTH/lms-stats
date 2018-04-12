@@ -16,6 +16,12 @@
 .ct-chart5 .ct-bar {
     stroke-width: 9%
 }
+
+.ct-chart10 .ct-bar {
+    stroke-width: 15%
+}
+
+
 .ct-label {
   fill: rgba(0, 0, 0, 0.4);
   color: rgba(0, 0, 0, 0.4);
