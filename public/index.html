@@ -64,9 +64,13 @@ This is the number of users with a student role (admitted and registrered) on co
 
 
 async function drawGraph(){
+
+// fetch data for global statistics data
+
   const responseKTHS = await fetch('/api/lms-stats/kths')
   const myJsonKTHS = await responseKTHS.json()
 
+//draw graph for global statistics data
 
   new Chartist.Bar('.ct-chart1', {
     labels: ['Published courses','Active Teachers','Active Students','Discussion Posts','Video/audio recordings','Uploaded files','Student submissions'],
@@ -94,9 +98,12 @@ async function drawGraph(){
         ],
   });
 
+// fetch data for global analytics data
 
   const responseKTHA = await fetch('/api/lms-stats/ktha')
   const myJsonKTHA = await responseKTHA.json()
+
+// draw graph for global statistics data
 
   new Chartist.Bar('.ct-chart5', {
     labels: ['Announcements','Assignments','Discussions','Files','Grades','Groups','Modules','Pages','Quizzes'],
@@ -125,55 +132,35 @@ async function drawGraph(){
 
   });
 
-
+// fetch data for school level statistics data
 
 
   const responseABES = await fetch('/api/lms-stats/abes')
   const myJsonABES = await responseABES.json()
-  const responseABESL = await fetch('/api/lms-stats/abesl')
-  const myJsonABESL = await responseABESL.json()
   const responseBIOS = await fetch('/api/lms-stats/bios')
   const myJsonBIOS = await responseBIOS.json()
-  const responseBIOSL = await fetch('/api/lms-stats/biosl')
-  const myJsonBIOSL = await responseBIOSL.json()
   const responseCHES = await fetch('/api/lms-stats/ches')
   const myJsonCHES = await responseCHES.json()
-  const responseCHESL = await fetch('/api/lms-stats/chesl')
-  const myJsonCHESL = await responseCHESL.json()
   const responseCSCS = await fetch('/api/lms-stats/cscs')
   const myJsonCSCS = await responseCSCS.json()
-  const responseCSCSL = await fetch('/api/lms-stats/cscsl')
-  const myJsonCSCSL = await responseCSCSL.json()
   const responseECES = await fetch('/api/lms-stats/eces')
   const myJsonECES = await responseECES.json()
-  const responseECESL = await fetch('/api/lms-stats/ecesl')
-  const myJsonECESL = await responseECESL.json()
   const responseEESS = await fetch('/api/lms-stats/eess')
   const myJsonEESS = await responseEESS.json()
-  const responseEESSL = await fetch('/api/lms-stats/eessl')
-  const myJsonEESSL = await responseEESSL.json()
   const responseICTS = await fetch('/api/lms-stats/icts')
   const myJsonICTS = await responseICTS.json()
-  const responseICTSL = await fetch('/api/lms-stats/ictsl')
-  const myJsonICTSL = await responseICTSL.json()
   const responseITMS = await fetch('/api/lms-stats/itms')
   const myJsonITMS = await responseITMS.json()
-  const responseITMSL = await fetch('/api/lms-stats/itmsl')
-  const myJsonITMSL = await responseITMSL.json()
   const responseSCIS = await fetch('/api/lms-stats/scis')
   const myJsonSCIS = await responseSCIS.json()
-  const responseSCISL = await fetch('/api/lms-stats/scisl')
-  const myJsonSCISL = await responseSCISL.json()
   const responseSTHS = await fetch('/api/lms-stats/sths')
   const myJsonSTHS = await responseSTHS.json()
-  const responseSTHSL = await fetch('/api/lms-stats/sthsl')
-  const myJsonSTHSL = await responseSTHSL.json()
   const responseUF = await fetch('/api/lms-stats/ufs')
   const myJsonUF = await responseUF.json()
 
 
 
-
+// draw graphs for school level statistics data
 
 
   new Chartist.Bar('.ct-chart2', {
@@ -208,32 +195,6 @@ async function drawGraph(){
 
   });
 
-  new Chartist.Bar('.ct-chart10', {
-    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI'],
-    series: [
-      [myJsonABESL[0].courses, myJsonCSCSL[0].courses, myJsonITMSL[0].courses, myJsonCHESL[0].courses, myJsonSCISL[0].courses],
-      [0, myJsonEESSL[0].courses, myJsonECESL[0].courses, myJsonBIOSL[0].courses, 0],
-      [0, myJsonICTSL[0].courses, 0, myJsonSTHSL[0].courses, 0]
-    ]
-  }, {
-    stackBars: true,
-
-    chartPadding: {
-      right: 40,
-      left: 40,
-      top: 40,
-      bottom: 40
-    },
-      plugins: [
-        Chartist.plugins.ctBarLabels(
-          {
-            labelOffset: {
-              y: 17
-            },
-              labelClass: 'ct-label-white',
-            })
-          ],
-  });
 
   new Chartist.Bar('.ct-chart3', {
     labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI','UF'],
@@ -376,6 +337,61 @@ async function drawGraph(){
           })
         ],
       });
+
+
+// fetch data for school level ladok statistics data
+
+  const responseABESL = await fetch('/api/lms-stats/abesl')
+  const myJsonABESL = await responseABESL.json()
+  const responseBIOSL = await fetch('/api/lms-stats/biosl')
+  const myJsonBIOSL = await responseBIOSL.json()
+  const responseCHESL = await fetch('/api/lms-stats/chesl')
+  const myJsonCHESL = await responseCHESL.json()
+  const responseCSCSL = await fetch('/api/lms-stats/cscsl')
+  const myJsonCSCSL = await responseCSCSL.json()
+  const responseECESL = await fetch('/api/lms-stats/ecesl')
+  const myJsonECESL = await responseECESL.json()
+  const responseEESSL = await fetch('/api/lms-stats/eessl')
+  const myJsonEESSL = await responseEESSL.json()
+  const responseICTSL = await fetch('/api/lms-stats/ictsl')
+  const myJsonICTSL = await responseICTSL.json()
+  const responseITMSL = await fetch('/api/lms-stats/itmsl')
+  const myJsonITMSL = await responseITMSL.json()
+  const responseSCISL = await fetch('/api/lms-stats/scisl')
+  const myJsonSCISL = await responseSCISL.json()
+  const responseSTHSL = await fetch('/api/lms-stats/sthsl')
+  const myJsonSTHSL = await responseSTHSL.json()
+
+// draw graphs for level ladok statistics data
+
+  new Chartist.Bar('.ct-chart10', {
+    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI'],
+    series: [
+      [myJsonABESL[0].courses, myJsonCSCSL[0].courses, myJsonITMSL[0].courses, myJsonCHESL[0].courses, myJsonSCISL[0].courses],
+      [0, myJsonEESSL[0].courses, myJsonECESL[0].courses, myJsonBIOSL[0].courses, 0],
+      [0, myJsonICTSL[0].courses, 0, myJsonSTHSL[0].courses, 0]
+    ]
+  }, {
+    stackBars: true,
+
+    chartPadding: {
+      right: 40,
+      left: 40,
+      top: 40,
+      bottom: 40
+    },
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: 17
+            },
+              labelClass: 'ct-label-white',
+            })
+          ],
+  });
+
+
 
       }
 drawGraph()
