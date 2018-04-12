@@ -151,14 +151,14 @@ return statistics
 
 app.use('/api/lms-stats/',express.static('public'))
 
-app.get('/kthet', async function(req, res){
+app.get('kthet', async function(req, res){
   const results= await KTHET()
   console.log('kommer skicka:', results)
   res.json(results);
 });
 
 
-app.get('/kths', async function(req, res){
+app.get('/api/lms-stats/kths', async function(req, res){
   const results= await KTHS()
   console.log('kommer skicka:', results)
   res.json(results);
