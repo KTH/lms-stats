@@ -55,7 +55,7 @@ Total number of files uploaded to KTH Canvas instance.
 <br><br>
 
 <h1>KTH Canvas: student assignement submissions/school</h1>
-Total number of student submission for Assignments in courses.
+Total number of student submissions in assignments in courses.
 <br><br>
 <div class="ct-chart7 ct-minor-seventh"></div>
 <br><br>
@@ -65,6 +65,10 @@ Total number of discussion posts in discussion forums in courses.
 <br><br>
 <div class="ct-chart8 ct-minor-seventh"></div>
 
+<h1>KTH Canvas: Video/Audio objects</h1>
+Total number of video/audio objects created using the native Canvas media recording tool. Please note that labels omitted due to most bars being very short.
+<br><br>
+<div class="ct-chart9 ct-minor-seventh"></div>
 
 <script>
 
@@ -201,6 +205,7 @@ async function drawGraph(){
 
   });
 
+// draw graphs for teacher role school level statistics data
 
   new Chartist.Bar('.ct-chart3', {
     labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI','UF'],
@@ -258,6 +263,7 @@ async function drawGraph(){
           ],
         });
 
+// draw graphs for uploaded files school level statistics data
 
 
   new Chartist.Bar('.ct-chart6', {
@@ -288,6 +294,8 @@ async function drawGraph(){
         ],
       });
 
+// draw graphs for student submission school level statistics data
+
       new Chartist.Bar('.ct-chart7', {
         labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
         series: [
@@ -316,6 +324,8 @@ async function drawGraph(){
             ],
           });
 
+// draw graphs for discussion forum posts school level statistics data
+
   new Chartist.Bar('.ct-chart8', {
     labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
     series: [
@@ -343,6 +353,29 @@ async function drawGraph(){
           })
         ],
       });
+
+
+// draw graphs for media objects school level statistics data
+
+      new Chartist.Bar('.ct-chart9', {
+        labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
+        series: [
+          [myJsonABES[0].media_objects, myJsonCSCS[0].media_objects, myJsonITMS[0].media_objects, myJsonCHES[0].media_objects, myJsonSCIS[0].media_objects, myJsonUF[0].media_objects],
+          [0, myJsonEESS[0].media_objects, myJsonECES[0].media_objects, myJsonBIOS[0].media_objects, 0, 0],
+          [0, myJsonICTS[0].media_objects, 0, myJsonSTHS[0].media_objects, 0, 0]
+        ]
+      },
+      {
+        stackBars: true,
+          chartPadding: {
+            right: 40,
+            left: 40,
+            top: 40,
+            bottom: 40
+          }
+
+          });
+
 
 
 // fetch data for school level ladok statistics data
