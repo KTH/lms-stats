@@ -221,7 +221,7 @@ app.get('/api/lms-stats/ktha', async function(req, res){
 });
 
 app.get('/api/lms-stats/abea', async function(req, res){
-  const results= await ABES()
+  const results= await ABEA()
   console.log('kommer skicka:', results)
   res.json(results);
 });
