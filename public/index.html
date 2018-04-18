@@ -6,64 +6,90 @@
 <script src="chartist.js" ></script>
 <script src="chartist-plugin-barlabels.js"></script>
 <link rel="stylesheet" type="text/css" href="chartist.css">
+<script src="d3.js"></script>
+<script src="c3.js"></script>
+<link rel="stylesheet" type="text/css" href="c3.css">
+
+<style>
+#chart .c3-line-interactions {
+  stroke-width: 1px;
+}
+
+.c3-xgrid-line.studyline line {
+    stroke: #aaa;
+}
+
+</style>
 
 </head>
 
 <body>
+
+<h1>KTH Canvas: Overview</h1>
+Daily statistics for the KTH Canvas instance (https://kth.instructure.com). Data is accumlated since the system was deployed 2016-05-10.
+<br><br>
+<div id="chart"></div>
+<em>Views: daily views in Canvas for Pages, Modules etc.<br>
+Participations: user actions such as posting a comment, submitting a quiz, submitting assignment etc.</em><br>
+<br>
+Hover pointer for data/day. Zoom in/out using mousewheel/touchpad. Toggle views by hovering/clicking on the legend. The vertical lines indicate the start of each study period at KTH during each academic year.
+<br><br><br>
+
 
 
 <h1>KTH Canvas: Statistics</h1>
 Statistics for the KTH Canvas instance (https://kth.instructure.com). Data is accumlated since the system was deployed 2016-05-10.
 <br><br>
 <div class="ct-chart1 ct-minor-seventh"></div>
-<br><br>
+<br><br><br>
 
 <h1>KTH Canvas: Views per content category</h1>
 Total number of pageviews since 2016-05-10 on KTH Canvas instance (https://kth.instructure.com) grouped by category.
 <br><br>
 <div class="ct-chart5 ct-minor-seventh"></div>
-<br><br>
+<br><br><br>
 
 <h1>KTH Canvas: Currently published courses/school</h1>
 Total number courses with the status "published", not all of these are active since they normally remain published also when the course offering ends.  This graph includes all courses (imported courses, manually created courses and sandboxes/demos).
  <br><br>
 <div class="ct-chart2 ct-minor-seventh"></div>
-<br><br>
+<br><br><br>
 
 <h1>KTH Canvas: Currently published Ladok-courses/school</h1>
 Total number of courses that are created based on data from Ladok (via KOPPS) with the status "published".
 <br><br>
 <div class="ct-chart10 ct-minor-seventh"></div>
-<br><br>
+<br><br><br>
 
 <h1>KTH Canvas: active teachers/school</h1>
 Number of users with a teacher role (Teacher, Course responsible, Examinator or TA). Please note that one user can be listed as "teacher" on more than one of the school due to roles being set for each course.
 <br><br>
 <div class="ct-chart3 ct-minor-seventh"></div>
-<br><br>
+<br><br><br>
 
 <h1>KTH Canvas: active students/school</h1>
 Number of users with a student role (Admitted and/or Registrered) that has logged into the system. Please note that one user can be listed as "student" on more than one of the school due to roles being set on each course.
 <br><br>
 <div class="ct-chart4 ct-minor-seventh"></div>
-<br><br>
+<br><br><br>
 
 <h1>KTH Canvas: uploaded files/school</h1>
 Total number of files uploaded to KTH Canvas instance.
 <br><br>
 <div class="ct-chart6 ct-minor-seventh"></div>
-<br><br>
+<br><br><br>
 
 <h1>KTH Canvas: student assignement submissions/school</h1>
 Total number of student submissions in assignments in courses.
 <br><br>
 <div class="ct-chart7 ct-minor-seventh"></div>
-<br><br>
+<br><br><br>
 
 <h1>KTH Canvas: discussion posts/school</h1>
 Total number of discussion posts in discussion forums in courses.
 <br><br>
 <div class="ct-chart8 ct-minor-seventh"></div>
+<br><br><br>
 
 <h1>KTH Canvas: Video/Audio objects</h1>
 Total number of video/audio objects created using the native Canvas media recording tool.
@@ -71,6 +97,8 @@ Total number of video/audio objects created using the native Canvas media record
 <div class="ct-chart9 ct-minor-seventh"></div>
 
 <script>
+
+
 
 
 async function drawGraph(){
@@ -112,6 +140,161 @@ async function drawGraph(){
 
   const responseKTHA = await fetch('/api/lms-stats/ktha')
   const myJsonKTHA = await responseKTHA.json()
+
+
+  // data[0].by_date.map(o => o.date)
+
+    myJsonKTHA[0].by_date.map(o => o.date)
+
+
+  // retrieve data for each category
+
+    const dates = myJsonKTHA[0].by_date.map(o => o.date)
+    const views = myJsonKTHA[0].by_date.map(o => o.views)
+    const participations = myJsonKTHA[0].by_date.map(o => o.participations)
+
+
+  // Generate graph
+
+  var chart = c3.generate({
+      bindto: '#chart',
+
+      data: {
+        x: 'x',
+
+        columns: [
+            ['x', ...dates ],
+            ['views', ...views ],
+            ['participations', ...participations ]
+          ],
+
+        axes: {
+          participations: 'y2'
+          },
+
+        types: {
+          participations: 'area-spline',
+          views: 'spline'
+          }
+        },
+
+        point: {
+          show: false
+          },
+
+        grid: {
+          y: {
+            show: false
+          }
+        },
+
+      color: {
+          pattern: ['#000000','#b0c92b']
+          },
+
+      axis: {
+          x: {
+              type: 'timeseries',
+              tick: {
+                  format: '%Y-%m-%d',
+                  rotate: -90,
+                  values: ['2016-08-29','2016-10-31','2017-01-17','2017-03-20','2017-08-28','2017-10-30', '2018-01-16','2018-03-19','2018-08-27','2018-10-19','2019-01-15','2019-03-18']
+
+              }
+            },
+
+        y: {
+            label: {
+              text: 'Views (Black line)',
+              position: 'outer-middle'
+            },
+
+          min: 0,
+          padding: {
+            top: 0,
+            bottom: 0
+          }
+        },
+
+        y2: {
+          show: true,
+          label: {
+            text: 'Participations (Green line + area)',
+            position: 'outer-middle'
+          },
+          min: 0,
+            padding: {
+              top: 30,
+              bottom: 0
+            }
+          }
+        },
+
+  /* Regions not used currently
+      regions: [
+              {start: '2013-01-01', end: '2013-01-03', class: 'apa'},
+              {start: '2013-01-05', end: '2013-01-08'},
+              {start: '2014-01-05', end: '2015-01-08', class: 'apa'}
+          ],
+
+  */
+        zoom: {
+          enabled: true,
+        }
+
+  });
+
+
+  // Lines to indicate study periods
+
+
+  setTimeout(function () {
+  chart.xgrids([{value: '2016-08-29', class: 'studyline', text:'P1-16/17'}]);
+  }, 0);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2016-10-31', class: 'studyline', text:'P2-16/17'}]);
+  }, 250);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2017-01-17', class: 'studyline', text:'P3-16/17'}]);
+  }, 500);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2017-03-20', class: 'studyline', text:'P4-16/17'}]);
+  }, 750);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2017-08-28', class: 'studyline', text:'P1-17/18'}]);
+  }, 1000);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2017-10-30', class: 'studyline', text:'P2-17/18'}]);
+  }, 1250);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2018-01-16', class: 'studyline', text:'P3-17/18'}]);
+  }, 1500);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2018-03-19', class: 'studyline', text:'P4-17/18'}]);
+  }, 1750);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2018-08-27', tclass: 'studyline', ext:'P1-18/19'}]);
+  }, 2000);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2018-10-19', class: 'studyline', text:'P2-18/19'}]);
+  }, 2250);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2019-01-15', class: 'studyline', text:'P3-18/19'}]);
+  }, 2500);
+
+  setTimeout(function () {
+  chart.xgrids.add([{value: '2019-03-18', class: 'studyline', text:'P4-18/19'}]);
+  }, 2750);
 
 // draw graph for global statistics data
 
@@ -167,7 +350,6 @@ async function drawGraph(){
   const myJsonSTHS = await responseSTHS.json()
   const responseUF = await fetch('/api/lms-stats/ufs')
   const myJsonUF = await responseUF.json()
-
 
 
 // draw graphs for school level statistics data
@@ -357,8 +539,8 @@ async function drawGraph(){
 
 // draw graphs for media objects school level statistics data
 
-       new Chartist.Bar('.ct-chart9', {
-        labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
+      new Chartist.Bar('.ct-chart9', {
+        labels: ['ABE', 'EECS', 'ITM', 'CBH', 'SCI', 'UF'],
         series: [
           [myJsonABES[0].media_objects, (myJsonCSCS[0].media_objects+myJsonEESS[0].media_objects+myJsonICTS[0].media_objects), (myJsonITMS[0].media_objects+myJsonECES[0].media_objects), (myJsonCHES[0].media_objects+myJsonBIOS[0].media_objects+myJsonSTHS[0].media_objects), myJsonSCIS[0].media_objects, myJsonUF[0].media_objects]
         ]
@@ -438,12 +620,14 @@ async function drawGraph(){
 
 
 
+
+
       }
 drawGraph()
 
 </script>
 
-
+<div class="demo"></div>
 
 
 </body>
