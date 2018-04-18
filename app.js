@@ -1,5 +1,6 @@
 'use strict'
 // Hej
+
 const app = require('kth-node-server')
 const config = require('./config/serverSettings')
 const logger = require('./server/logger')
@@ -11,8 +12,6 @@ app.start({
   port: config.port,
   logger
 })
-
-logger.info('using canvas at ', process.env.canvasUrl)
 
 const CanvasApi = require('kth-canvas-api')
 const accessToken = process.env.accessToken
@@ -202,7 +201,7 @@ return statistics
 
 app.use('/api/lms-stats/',express.static('public'))
 
-app.get('/api/lms-stats/kthet', async function(req, res){
+app.get('/kthet', async function(req, res){
   const results= await KTHET()
   console.log('kommer skicka:', results)
   res.json(results);
@@ -221,6 +220,12 @@ app.get('/api/lms-stats/ktha', async function(req, res){
   res.json(results);
 });
 
+app.get('/api/lms-stats/abea', async function(req, res){
+  const results= await ABES()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
 app.get('/api/lms-stats/abes', async function(req, res){
   const results= await ABES()
   console.log('kommer skicka:', results)
@@ -229,6 +234,12 @@ app.get('/api/lms-stats/abes', async function(req, res){
 
 app.get('/api/lms-stats/abesl', async function(req, res){
   const results= await ABESL()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/bioa', async function(req, res){
+  const results= await BIOS()
   console.log('kommer skicka:', results)
   res.json(results);
 });
@@ -245,6 +256,12 @@ app.get('/api/lms-stats/biosl', async function(req, res){
   res.json(results);
 });
 
+app.get('/api/lms-stats/chea', async function(req, res){
+  const results= await CHEA()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
 app.get('/api/lms-stats/ches', async function(req, res){
   const results= await CHES()
   console.log('kommer skicka:', results)
@@ -253,6 +270,12 @@ app.get('/api/lms-stats/ches', async function(req, res){
 
 app.get('/api/lms-stats/chesl', async function(req, res){
   const results= await CHESL()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/csca', async function(req, res){
+  const results= await CSCA()
   console.log('kommer skicka:', results)
   res.json(results);
 });
@@ -269,6 +292,12 @@ app.get('/api/lms-stats/cscsl', async function(req, res){
   res.json(results);
 });
 
+app.get('/api/lms-stats/ecea', async function(req, res){
+  const results= await ECEA()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
 app.get('/api/lms-stats/eces', async function(req, res){
   const results= await ECES()
   console.log('kommer skicka:', results)
@@ -277,6 +306,12 @@ app.get('/api/lms-stats/eces', async function(req, res){
 
 app.get('/api/lms-stats/ecesl', async function(req, res){
   const results= await ECESL()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/eesa', async function(req, res){
+  const results= await EESA()
   console.log('kommer skicka:', results)
   res.json(results);
 });
@@ -293,6 +328,12 @@ app.get('/api/lms-stats/eessl', async function(req, res){
   res.json(results);
 });
 
+app.get('/api/lms-stats/icta', async function(req, res){
+  const results= await ICTA()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
 app.get('/api/lms-stats/icts', async function(req, res){
   const results= await ICTS()
   console.log('kommer skicka:', results)
@@ -301,6 +342,12 @@ app.get('/api/lms-stats/icts', async function(req, res){
 
 app.get('/api/lms-stats/ictsl', async function(req, res){
   const results= await ICTSL()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/itma', async function(req, res){
+  const results= await ITMA()
   console.log('kommer skicka:', results)
   res.json(results);
 });
@@ -317,6 +364,12 @@ app.get('/api/lms-stats/itmsl', async function(req, res){
   res.json(results);
 });
 
+app.get('/api/lms-stats/scia', async function(req, res){
+  const results= await SCIA()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
 app.get('/api/lms-stats/scis', async function(req, res){
   const results= await SCIS()
   console.log('kommer skicka:', results)
@@ -325,6 +378,12 @@ app.get('/api/lms-stats/scis', async function(req, res){
 
 app.get('/api/lms-stats/scisl', async function(req, res){
   const results= await SCISL()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/stha', async function(req, res){
+  const results= await STHA()
   console.log('kommer skicka:', results)
   res.json(results);
 });
