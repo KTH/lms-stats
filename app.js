@@ -239,7 +239,7 @@ app.get('/api/lms-stats/abesl', async function(req, res){
 });
 
 app.get('/api/lms-stats/bioa', async function(req, res){
-  const results= await BIOS()
+  const results= await BIOA()
   console.log('kommer skicka:', results)
   res.json(results);
 });
