@@ -12,6 +12,14 @@
   -moz-user-select: none;
   user-select: none; }
 
+  #chart .c3-line-interactions {
+  stroke-width: 1px;
+}
+
+.c3-xgrid-line.studyline line {
+    stroke: #aaa;
+}
+
 .c3-legend-item-tile,
 .c3-xgrid-focus,
 .c3-ygrid,
