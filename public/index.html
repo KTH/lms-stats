@@ -14,11 +14,12 @@
 <body>
 <h1>KTH Canvas LMS</h1>
 This page is based on data fetched in realtime from the Canvas API. Please allow for <strong>up to 30 seconds</strong> for all graphs to be displayed.
-<br><br>
-<h1>KTH Canvas LMS: Daily Statistics</h1>
+<br><br><hr><br>
+<h2>1. KTH Canvas LMS: Daily Statistics</h2>
 Daily statistics for the KTH Canvas instance regarding pageviews and user participations (interactions with the system).
 <br><br>
 <div id="chart"></div>
+<br><br>
 <strong>Views:</strong> pageviews within Canvas in any of the categories such as Pages, Modules, Quizzes and Files.<br>
 <strong>Participations:</strong> user interactions with Canvas such as posting a comment, submitting a quiz, submitting assignment.<br>
 <br><strong>Instructions</strong><br>
@@ -26,62 +27,62 @@ Daily statistics for the KTH Canvas instance regarding pageviews and user partic
 2. Zoom in/out by placing the pointer and the using mousewheel/touchpad to zoom in on that area. You can also scroll left/right when zoomed in.<br>
 3. Toggle which data to highlight/show hovering/clicking on the legend.<br><br>
 The vertical lines indicate the start of each study period at KTH during each academic year.
-<br><br>
-<h1>KTH Canvas LMS: Usage</h1>
+<br><hr><br>
+<h2>2. KTH Canvas LMS: Usage</h2>
 Aggregated statistics for the KTH Canvas instance 2016-05-10 when the system was deployed.
 <br><br>
 <div class="ct-chart1 ct-minor-seventh"></div>
-<br><br>
+<br><hr><br><br>
 
-<h1>KTH Canvas LMS: Pageviews per content category</h1>
+<h2>3. KTH Canvas LMS: Pageviews per content category</h2>
 Total number of pageviews grouped by category.
 <br><br>
 <div class="ct-chart5 ct-minor-seventh"></div>
-<br><br>
+<br><hr><br>
 
-<h1>KTH Canvas LMS: Currently published courses/school</h1>
+<h2>4. KTH Canvas LMS: Currently published courses/school</h2>
 Total number courses with the status "published". Please note that not all of these are active since they normally remain published also when the course offering ends.  This graph includes all courses (imported courses, manually created courses and sandboxes/s).
  <br><br>
 <div class="ct-chart2 ct-minor-seventh"></div>
-<br><br>
+<br><hr><br>
 
-<h1>KTH Canvas LMS: Currently published Ladok-courses/school</h1>
+<h2>5. KTH Canvas LMS: Currently published Ladok-courses/school</h2>
 Total number of courses that are created based on data from Ladok (via KOPPS) with the status "published".
 <br><br>
 <div class="ct-chart10 ct-minor-seventh"></div>
-<br><br>
+<br><hr><br>
 
-<h1>KTH Canvas LMS: active teachers/school</h1>
+<h2>6.KTH Canvas LMS: active teachers/school</h2>
 Number of users with a teacher role (Teacher, Course responsible, Examinator or TA). Please note that one user can be listed as "teacher" on more than one of the school due to roles being set for each course.
 <br><br>
 <div class="ct-chart3 ct-minor-seventh"></div>
-<br><br>
+<br><hr><br><br>
 
-<h1>KTH Canvas LMS: active students/school</h1>
+<h2>7. KTH Canvas LMS: active students/school</h2>
 Number of users with a student role (Admitted and/or Registrered) that has logged into the system. Please note that one user can be listed as "student" on more than one of the school due to roles being set on each course.
 <br><br>
 <div class="ct-chart4 ct-minor-seventh"></div>
-<br><br>
+<br><hr><br>
 
-<h1>KTH Canvas LMS: uploaded files/school</h1>
+<h2>8. KTH Canvas LMS: uploaded files/school</h2>
 Total number of files uploaded to KTH Canvas instance.
 <br><br>
 <div class="ct-chart6 ct-minor-seventh"></div>
-<br><br>
+<br><hr><br>
 
-<h1>KTH Canvas LMS: student assignement submissions/school</h1>
+<h2>9. KTH Canvas LMS: student assignement submissions/school</h2>
 Total number of student submissions in assignments in courses.
 <br><br>
 <div class="ct-chart7 ct-minor-seventh"></div>
-<br><br>
+<br><hr><br>
 
-<h1>KTH Canvas LMS: discussion posts/school</h1>
+<h2>10. KTH Canvas LMS: discussion posts/school</h2>
 Total number of discussion posts in discussion forums in courses.
 <br><br>
 <div class="ct-chart8 ct-minor-seventh"></div>
-<br><br>
+<br><hr><br>
 
-<h1>KTH Canvas LMS: Video/Audio objects/school</h1>
+<h2>11. KTH Canvas LMS: Video/Audio objects/school</h2>
 Total number of video/audio objects created using the native Canvas media recording tool.
 <br><br>
 <div class="ct-chart9 ct-minor-seventh"></div>
@@ -97,7 +98,7 @@ Total number of video/audio objects created using the native Canvas media record
 
     // data[0].by_date.map(o => o.date)
 
-      myJsonKTHA[0].by_date.map(o => o.date)
+//      myJsonKTHA[0].by_date.map(o => o.date)
 
     // Map data for each category
 
@@ -111,8 +112,8 @@ Total number of video/audio objects created using the native Canvas media record
       var arr = [myJsonKTHA[0].by_date];
       var maxparticipations = Math.max(...participations);
 
-      console.log(maxviews)
-      console.log(maxparticipations)
+      console.log(maxviews);
+      console.log(maxparticipations);
 
     // Generate C3JS graph
 
