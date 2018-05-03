@@ -1,0 +1,1072 @@
+<html>
+
+<head>
+
+<script src="chartist.js" ></script>
+<script src="moment.js" ></script>
+<script src="chartist-plugin-barlabels.js"></script>
+<link rel="stylesheet" type="text/css" href="chartist.css">
+<script src="d3.js"></script>
+<script src="c3.js"></script>
+<link rel="stylesheet" type="text/css" href="c3.css">
+
+</head>
+
+<body>
+<h1>KTH Canvas LMS</h1>
+This page is based on data fetched in realtime from the Canvas API. Please allow for <strong>up to 30 seconds</strong> for all graphs to be displayed.
+<br><br><hr><br>
+<h2>1. KTH Canvas LMS: Daily Statistics</h2>
+Daily statistics for the KTH Canvas instance regarding pageviews and user participations (interactions with the system).
+<br><br>
+<div id="chart"></div>
+<br><br>
+<strong>Views:</strong> pageviews within Canvas in any of the categories such as Pages, Modules, Quizzes and Files.<br>
+<strong>Participations:</strong> user interactions with Canvas such as posting a comment, submitting a quiz, submitting assignment.<br>
+<br><strong>Instructions</strong><br>
+1. Hover pointer for current data for any particular date.<br>
+2. Zoom in/out by placing the pointer and the using mousewheel/touchpad to zoom in on that area. You can also scroll left/right when zoomed in.<br>
+3. Toggle which data to highlight/show hovering/clicking on the legend.<br><br>
+The vertical lines indicate the start of each study period at KTH during each academic year.
+<br><hr><br>
+<h2>2. KTH Canvas LMS: Usage</h2>
+Aggregated statistics for the KTH Canvas instance 2016-05-10 when the system was deployed.
+<br><br>
+<div class="ct-chart1 ct-minor-seventh"></div>
+<br><hr><br><br>
+
+<h2>3. KTH Canvas LMS: Pageviews per content category</h2>
+Total number of pageviews grouped by category.
+<br><br>
+<div class="ct-chart5 ct-minor-seventh"></div>
+<br><hr><br>
+
+<h2>4. KTH Canvas LMS: Currently published courses/school</h2>
+Total number courses with the status "published". Please note that not all of these are active since they normally remain published also when the course offering ends.  This graph includes all courses (imported courses, manually created courses and sandboxes/s).
+ <br><br>
+<div class="ct-chart2 ct-minor-seventh"></div>
+<br><hr><br>
+
+<h2>5. KTH Canvas LMS: Currently published Ladok-courses/school</h2>
+Total number of courses that are created based on data from Ladok (via KOPPS) with the status "published".
+<br><br>
+<div class="ct-chart10 ct-minor-seventh"></div>
+<br><hr><br>
+
+<h2>6.KTH Canvas LMS: active teachers/school</h2>
+Number of users with a teacher role (Teacher, Course responsible, Examinator or TA). Please note that one user can be listed as "teacher" on more than one of the school due to roles being set for each course.
+<br><br>
+<div class="ct-chart3 ct-minor-seventh"></div>
+<br><hr><br><br>
+
+<h2>7. KTH Canvas LMS: active students/school</h2>
+Number of users with a student role (Admitted and/or Registrered) that has logged into the system. Please note that one user can be listed as "student" on more than one of the school due to roles being set on each course.
+<br><br>
+<div class="ct-chart4 ct-minor-seventh"></div>
+<br><hr><br>
+
+<h2>8. KTH Canvas LMS: uploaded files/school</h2>
+Total number of files uploaded to KTH Canvas instance.
+<br><br>
+<div class="ct-chart6 ct-minor-seventh"></div>
+<br><hr><br>
+
+<h2>9. KTH Canvas LMS: student assignement submissions/school</h2>
+Total number of student submissions in assignments in courses.
+<br><br>
+<div class="ct-chart7 ct-minor-seventh"></div>
+<br><hr><br>
+
+<h2>10. KTH Canvas LMS: discussion posts/school</h2>
+Total number of discussion posts in discussion forums in courses.
+<br><br>
+<div class="ct-chart8 ct-minor-seventh"></div>
+<br><hr><br>
+
+<h2>11. KTH Canvas LMS: Video/Audio objects/school</h2>
+Total number of video/audio objects created using the native Canvas media recording tool.
+<br><br>
+<div class="ct-chart9 ct-minor-seventh"></div>
+<br><br>
+
+<h2>12. KTH Canvas LMS: Ladok courses publish status</h2>
+All courses from Ladok and their publishing state in Canvas. Please observe that data is updated weekly.
+<br><br>
+<div class="ct-chart20 ct-minor-seventh"></div>
+<br><br>
+<h2>13. KTH Canvas LMS: Ladok course publishing over time</h2>
+All courses from Ladok and their publishing state in Canvas per study period per academic year. Please observe that data is updated weekly.
+<br><br>
+<div id="chart2"></div>
+<br><br>
+<center>KTH LMS Stats version 1.2.1 (2018-04-23) by Johan Fridell (<a href="mailto:jfridell@kth.se">jfridell@kth.se</a>)<br>
+Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></center>
+<script>
+
+  async function drawGraph(){
+
+
+// Fetch globaö course data for all courses
+
+    const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
+    const myJsonKTHCOURSES = await responseKTHCOURSES.json()
+
+// Fetch global course data for all courses with active enrollments
+
+    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
+    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
+
+
+    // fetch global analytics data
+
+    const responseKTHA = await fetch('/api/lms-stats/ktha')
+    const myJsonKTHA = await responseKTHA.json()
+
+    // data[0].by_date.map(o => o.date)
+
+//      myJsonKTHA[0].by_date.map(o => o.date)
+
+    // Map data for each category
+
+      const dates = myJsonKTHA[0].by_date.map(o => o.date)
+      const views = myJsonKTHA[0].by_date.map(o => o.views)
+      const participations = myJsonKTHA[0].by_date.map(o => o.participations)
+
+      var arr = [myJsonKTHA[0].by_date];
+      var maxviews = Math.max(...views);
+
+      var arr = [myJsonKTHA[0].by_date];
+      var maxparticipations = Math.max(...participations);
+
+      console.log(maxviews);
+      console.log(maxparticipations);
+
+
+    // Generate C3JS graph course publishing over timeseries
+
+
+    // Create constants for easier code reading in graphs
+
+    // ABE SCHOOL simple 1-1 to account
+
+    const ABE_p1_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+    const ABE_p1_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+    const ABE_p1_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+    const ABE_p1_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+
+    const ABE_p2_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+    const ABE_p2_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+    const ABE_p2_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+    const ABE_p2_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+
+    const ABE_p3_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+    const ABE_p3_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+    const ABE_p3_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+    const ABE_p3_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+
+    const ABE_p4_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+    const ABE_p4_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+    const ABE_p4_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-03-16', '2017-06-10')  ).length
+    const ABE_p4_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-03-16', '2017-06-10')  ).length
+
+    const ABE_p1_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+    const ABE_p1_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+    const ABE_p1_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+    const ABE_p1_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+
+    const ABE_p2_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+    const ABE_p2_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+    const ABE_p2_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+    const ABE_p2_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+
+    const ABE_p3_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+    const ABE_p3_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+    const ABE_p3_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+    const ABE_p3_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+
+    const ABE_p4_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+    const ABE_p4_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+    const ABE_p4_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-03-16', '2018-06-10')  ).length
+    const ABE_p4_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-03-16', '2018-06-10')  ).length
+
+    const ABE_p1_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+    const ABE_p1_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+    const ABE_p1_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+    const ABE_p1_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+
+    const ABE_p2_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+    const ABE_p2_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+    const ABE_p2_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+    const ABE_p2_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+
+    const ABE_p3_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const ABE_p3_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const ABE_p3_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const ABE_p3_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+
+    const ABE_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const ABE_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const ABE_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+    const ABE_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+
+
+    // SCI simple 1-1 account
+
+    const SCI_p1_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+    const SCI_p1_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+    const SCI_p1_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+    const SCI_p1_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+
+    const SCI_p2_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+    const SCI_p2_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+    const SCI_p2_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+    const SCI_p2_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+
+    const SCI_p3_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+    const SCI_p3_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+    const SCI_p3_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+    const SCI_p3_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+
+    const SCI_p4_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+    const SCI_p4_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+    const SCI_p4_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-03-16', '2017-06-10')  ).length
+    const SCI_p4_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-03-16', '2017-06-10')  ).length
+
+    const SCI_p1_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+    const SCI_p1_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+    const SCI_p1_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+    const SCI_p1_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+
+    const SCI_p2_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+    const SCI_p2_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+    const SCI_p2_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+    const SCI_p2_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+
+    const SCI_p3_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+    const SCI_p3_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+    const SCI_p3_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+    const SCI_p3_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+
+    const SCI_p4_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+    const SCI_p4_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+    const SCI_p4_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-03-16', '2018-06-10')  ).length
+    const SCI_p4_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-03-16', '2018-06-10')  ).length
+
+    const SCI_p1_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+    const SCI_p1_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+    const SCI_p1_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+    const SCI_p1_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+
+    const SCI_p2_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+    const SCI_p2_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+    const SCI_p2_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+    const SCI_p2_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+
+    const SCI_p3_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const SCI_p3_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const SCI_p3_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const SCI_p3_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+
+    const SCI_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const SCI_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const SCI_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+    const SCI_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+
+    // ITM combines data from both ITM and ECE subaccount due to reorganisation
+
+    const ITM_p1_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+const ITM_p1_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+const ITM_p1_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+const ITM_p1_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+
+const ITM_p2_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+const ITM_p2_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+const ITM_p2_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+const ITM_p2_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+
+const ITM_p3_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const ITM_p3_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const ITM_p3_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const ITM_p3_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+
+const ITM_p4_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const ITM_p4_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const ITM_p4_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-03-16', '2017-06-10')  ).length
+const ITM_p4_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-03-16', '2017-06-10')  ).length
+
+const ITM_p1_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+const ITM_p1_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+const ITM_p1_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+const ITM_p1_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+
+const ITM_p2_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+const ITM_p2_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+const ITM_p2_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+const ITM_p2_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+
+const ITM_p3_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const ITM_p3_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const ITM_p3_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const ITM_p3_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+
+const ITM_p4_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const ITM_p4_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const ITM_p4_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-03-16', '2018-06-10')  ).length
+const ITM_p4_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-03-16', '2018-06-10')  ).length
+
+const ITM_p1_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+const ITM_p1_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+const ITM_p1_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+const ITM_p1_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+
+const ITM_p2_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+const ITM_p2_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+const ITM_p2_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+const ITM_p2_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+
+const ITM_p3_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const ITM_p3_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const ITM_p3_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const ITM_p3_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+
+const ITM_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const ITM_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const ITM_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+const ITM_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+
+// CBH combines data from three sub accounts due to reorganisation
+
+const CBH_p1_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+const CBH_p1_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+const CBH_p1_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+const CBH_p1_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+
+const CBH_p2_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+const CBH_p2_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+const CBH_p2_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+const CBH_p2_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+
+const CBH_p3_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const CBH_p3_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const CBH_p3_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const CBH_p3_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+
+const CBH_p4_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const CBH_p4_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const CBH_p4_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-03-16', '2017-06-10')  ).length
+const CBH_p4_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-03-16', '2017-06-10')  ).length
+
+const CBH_p1_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+const CBH_p1_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+const CBH_p1_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+const CBH_p1_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+
+const CBH_p2_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+const CBH_p2_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+const CBH_p2_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+const CBH_p2_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+
+const CBH_p3_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const CBH_p3_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const CBH_p3_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const CBH_p3_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+
+const CBH_p4_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const CBH_p4_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const CBH_p4_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-03-16', '2018-06-10')  ).length
+const CBH_p4_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-03-16', '2018-06-10')  ).length
+
+const CBH_p1_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+const CBH_p1_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+const CBH_p1_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+const CBH_p1_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+
+const CBH_p2_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+const CBH_p2_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+const CBH_p2_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+const CBH_p2_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+
+const CBH_p3_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const CBH_p3_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const CBH_p3_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const CBH_p3_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+
+const CBH_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const CBH_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const CBH_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+const CBH_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+
+// EECS combines data from three subaccounts due to reorganisation
+
+const EECS_p1_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+const EECS_p1_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+const EECS_p1_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+const EECS_p1_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
+
+const EECS_p2_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+const EECS_p2_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+const EECS_p2_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+const EECS_p2_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2016-10-26', '2017-01-10')  ).length
+
+const EECS_p3_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const EECS_p3_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const EECS_p3_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const EECS_p3_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+
+const EECS_p4_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const EECS_p4_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-01-11', '2017-03-15')  ).length
+const EECS_p4_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-03-16', '2017-06-10')  ).length
+const EECS_p4_20162017_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-03-16', '2017-06-10')  ).length
+
+const EECS_p1_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+const EECS_p1_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+const EECS_p1_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+const EECS_p1_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-08-25', '2017-10-25')  ).length
+
+const EECS_p2_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+const EECS_p2_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+const EECS_p2_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+const EECS_p2_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-10-26', '2018-01-10')  ).length
+
+const EECS_p3_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const EECS_p3_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const EECS_p3_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const EECS_p3_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+
+const EECS_p4_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const EECS_p4_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-01-11', '2018-03-15')  ).length
+const EECS_p4_20172018_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-03-16', '2018-06-10')  ).length
+const EECS_p4_20172018_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-03-16', '2018-06-10')  ).length
+
+const EECS_p1_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+const EECS_p1_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+const EECS_p1_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+const EECS_p1_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-08-25', '2018-10-25')  ).length
+
+const EECS_p2_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+const EECS_p2_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+const EECS_p2_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+const EECS_p2_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2018-10-26', '2019-01-10')  ).length
+
+const EECS_p3_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const EECS_p3_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const EECS_p3_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const EECS_p3_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+
+const EECS_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const EECS_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+const EECS_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+const EECS_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+
+
+console.log(ABE_p1_20162017_courses)
+console.log(EECS_p4_20182019_published_PUBLIC)
+console.log(EECS_p2_20182019_courses)
+console.log(CBH_p2_20172018_courses)
+
+
+var chart = c3.generate({
+          bindto: '#chart2',
+    data: {
+        columns: [
+            ['ABE-courses', ABE_p1_20162017_courses, ABE_p2_20162017_courses, ABE_p3_20162017_courses, ABE_p4_20162017_courses, ABE_p1_20172018_courses, ABE_p2_20172018_courses, ABE_p3_20172018_courses, ABE_p4_20172018_courses, ABE_p1_20182019_courses, ABE_p2_20182019_courses],
+            ['CBH-courses', CBH_p1_20162017_courses, CBH_p2_20162017_courses, CBH_p3_20162017_courses, CBH_p4_20162017_courses, CBH_p1_20172018_courses, CBH_p2_20172018_courses, CBH_p3_20172018_courses, CBH_p4_20172018_courses, CBH_p1_20182019_courses, CBH_p2_20182019_courses],
+            ['EECS-courses', EECS_p1_20162017_courses, EECS_p2_20162017_courses, EECS_p3_20162017_courses, EECS_p4_20162017_courses, EECS_p1_20172018_courses, EECS_p2_20172018_courses, EECS_p3_20172018_courses, EECS_p4_20172018_courses, EECS_p1_20182019_courses, EECS_p2_20182019_courses],
+            ['ITM-courses', ITM_p1_20162017_courses, ITM_p2_20162017_courses, ITM_p3_20162017_courses, ITM_p4_20162017_courses, ITM_p1_20172018_courses, ITM_p2_20172018_courses, ITM_p3_20172018_courses, ITM_p4_20172018_courses, ITM_p1_20182019_courses, ITM_p2_20182019_courses],
+            ['SCI-courses', SCI_p1_20162017_courses, SCI_p2_20162017_courses, SCI_p3_20162017_courses, SCI_p4_20162017_courses, SCI_p1_20172018_courses, SCI_p2_20172018_courses, SCI_p3_20172018_courses, SCI_p4_20172018_courses, SCI_p1_20182019_courses, SCI_p2_20182019_courses],
+
+            ['ABE-published', ABE_p1_20162017_published, ABE_p2_20162017_published, ABE_p3_20162017_published, ABE_p4_20162017_published, ABE_p1_20172018_published, ABE_p2_20172018_published, ABE_p3_20172018_published, ABE_p4_20172018_published, ABE_p1_20182019_published, ABE_p2_20182019_published],
+            ['CBH-published', CBH_p1_20162017_published, CBH_p2_20162017_published, CBH_p3_20162017_published, CBH_p4_20162017_published, CBH_p1_20172018_published, CBH_p2_20172018_published, CBH_p3_20172018_published, CBH_p4_20172018_published, CBH_p1_20182019_published, CBH_p2_20182019_published],
+            ['EECS-published', EECS_p1_20162017_published, EECS_p2_20162017_published, EECS_p3_20162017_published, EECS_p4_20162017_published, EECS_p1_20172018_published, EECS_p2_20172018_published, EECS_p3_20172018_published, EECS_p4_20172018_published, EECS_p1_20182019_published, EECS_p2_20182019_published],
+            ['ITM-published', ITM_p1_20162017_published, ITM_p2_20162017_published, ITM_p3_20162017_published, ITM_p4_20162017_published, ITM_p1_20172018_published, ITM_p2_20172018_published, ITM_p3_20172018_published, ITM_p4_20172018_published, ITM_p1_20182019_published, ITM_p2_20182019_published],
+            ['SCI-published', SCI_p1_20162017_published, SCI_p2_20162017_published, SCI_p3_20162017_published, SCI_p4_20162017_published, SCI_p1_20172018_published, SCI_p2_20172018_published, SCI_p3_20172018_published, SCI_p4_20172018_published, SCI_p1_20182019_published, SCI_p2_20182019_published]
+        ],
+
+        type: 'bar',
+        colors: {
+          'ABE-courses': '#1954a6',
+          'ABE-published': '#1954a6',
+          'CHB-courses': '#24a0d8',
+          'CBH-published': '#24a0d8',
+          'EECS-courses': '#b0c92b',
+          'EECS-published': '#b0c92b',
+          'ITM-courses': '#62922e',
+          'ITM-published': '#62922e',
+          'SCI-courses': '#fab919',
+          'SCI-published': '#fab919'
+        },
+        groups: [
+            ['ABE-courses', 'CBH-courses', 'EECS-courses', 'ITM-courses','SCI-courses'],
+            ['ABE-published', 'CBH-published', 'EECS-published', 'ITM-published','SCI-published']
+
+
+        ],
+        order: null,
+    },
+                axis: {
+        x: {
+            type: 'category',
+            categories: ['2016/2017 P1', '2016/2017 P2', '2016/2017 P3', '2016/2017 P4','2017/2018 P1', '2017/2018 P2', '2017/2018 P3', '2017/2018 P4','2018/2019 P1', '2018/2019 P2', '2018/2019 P3', '2018/2019 P4']
+        }
+    },
+    grid: {
+        y: {
+            show: true
+        }
+    }
+});
+
+
+    // Generate C3JS graph daily usage
+
+    var chart = c3.generate({
+        bindto: '#chart',
+
+        data: {
+          x: 'x',
+
+          columns: [
+              ['x', ...dates],
+              ['views', ...views],
+              ['participations', ...participations ]
+            ],
+
+          axes: {
+            participations: 'y2'
+            },
+
+          types: {
+            participations: 'step',
+            views: 'line'
+            }
+          },
+
+          point: {
+            show: false
+            },
+
+          grid: {
+            y: {
+              show: false
+            }
+          },
+
+        color: {
+            pattern: ['#000000','#b0c92b']
+            },
+
+        axis: {
+            x: {
+                type: 'timeseries',
+                tick: {
+                    format: '%Y-%m-%d',
+                    rotate: -90,
+                    values: ['2016-08-29','2016-10-31','2017-01-17','2017-03-20','2017-08-28','2017-10-30', '2018-01-16','2018-03-19','2018-08-27','2018-10-19','2019-01-15','2019-03-18']
+
+                }
+              },
+
+          y: {
+              label: {
+                text: 'Views (Black line)',
+                position: 'outer-middle'
+              },
+
+            min: 0,
+            padding: {
+              top: 0,
+              bottom: 0
+            }
+          },
+
+          y2: {
+            show: true,
+            label: {
+              text: 'Participations (Green steps)',
+              position: 'outer-middle'
+            },
+
+            min: 0,
+              padding: {
+                top: 30,
+                bottom: 0
+              }
+            }
+          },
+
+    /* Regions not used currently
+
+        regions: [
+                {start: '2013-01-01', end: '2013-01-03', class: 'apa'},
+                {start: '2013-01-05', end: '2013-01-08'},
+                {start: '2014-01-05', end: '2015-01-08', class: 'apa'}
+            ],
+
+    */
+          zoom: {
+            enabled: true,
+          }
+
+    });
+
+    // Draw vertical lines to indicate start of each study period
+
+    setTimeout(function () {
+    chart.xgrids([{value: '2016-08-29', class: 'studyline', text:'P1-16/17'}]);
+    }, 0);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2016-10-31', class: 'studyline', text:'P2-16/17'}]);
+    }, 250);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2017-01-17', class: 'studyline', text:'P3-16/17'}]);
+    }, 500);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2017-03-20', class: 'studyline', text:'P4-16/17'}]);
+    }, 750);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2017-08-28', class: 'studyline', text:'P1-17/18'}]);
+    }, 1000);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2017-10-30', class: 'studyline', text:'P2-17/18'}]);
+    }, 1250);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2018-01-16', class: 'studyline', text:'P3-17/18'}]);
+    }, 1500);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2018-03-19', class: 'studyline', text:'P4-17/18'}]);
+    }, 1750);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2018-08-27', tclass: 'studyline', ext:'P1-18/19'}]);
+    }, 2000);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2018-10-19', class: 'studyline', text:'P2-18/19'}]);
+    }, 2250);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2019-01-15', class: 'studyline', text:'P3-18/19'}]);
+    }, 2500);
+
+    setTimeout(function () {
+    chart.xgrids.add([{value: '2019-03-18', class: 'studyline', text:'P4-18/19'}]);
+    }, 2750);
+
+// fetch global statistics data
+
+  const responseKTHS = await fetch('/api/lms-stats/kths')
+  const myJsonKTHS = await responseKTHS.json()
+
+//draw graph for global statistics data
+
+  new Chartist.Bar('.ct-chart1', {
+    labels: ['Published courses','Active Teachers','Active Students','Discussion Posts','Video/audio recordings','Uploaded files','Student submissions'],
+    series: [myJsonKTHS[0].courses,myJsonKTHS[0].teachers,myJsonKTHS[0].students,myJsonKTHS[0].discussion_topics,myJsonKTHS[0].media_objects,myJsonKTHS[0].attachments,myJsonKTHS[0].assignments]
+  },
+  {
+    distributeSeries: true,
+      chartPadding: {
+        right: 40,
+        left: 40,
+        top: 40,
+        bottom: 40
+      },
+      axisY: {
+        labelInterpolationFnc: function(value) {
+          return (value / 1000) + 'k';
+      }
+  },
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: -5
+            },
+          })
+        ],
+  });
+
+// draw graph for global statistics data
+
+  new Chartist.Bar('.ct-chart5', {
+    labels: ['Announcements','Assignments','Discussions','Files','Grades','Groups','Modules','Pages','Quizzes'],
+    series: [myJsonKTHA[0].by_category[0].views, myJsonKTHA[0].by_category[1].views, myJsonKTHA[0].by_category[4].views, myJsonKTHA[0].by_category[5].views, myJsonKTHA[0].by_category[7].views, myJsonKTHA[0].by_category[8].views, myJsonKTHA[0].by_category[9].views, myJsonKTHA[0].by_category[11].views, myJsonKTHA[0].by_category[12].views]
+  },
+  {
+    distributeSeries: true,
+    chartPadding: {
+      right: 40,
+      left: 40,
+      top: 40,
+      bottom: 40
+    },
+
+    plugins: [
+      Chartist.plugins.ctBarLabels(
+        {
+          labelOffset: {
+            y: -5
+          },
+        })
+      ],
+
+      axisY: {
+        labelInterpolationFnc: function(value) {
+          return (value / 1000000) + 'M';
+        }
+      }
+
+  });
+
+// fetch school level statistics data
+
+  const responseABES = await fetch('/api/lms-stats/abes')
+  const myJsonABES = await responseABES.json()
+  const responseBIOS = await fetch('/api/lms-stats/bios')
+  const myJsonBIOS = await responseBIOS.json()
+  const responseCHES = await fetch('/api/lms-stats/ches')
+  const myJsonCHES = await responseCHES.json()
+  const responseCSCS = await fetch('/api/lms-stats/cscs')
+  const myJsonCSCS = await responseCSCS.json()
+  const responseECES = await fetch('/api/lms-stats/eces')
+  const myJsonECES = await responseECES.json()
+  const responseEESS = await fetch('/api/lms-stats/eess')
+  const myJsonEESS = await responseEESS.json()
+  const responseICTS = await fetch('/api/lms-stats/icts')
+  const myJsonICTS = await responseICTS.json()
+  const responseITMS = await fetch('/api/lms-stats/itms')
+  const myJsonITMS = await responseITMS.json()
+  const responseSCIS = await fetch('/api/lms-stats/scis')
+  const myJsonSCIS = await responseSCIS.json()
+  const responseSTHS = await fetch('/api/lms-stats/sths')
+  const myJsonSTHS = await responseSTHS.json()
+  const responseUF = await fetch('/api/lms-stats/ufs')
+  const myJsonUF = await responseUF.json()
+
+// draw graphs for school level statistics data
+
+  new Chartist.Bar('.ct-chart2', {
+    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI','UF'],
+    series: [
+      [myJsonABES[0].courses, myJsonCSCS[0].courses, myJsonITMS[0].courses, myJsonCHES[0].courses, myJsonSCIS[0].courses, myJsonUF[0].courses],
+      [0, myJsonEESS[0].courses, myJsonECES[0].courses, myJsonBIOS[0].courses, 0, 0],
+      [0, myJsonICTS[0].courses, 0, myJsonSTHS[0].courses, 0, 0]
+    ]
+  },
+
+  {
+    stackBars: true,
+
+    chartPadding: {
+      right: 40,
+      left: 40,
+      top: 40,
+      bottom: 40
+    },
+
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: 17
+            },
+              labelClass: 'ct-label-white',
+            })
+          ],
+
+  });
+
+// draw graphs for teacher role school level statistics data
+
+  new Chartist.Bar('.ct-chart3', {
+    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI','UF'],
+    series: [
+      [myJsonABES[0].teachers, myJsonCSCS[0].teachers, myJsonITMS[0].teachers, myJsonCHES[0].teachers, myJsonSCIS[0].teachers, myJsonUF[0].teachers],
+      [0, myJsonEESS[0].teachers, myJsonECES[0].teachers, myJsonBIOS[0].teachers, 0, 0],
+      [0, myJsonICTS[0].teachers, 0, myJsonSTHS[0].teachers, 0, 0]
+    ]
+  },
+
+  {
+    stackBars: true,
+      showLabel: true,
+      chartPadding: {
+        right: 40,
+        left: 40,
+        top: 40,
+        bottom: 40
+      },
+
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: 17
+            },
+            labelClass: 'ct-label-white',
+          })
+        ],
+      });
+
+    new Chartist.Bar('.ct-chart4', {
+      labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
+      series: [
+        [myJsonABES[0].students, myJsonCSCS[0].students, myJsonITMS[0].students, myJsonCHES[0].students, myJsonSCIS[0].students, myJsonUF[0].students],
+        [0, myJsonEESS[0].students, myJsonECES[0].students, myJsonBIOS[0].students, 0, 0],
+        [0, myJsonICTS[0].students, 0, myJsonSTHS[0].students, 0, 0]
+        ]
+    },
+
+    {
+      stackBars: true,
+        showLabel: true,
+        chartPadding: {
+          right: 40,
+          left: 40,
+          top: 40,
+          bottom: 40
+        },
+
+        plugins: [
+          Chartist.plugins.ctBarLabels(
+            {
+              labelOffset: {
+                y: 17
+              },
+              labelClass: 'ct-label-white',
+            })
+          ],
+        });
+
+// draw graphs for uploaded files school level statistics data
+
+  new Chartist.Bar('.ct-chart6', {
+    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
+    series: [
+      [myJsonABES[0].attachments, myJsonCSCS[0].attachments, myJsonITMS[0].attachments, myJsonCHES[0].attachments, myJsonSCIS[0].attachments, myJsonUF[0].attachments],
+      [0, myJsonEESS[0].attachments, myJsonECES[0].attachments, myJsonBIOS[0].attachments, 0, 0],
+      [0, myJsonICTS[0].attachments, 0, myJsonSTHS[0].attachments, 0, 0]
+    ]
+  },
+
+  {
+    stackBars: true,
+      showLabel: true,
+      chartPadding: {
+        right: 40,
+        left: 40,
+        top: 40,
+        bottom: 40
+      },
+
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: 17
+            },
+            labelClass: 'ct-label-white',
+          })
+        ],
+      });
+
+// draw graphs for student submission school level statistics data
+
+      new Chartist.Bar('.ct-chart7', {
+        labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
+        series: [
+          [myJsonABES[0].assignments, myJsonCSCS[0].assignments, myJsonITMS[0].assignments, myJsonCHES[0].assignments, myJsonSCIS[0].assignments, myJsonUF[0].assignments],
+          [0, myJsonEESS[0].assignments, myJsonECES[0].assignments, myJsonBIOS[0].assignments, 0, 0],
+          [0, myJsonICTS[0].assignments, 0, myJsonSTHS[0].assignments, 0, 0]
+          ]
+        },
+
+        {
+        stackBars: true,
+          showLabel: true,
+          chartPadding: {
+            right: 40,
+            left: 40,
+            top: 40,
+            bottom: 40
+          },
+
+          plugins: [
+            Chartist.plugins.ctBarLabels(
+              {
+                labelOffset: {
+                  y: 17
+                },
+                labelClass: 'ct-label-white',
+              })
+            ],
+          });
+
+// draw graphs for discussion forum posts school level statistics data
+
+  new Chartist.Bar('.ct-chart8', {
+    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
+    series: [
+      [myJsonABES[0].discussion_topics, myJsonCSCS[0].discussion_topics, myJsonITMS[0].discussion_topics, myJsonCHES[0].discussion_topics, myJsonSCIS[0].discussion_topics, myJsonUF[0].discussion_topics],
+      [0, myJsonEESS[0].discussion_topics, myJsonECES[0].discussion_topics, myJsonBIOS[0].discussion_topics, 0, 0],
+      [0, myJsonICTS[0].discussion_topics, 0, myJsonSTHS[0].discussion_topics, 0, 0]
+      ]
+    },
+
+    {
+    stackBars: true,
+      showLabel: true,
+      chartPadding: {
+        right: 40,
+        left: 40,
+        top: 40,
+        bottom: 40
+      },
+
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: 17
+            },
+            labelClass: 'ct-label-white',
+          })
+        ],
+      });
+
+// draw graphs for media objects school level statistics data
+
+      new Chartist.Bar('.ct-chart9', {
+        labels: ['ABE', 'EECS', 'ITM', 'CBH', 'SCI', 'UF'],
+        series: [
+          [myJsonABES[0].media_objects, (myJsonCSCS[0].media_objects+myJsonEESS[0].media_objects+myJsonICTS[0].media_objects), (myJsonITMS[0].media_objects+myJsonECES[0].media_objects), (myJsonCHES[0].media_objects+myJsonBIOS[0].media_objects+myJsonSTHS[0].media_objects), myJsonSCIS[0].media_objects, myJsonUF[0].media_objects]
+        ]
+        },
+
+        {
+          chartPadding: {
+            right: 40,
+            left: 40,
+            top: 40,
+            bottom: 40
+          },
+
+          plugins: [
+            Chartist.plugins.ctBarLabels(
+              {
+                labelOffset: {
+                  y: -5
+                },
+              })
+            ],
+
+
+          });
+
+// fetch data for school level ladok statistics data
+
+  const responseABESL = await fetch('/api/lms-stats/abesl')
+  const myJsonABESL = await responseABESL.json()
+  const responseBIOSL = await fetch('/api/lms-stats/biosl')
+  const myJsonBIOSL = await responseBIOSL.json()
+  const responseCHESL = await fetch('/api/lms-stats/chesl')
+  const myJsonCHESL = await responseCHESL.json()
+  const responseCSCSL = await fetch('/api/lms-stats/cscsl')
+  const myJsonCSCSL = await responseCSCSL.json()
+  const responseECESL = await fetch('/api/lms-stats/ecesl')
+  const myJsonECESL = await responseECESL.json()
+  const responseEESSL = await fetch('/api/lms-stats/eessl')
+  const myJsonEESSL = await responseEESSL.json()
+  const responseICTSL = await fetch('/api/lms-stats/ictsl')
+  const myJsonICTSL = await responseICTSL.json()
+  const responseITMSL = await fetch('/api/lms-stats/itmsl')
+  const myJsonITMSL = await responseITMSL.json()
+  const responseSCISL = await fetch('/api/lms-stats/scisl')
+  const myJsonSCISL = await responseSCISL.json()
+  const responseSTHSL = await fetch('/api/lms-stats/sthsl')
+  const myJsonSTHSL = await responseSTHSL.json()
+
+// draw graphs for school level ladok statistics data
+
+  new Chartist.Bar('.ct-chart10', {
+    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI'],
+    series: [
+      [myJsonABESL[0].courses, myJsonCSCSL[0].courses, myJsonITMSL[0].courses, myJsonCHESL[0].courses, myJsonSCISL[0].courses],
+      [0, myJsonEESSL[0].courses, myJsonECESL[0].courses, myJsonBIOSL[0].courses, 0],
+      [0, myJsonICTSL[0].courses, 0, myJsonSTHSL[0].courses, 0]
+    ]
+  },
+
+  {
+
+    stackBars: true,
+
+    chartPadding: {
+      right: 40,
+      left: 40,
+      top: 40,
+      bottom: 40
+      },
+
+    plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: 17
+            },
+              labelClass: 'ct-label-white',
+            })
+          ],
+        });
+
+
+
+
+        new Chartist.Bar('.ct-chart20', {
+          labels: ['Ladok courses imported', 'Courses with enrolled users', 'Ladok courses published', 'Ladok courses Published Open to KTH','Ladok courses published Public'],
+          series: [
+            [myJsonKTHCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length,
+              myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length,
+              myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length,
+              myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length,
+              myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length]
+          ]
+        },
+
+        {
+
+          stackBars: false,
+
+          chartPadding: {
+            right: 40,
+            left: 40,
+            top: 40,
+            bottom: 40
+            },
+
+            plugins: [
+              Chartist.plugins.ctBarLabels(
+                {
+                  labelOffset: {
+                    y: -5
+                  },
+                })
+              ],
+              });
+
+  }
+
+drawGraph()
+
+</script>
+
+</body>
+
+</html>
