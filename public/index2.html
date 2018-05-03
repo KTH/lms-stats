@@ -99,6 +99,10 @@ All courses from Ladok and their publishing state in Canvas per study period per
 <br><br>
 <div id="chart2"></div>
 <br><br>
+First bar: 'Courses' refer to all courses with at least one user enrolled.<br>
+Second  bar: 'Published' refer to courses being published for enrolled students only, KTH only or public.
+Third bar: 'kth-public' refer to all courses published with either open to all at KTH or Public.
+<br><hr><br>
 <center>KTH LMS Stats version 1.2.1 (2018-04-23) by Johan Fridell (<a href="mailto:jfridell@kth.se">jfridell@kth.se</a>)<br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></center>
 <script>
@@ -459,10 +463,9 @@ const EECS_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflo
 const EECS_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
 
 
-console.log(ABE_p1_20162017_courses)
-console.log(EECS_p4_20182019_published_PUBLIC)
-console.log(EECS_p2_20182019_courses)
-console.log(CBH_p2_20172018_courses)
+console.log(ABE_p1_20162017_published_KTH+ABE_p1_20162017_published_PUBLIC)
+console.log(EECS_p1_20162017_published_KTH)
+
 
 
 var chart = c3.generate({
@@ -479,26 +482,59 @@ var chart = c3.generate({
             ['CBH-published', CBH_p1_20162017_published, CBH_p2_20162017_published, CBH_p3_20162017_published, CBH_p4_20162017_published, CBH_p1_20172018_published, CBH_p2_20172018_published, CBH_p3_20172018_published, CBH_p4_20172018_published, CBH_p1_20182019_published, CBH_p2_20182019_published],
             ['EECS-published', EECS_p1_20162017_published, EECS_p2_20162017_published, EECS_p3_20162017_published, EECS_p4_20162017_published, EECS_p1_20172018_published, EECS_p2_20172018_published, EECS_p3_20172018_published, EECS_p4_20172018_published, EECS_p1_20182019_published, EECS_p2_20182019_published],
             ['ITM-published', ITM_p1_20162017_published, ITM_p2_20162017_published, ITM_p3_20162017_published, ITM_p4_20162017_published, ITM_p1_20172018_published, ITM_p2_20172018_published, ITM_p3_20172018_published, ITM_p4_20172018_published, ITM_p1_20182019_published, ITM_p2_20182019_published],
-            ['SCI-published', SCI_p1_20162017_published, SCI_p2_20162017_published, SCI_p3_20162017_published, SCI_p4_20162017_published, SCI_p1_20172018_published, SCI_p2_20172018_published, SCI_p3_20172018_published, SCI_p4_20172018_published, SCI_p1_20182019_published, SCI_p2_20182019_published]
+            ['SCI-published', SCI_p1_20162017_published, SCI_p2_20162017_published, SCI_p3_20162017_published, SCI_p4_20162017_published, SCI_p1_20172018_published, SCI_p2_20172018_published, SCI_p3_20172018_published, SCI_p4_20172018_published, SCI_p1_20182019_published, SCI_p2_20182019_published],
+
+
+            ['ABE-kth-public', ABE_p1_20162017_published_KTH+ABE_p1_20162017_published_PUBLIC, ABE_p2_20162017_published_KTH+ABE_p2_20162017_published_PUBLIC, ABE_p3_20162017_published_KTH+ABE_p3_20162017_published_PUBLIC, ABE_p4_20162017_published_KTH+ABE_p4_20162017_published_PUBLIC, ABE_p1_20172018_published_KTH+ABE_p1_20172018_published_PUBLIC, ABE_p2_20172018_published_KTH+ABE_p2_20172018_published_PUBLIC, ABE_p3_20172018_published_KTH+ABE_p3_20172018_published_PUBLIC, ABE_p4_20172018_published_KTH+ABE_p4_20172018_published_PUBLIC, ABE_p1_20182019_published_KTH+ABE_p1_20182019_published_PUBLIC, ABE_p2_20182019_published_KTH+ABE_p2_20182019_published_KTH],
+            ['CBH-kth-public', CBH_p1_20162017_published_KTH+CBH_p1_20162017_published_PUBLIC, CBH_p2_20162017_published_KTH+CBH_p2_20162017_published_PUBLIC, CBH_p3_20162017_published_KTH+CBH_p3_20162017_published_PUBLIC, CBH_p4_20162017_published_KTH+CBH_p4_20162017_published_PUBLIC, CBH_p1_20172018_published_KTH+CBH_p1_20172018_published_PUBLIC, CBH_p2_20172018_published_KTH+CBH_p2_20172018_published_PUBLIC, CBH_p3_20172018_published_KTH+CBH_p3_20172018_published_PUBLIC, CBH_p4_20172018_published_KTH+CBH_p4_20172018_published_PUBLIC, CBH_p1_20182019_published_KTH+CBH_p1_20182019_published_PUBLIC, CBH_p2_20182019_published_KTH+CBH_p2_20182019_published_KTH],
+            ['EECS-kth-public', EECS_p1_20162017_published_KTH+EECS_p1_20162017_published_PUBLIC, EECS_p2_20162017_published_KTH+EECS_p2_20162017_published_PUBLIC, EECS_p3_20162017_published_KTH+EECS_p3_20162017_published_PUBLIC, EECS_p4_20162017_published_KTH+EECS_p4_20162017_published_PUBLIC, EECS_p1_20172018_published_KTH+EECS_p1_20172018_published_PUBLIC, EECS_p2_20172018_published_KTH+EECS_p2_20172018_published_PUBLIC, EECS_p3_20172018_published_KTH+EECS_p3_20172018_published_PUBLIC, EECS_p4_20172018_published_KTH+EECS_p4_20172018_published_PUBLIC, EECS_p1_20182019_published_KTH+EECS_p1_20182019_published_PUBLIC, EECS_p2_20182019_published_KTH+EECS_p2_20182019_published_KTH],
+            ['ITM-kth-public', ITM_p1_20162017_published_KTH+ITM_p1_20162017_published_PUBLIC, ITM_p2_20162017_published_KTH+ITM_p2_20162017_published_PUBLIC, ITM_p3_20162017_published_KTH+ITM_p3_20162017_published_PUBLIC, ITM_p4_20162017_published_KTH+ITM_p4_20162017_published_PUBLIC, ITM_p1_20172018_published_KTH+ITM_p1_20172018_published_PUBLIC, ITM_p2_20172018_published_KTH+ITM_p2_20172018_published_PUBLIC, ITM_p3_20172018_published_KTH+ITM_p3_20172018_published_PUBLIC, ITM_p4_20172018_published_KTH+ITM_p4_20172018_published_PUBLIC, ITM_p1_20182019_published_KTH+ITM_p1_20182019_published_PUBLIC, ITM_p2_20182019_published_KTH+ITM_p2_20182019_published_KTH],
+            ['SCI-kth-public', SCI_p1_20162017_published_KTH+SCI_p1_20162017_published_PUBLIC, SCI_p2_20162017_published_KTH+SCI_p2_20162017_published_PUBLIC, SCI_p3_20162017_published_KTH+SCI_p3_20162017_published_PUBLIC, SCI_p4_20162017_published_KTH+SCI_p4_20162017_published_PUBLIC, SCI_p1_20172018_published_KTH+SCI_p1_20172018_published_PUBLIC, SCI_p2_20172018_published_KTH+SCI_p2_20172018_published_PUBLIC, SCI_p3_20172018_published_KTH+SCI_p3_20172018_published_PUBLIC, SCI_p4_20172018_published_KTH+SCI_p4_20172018_published_PUBLIC, SCI_p1_20182019_published_KTH+SCI_p1_20182019_published_PUBLIC, SCI_p2_20182019_published_KTH+SCI_p2_20182019_published_KTH],
+
+
+//            ['ABE-public', ABE_p1_20162017_published_PUBLIC, ABE_p2_20162017_published_PUBLIC, ABE_p3_20162017_published_PUBLIC, ABE_p4_20162017_published_PUBLIC, ABE_p1_20172018_published_PUBLIC, ABE_p2_20172018_published_PUBLIC, ABE_p3_20172018_published_PUBLIC, ABE_p4_20172018_published_PUBLIC, ABE_p1_20182019_published_PUBLIC, ABE_p2_20182019_published_PUBLIC],
+//            ['CBH-public', CBH_p1_20162017_published_PUBLIC, CBH_p2_20162017_published_PUBLIC, CBH_p3_20162017_published_PUBLIC, CBH_p4_20162017_published_PUBLIC, CBH_p1_20172018_published_PUBLIC, CBH_p2_20172018_published_PUBLIC, CBH_p3_20172018_published_PUBLIC, CBH_p4_20172018_published_PUBLIC, CBH_p1_20182019_published_PUBLIC, CBH_p2_20182019_published_PUBLIC],
+//            ['EECS-public', EECS_p1_20162017_published_PUBLIC, EECS_p2_20162017_published_PUBLIC, EECS_p3_20162017_published_PUBLIC, EECS_p4_20162017_published_PUBLIC, EECS_p1_20172018_published_PUBLIC, EECS_p2_20172018_published_PUBLIC, EECS_p3_20172018_published_PUBLIC, EECS_p4_20172018_published_PUBLIC, EECS_p1_20182019_published_PUBLIC, EECS_p2_20182019_published_PUBLIC],
+//            ['ITM-public', ITM_p1_20162017_published_PUBLIC, ITM_p2_20162017_published_PUBLIC, ITM_p3_20162017_published_PUBLIC, ITM_p4_20162017_published_PUBLIC, ITM_p1_20172018_published_PUBLIC, ITM_p2_20172018_published_PUBLIC, ITM_p3_20172018_published_PUBLIC, ITM_p4_20172018_published_PUBLIC, ITM_p1_20182019_published_PUBLIC, ITM_p2_20182019_published_PUBLIC],
+//            ['SCI-public', SCI_p1_20162017_published_PUBLIC, SCI_p2_20162017_published_PUBLIC, SCI_p3_20162017_published_PUBLIC, SCI_p4_20162017_published_PUBLIC, SCI_p1_20172018_published_PUBLIC, SCI_p2_20172018_published_PUBLIC, SCI_p3_20172018_published_PUBLIC, SCI_p4_20172018_published_PUBLIC, SCI_p1_20182019_published_PUBLIC, SCI_p2_20182019_published_PUBLIC]
+
         ],
 
         type: 'bar',
         colors: {
           'ABE-courses': '#1954a6',
           'ABE-published': '#1954a6',
-          'CBH-courses': '#24a0d8',
+          'ABE-kth-public': '#1954a6',
+          'ABE-public': '#1954a6',
+
+          'CHB-courses': '#24a0d8',
           'CBH-published': '#24a0d8',
+          'CHB-kth-public': '#24a0d8',
+          'CBH-public': '#24a0d8',
+
           'EECS-courses': '#b0c92b',
           'EECS-published': '#b0c92b',
+          'EECS-kth-public': '#b0c92b',
+          'EECS-public': '#b0c92b',
+
           'ITM-courses': '#62922e',
           'ITM-published': '#62922e',
+          'ITM-kth-public': '#62922e',
+          'ITM-public': '#62922e',
+
           'SCI-courses': '#fab919',
-          'SCI-published': '#fab919'
+          'SCI-published': '#fab919',
+          'SCI-kth-public': '#fab919',
+          'SCI-public': '#fab919'
+
+
+
         },
         groups: [
             ['ABE-courses', 'CBH-courses', 'EECS-courses', 'ITM-courses','SCI-courses'],
-            ['ABE-published', 'CBH-published', 'EECS-published', 'ITM-published','SCI-published']
-
+            ['ABE-published', 'CBH-published', 'EECS-published', 'ITM-published','SCI-published'],
+            ['ABE-kth-public', 'CBH-kth-public', 'EECS-kth-public', 'ITM-kth-public','SCI-kth-public'],
+//            ['ABE-public', 'CBH-public', 'EECS-public', 'ITM-public','SCI-public']
 
         ],
         order: null,
