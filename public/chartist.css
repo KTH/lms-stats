@@ -37,6 +37,10 @@
     stroke-width: 15%
 }
 
+.ct-chart20 .ct-bar {
+    stroke-width: 15%
+}
+
 .ct-label {
   fill: rgba(0, 0, 0, 1.0);
   color: rgba(0, 0, 0, 0.4);
