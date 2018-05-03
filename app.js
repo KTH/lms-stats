@@ -18,7 +18,18 @@ const accessToken = process.env.accessToken
 const canvasUrl = process.env.canvasUrl
 const canvasApi = new CanvasApi(canvasUrl, accessToken)
 const express = require('express');
+const coursespromise = canvasApi.get('accounts/1/courses?per_page=100')
+const coursesenrpromise = canvasApi.get('accounts/1/courses?with_enrollments=true&per_page=100')
 
+async function KTHCOURSES(){
+  const statistics = await coursespromise
+return statistics
+}
+
+async function KTHENRCOURSES(){
+  const statistics = await coursesenrpromise
+return statistics
+}
 
 async function KTHET(){
   const statistics = await canvasApi.get('accounts/1/external_tools')
@@ -201,7 +212,19 @@ return statistics
 
 app.use('/api/lms-stats/',express.static('public'))
 
-app.get('/kthet', async function(req, res){
+app.get('/api/lms-stats/kthcourses', async function(req, res){
+  const results= await KTHCOURSES()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/kthenrcourses', async function(req, res){
+  const results= await KTHENRCOURSES()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/kthet', async function(req, res){
   const results= await KTHET()
   console.log('kommer skicka:', results)
   res.json(results);
