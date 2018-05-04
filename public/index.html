@@ -111,17 +111,18 @@ Total number courses with the status "published". Please note that not all of th
 <div class="ct-chart2 ct-minor-seventh"></div>
 <br><hr><br>
 
-<h2>6. KTH Canvas LMS: Currently published Ladok-courses/school</h2>
-Total number of courses that are created based on data from Ladok (via KOPPS) with the status "published".
-<br><br>
-<div class="ct-chart10 ct-minor-seventh"></div>
-<br><hr><br>
-
-<h2>7. KTH Canvas LMS: Ladok courses publish status</h2>
-All imported courses from Ladok and their current publishing state in Canvas. The first view includes also courses without any enrolled users.<br>
+<h2>6. KTH Canvas LMS: Ladok courses publish status</h2>
+All imported courses from Ladok and their current publishing state in Canvas. The first view includes also courses without any enrolled users.<br><br>
 <em>Please note that data for this graph is only imported weekly since it is a rather timeconsuming transaction.</em><br>
 <br><br>
 <div class="ct-chart20 ct-minor-seventh"></div>
+<em>Note that a few courses are set as open to both KTH and Public, and hence the total of courses being open to all KTH students can be slightly lower than  the sum of the columns to the right.</em>.<br>
+<br><hr><br>
+
+<h2>7. KTH Canvas LMS: Currently published Ladok-courses/school</h2>
+Total number of courses that are created based on data from Ladok (via KOPPS) with the status "published".
+<br><br>
+<div class="ct-chart10 ct-minor-seventh"></div>
 <br><hr><br>
 
 <h2>8.KTH Canvas LMS: active teachers/school</h2>
@@ -1180,16 +1181,17 @@ var chart = c3.generate({
         });
 
 
-
+const KTH_ladok_courses_all = myJsonKTHCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
+const KTH_ladok_courses_enr = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
+const KTH_ladok_courses_publ = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
+const KTH_ladok_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
+const KTH_ladok_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
+const KTH_ladok_courses_OPEN = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
 
         new Chartist.Bar('.ct-chart20', {
-          labels: ['Ladok courses imported', 'Courses with enrolled users', 'Ladok courses published', 'Ladok courses Published Open to KTH','Ladok courses published Public'],
+          labels: ['Ladok courses imported', 'Courses with enrolled users', 'Ladok courses published', 'Ladok courses Published Open (KTH + Public)','Ladok courses Published Open to KTH','Ladok courses published Public'],
           series: [
-            [myJsonKTHCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length,
-              myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length,
-              myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length,
-              myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length,
-              myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length]
+            [KTH_ladok_courses_all.length, KTH_ladok_courses_enr.length, KTH_ladok_courses_publ.length, KTH_ladok_courses_OPEN.length, KTH_ladok_courses_KTH.length, KTH_ladok_courses_PUBLIC.length]
           ]
         },
 
