@@ -93,25 +93,39 @@ All courses imported from Ladok with at least one person enrolled (teacher and/o
 <strong>Open</strong> refer to all published Ladok courses that are published either as <em>open to all users at KTH</em> or <em>Public</em> and thus not requiring a KTH-account to access them.
 <br><hr><br>
 
-<h2>3. KTH Canvas LMS: Usage</h2>
+
+<h2>3. Publishing percentage for the academic year 2017/2018</h2>
+<br><br>
+<table Width="100%">
+  <tr>
+    <td width="20%"><div id="KTH_ladok_courses_P1_20172018"></div></td>
+<td width="20%"><div id="KTH_ladok_courses_P2_20172018"></div></td>
+<td width="20%"><div id="KTH_ladok_courses_P3_20172018"></div></td>
+<td width="20%"><div id="KTH_ladok_courses_P4_20172018"></div></td>
+<td width="20%"><div id="KTH_ladok_courses_20172018"></div></td>
+</tr>
+</table>
+<br><hr><br>
+
+<h2>4. KTH Canvas LMS: Usage</h2>
 Aggregated statistics for the KTH Canvas instance gathered from 2016-05-10 when the system was first deployed.
 <br><br>
 <div class="ct-chart1 ct-minor-seventh"></div>
 <br><hr><br>
 
-<h2>4. KTH Canvas LMS: Pageviews per content category</h2>
+<h2>5. KTH Canvas LMS: Pageviews per content category</h2>
 Total number of pageviews grouped by category for the KTH Canvas instance gathered from 2016-05-10 when the system was first deployed.
 <br><br>
 <div class="ct-chart5 ct-minor-seventh"></div>
 <br><hr><br>
 
-<h2>5. KTH Canvas LMS: Currently published courses/school</h2>
+<h2>6. KTH Canvas LMS: Currently published courses/school</h2>
 Total number courses with the status "published". Please note that not all of these are active since they normally remain published also when the course offering ends.  This graph includes all courses (imported courses, manually created courses and sandboxes/s).
  <br><br>
 <div class="ct-chart2 ct-minor-seventh"></div>
 <br><hr><br>
 
-<h2>6. KTH Canvas LMS: Ladok courses publish status</h2>
+<h2>7. KTH Canvas LMS: Ladok courses publish status</h2>
 All imported courses from Ladok and their current publishing state in Canvas. The first view includes also courses without any enrolled users.<br><br>
 <em>Please note that data for this graph is only imported weekly since it is a rather timeconsuming transaction.</em><br>
 <br><br>
@@ -119,47 +133,50 @@ All imported courses from Ladok and their current publishing state in Canvas. Th
 <em>Note that a few courses are set as open to both KTH and Public, and hence the total of courses being open to all KTH students can be slightly lower than  the sum of the columns to the right.</em>.<br>
 <br><hr><br>
 
-<h2>7. KTH Canvas LMS: Currently published Ladok-courses/school</h2>
+<h2>8. KTH Canvas LMS: Currently published Ladok-courses/school</h2>
 Total number of courses that are created based on data from Ladok (via KOPPS) with the status "published".
 <br><br>
 <div class="ct-chart10 ct-minor-seventh"></div>
 <br><hr><br>
 
-<h2>8.KTH Canvas LMS: active teachers/school</h2>
+<h2>9.KTH Canvas LMS: active teachers/school</h2>
 Number of users with a teacher role (Teacher, Course responsible, Examinator or TA). Please note that one user can be listed as "teacher" on more than one of the school due to roles being set for each course.
 <br><br>
 <div class="ct-chart3 ct-minor-seventh"></div>
 <br><hr><br>
 
-<h2>9. KTH Canvas LMS: active students/school</h2>
+<h2>10. KTH Canvas LMS: active students/school</h2>
 Number of users with a student role (Admitted and/or Registrered) that has logged into the system. Please note that one user can be listed as "student" on more than one of the school due to roles being set on each course.
 <br><br>
 <div class="ct-chart4 ct-minor-seventh"></div>
 <br><hr><br>
 
-<h2>10. KTH Canvas LMS: uploaded files/school</h2>
+<h2>11. KTH Canvas LMS: uploaded files/school</h2>
 Total number of files uploaded to KTH Canvas instance.
 <br><br>
 <div class="ct-chart6 ct-minor-seventh"></div>
 <br><hr><br>
 
-<h2>11. KTH Canvas LMS: student assignement submissions/school</h2>
+<h2>12. KTH Canvas LMS: student assignement submissions/school</h2>
 Total number of student submissions in assignments in courses.
 <br><br>
 <div class="ct-chart7 ct-minor-seventh"></div>
 <br><hr><br>
 
-<h2>12. KTH Canvas LMS: discussion posts/school</h2>
+<h2>13. KTH Canvas LMS: discussion posts/school</h2>
 Total number of discussion posts in discussion forums in courses.
 <br><br>
 <div class="ct-chart8 ct-minor-seventh"></div>
 <br><hr><br>
 
-<h2>13. KTH Canvas LMS: Video/Audio objects/school</h2>
+<h2>14. KTH Canvas LMS: Video/Audio objects/school</h2>
 Total number of video/audio objects created using the native Canvas media recording tool.
 <br><br>
 <div class="ct-chart9 ct-minor-seventh"></div>
 <br><hr><br>
+
+
+
 
 <center>KTH LMS Stats version 2.2 (2018-05-04) - (<a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></center>
@@ -419,8 +436,8 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     const ABE_p3_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
     const ABE_p3_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
 
-    const ABE_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
-    const ABE_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const ABE_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+    const ABE_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const ABE_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const ABE_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const ABE_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
@@ -493,8 +510,8 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     const SCI_p3_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
     const SCI_p3_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
 
-    const SCI_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
-    const SCI_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const SCI_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+    const SCI_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const SCI_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const SCI_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const SCI_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
@@ -567,8 +584,8 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     const ITM_p3_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
     const ITM_p3_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
 
-    const ITM_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
-    const ITM_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const ITM_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+    const ITM_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const ITM_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const ITM_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const ITM_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
@@ -641,8 +658,8 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     const CBH_p3_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
     const CBH_p3_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
 
-    const CBH_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
-    const CBH_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const CBH_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+    const CBH_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const CBH_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const CBH_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const CBH_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
@@ -715,8 +732,8 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     const EECS_p3_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
     const EECS_p3_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
 
-    const EECS_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
-    const EECS_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-01-11', '2019-03-15')  ).length
+    const EECS_p4_20182019_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
+    const EECS_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const EECS_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const EECS_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
     const EECS_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
@@ -805,13 +822,14 @@ var chart = c3.generate({
         }
     },
 
-// This will hide the div with the loader when this graph is drawn.
 
-    onrendered: function() {
-    document.getElementById('load').style.visibility="hidden";
-}
 
 });
+
+
+
+
+
 
 // fetch global statistics data
 
@@ -1188,6 +1206,30 @@ const KTH_ladok_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 
 const KTH_ladok_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
 const KTH_ladok_courses_OPEN = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
 
+
+
+
+const KTH_ladok_courses_20172018_enr = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
+const KTH_ladok_courses_20172018_publ = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
+
+const KTH_ladok_courses_P1_20172018_enr = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-01', '2017-10-01')  ).length
+const KTH_ladok_courses_P1_20172018_publ = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-01', '2017-10-01')  ).length
+
+const KTH_ladok_courses_P2_20172018_enr = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-10-02', '2017-12-31')  ).length
+const KTH_ladok_courses_P2_20172018_publ = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-10-02', '2017-12-31')  ).length
+
+const KTH_ladok_courses_P3_20172018_enr = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-01-01', '2018-03-01')  ).length
+const KTH_ladok_courses_P3_20172018_publ = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-01-01', '2018-03-01')  ).length
+
+const KTH_ladok_courses_P4_20172018_enr = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-03-02', '2018-06-01')  ).length
+const KTH_ladok_courses_P4_20172018_publ = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-03-02', '2018-06-01')  ).length
+
+
+
+
+
+
+
         new Chartist.Bar('.ct-chart20', {
           labels: ['Ladok courses imported', 'Courses with enrolled users', 'Ladok courses published', 'Ladok courses Published Open (KTH + Public)','Ladok courses Published Open to KTH','Ladok courses published Public'],
           series: [
@@ -1216,6 +1258,164 @@ const KTH_ladok_courses_OPEN = myJsonKTHCOURSES.filter(k => k.workflow_state ===
               ],
               });
 
+
+              var chart = c3.generate({
+                  bindto: '#KTH_ladok_courses_P1_20172018',
+                data: {
+                    columns: [
+                        ['P1 2017/2018', (KTH_ladok_courses_P1_20172018_publ/KTH_ladok_courses_P1_20172018_enr)*100]
+                    ],
+                    type: 'gauge',
+                },
+                gauge: {
+                  label: {
+                        value: function (value, ratio, id) {
+                            return value + ' (' + d3.format('%')(ratio) + ')';
+                   },
+                    show: false
+                },
+
+                    units: ' %',
+                    width: 10, // for adjusting arc thickness
+                },
+                color: {
+                  pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                  threshold: {
+                                        values: [0, 60, 70, 80]
+                  }
+                },
+                size: {
+                    height: 100
+                },
+  });
+
+  var chart = c3.generate({
+      bindto: '#KTH_ladok_courses_P2_20172018',
+    data: {
+        columns: [
+            ['P2 2017/2018', (KTH_ladok_courses_P2_20172018_publ/KTH_ladok_courses_P2_20172018_enr)*100]
+        ],
+        type: 'gauge',
+    },
+    gauge: {
+      label: {
+            value: function (value, ratio, id) {
+                return value + ' (' + d3.format('%')(ratio) + ')';
+       },
+        show: false
+    },
+
+        units: ' %',
+        width: 10, // for adjusting arc thickness
+    },
+    color: {
+      pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+      threshold: {
+                                    values: [0, 60, 70, 80]
+      }
+    },
+    size: {
+        height: 100
+    },
+});
+
+var chart = c3.generate({
+    bindto: '#KTH_ladok_courses_P3_20172018',
+  data: {
+      columns: [
+          ['P3 2017/2018', (KTH_ladok_courses_P3_20172018_publ/KTH_ladok_courses_P3_20172018_enr)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+    threshold: {
+                                    values: [0, 60, 70, 80]
+    }
+  },
+  size: {
+      height: 100
+  },
+});
+
+var chart = c3.generate({
+    bindto: '#KTH_ladok_courses_P4_20172018',
+  data: {
+      columns: [
+          ['P4 2017/2018', (KTH_ladok_courses_P4_20172018_publ/KTH_ladok_courses_P4_20172018_enr)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+    threshold: {
+                                    values: [0, 60, 70, 80]
+    }
+  },
+  size: {
+      height: 100
+  },
+});
+
+var chart = c3.generate({
+    bindto: '#KTH_ladok_courses_20172018',
+  data: {
+      columns: [
+          ['Average 2017/2018', (KTH_ladok_courses_20172018_publ/KTH_ladok_courses_20172018_enr)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+      pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+      threshold: {
+                                    values: [0, 60, 70, 80]
+      }
+  },
+  size: {
+      height: 100
+  },
+
+  // This will hide the div with the loader when this graph is drawn.
+
+      onrendered: function() {
+      document.getElementById('load').style.visibility="hidden";
+  }
+
+
+});
 
 
   }
