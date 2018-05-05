@@ -12,6 +12,14 @@
 
 <style>
 
+table {
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+}
+
 #load{
     width:100%;
     height:100%;
@@ -94,16 +102,78 @@ All courses imported from Ladok with at least one person enrolled (teacher and/o
 <br><hr><br>
 
 
-<h2>3. Publishing percentage for the academic year 2017/2018</h2>
+<h2>3. Ladok Course publishing percentage for the academic year 2017/2018</h2>
 <br><br>
 <table Width="100%">
+
   <tr>
-    <td width="20%"><div id="KTH_ladok_courses_P1_20172018"></div></td>
-<td width="20%"><div id="KTH_ladok_courses_P2_20172018"></div></td>
-<td width="20%"><div id="KTH_ladok_courses_P3_20172018"></div></td>
-<td width="20%"><div id="KTH_ladok_courses_P4_20172018"></div></td>
-<td width="20%"><div id="KTH_ladok_courses_20172018"></div></td>
+    <td width="10%"></td>
+    <td width="18%"><center>P1 2017/2018</center></td>
+    <td width="18%"><center>P2 2017/2018</center></td>
+    <td width="18%"><center>P3 2017/2018</center></td>
+    <td width="18%"><center>P4 2017/2018</center></td>
+    <td width="18%"><center>Average 2017/2018</center></td>
 </tr>
+
+<tr>
+  <td width="10%">KTH</td>
+  <td width="18%"><div id="KTH_ladok_courses_P1_20172018"></div></td>
+  <td width="18%"><div id="KTH_ladok_courses_P2_20172018"></div></td>
+  <td width="18%"><div id="KTH_ladok_courses_P3_20172018"></div></td>
+  <td width="18%"><div id="KTH_ladok_courses_P4_20172018"></div></td>
+  <td width="18%"><div id="KTH_ladok_courses_20172018"></div></td>
+</tr>
+
+<tr>
+  <td width="100%" colspan="6"><center><br></td>
+</tr>
+
+<tr>
+  <td width="10%">ABE</td>
+  <td width="18%"><div id="ABE_ladok_courses_P1_20172018"></div></td>
+  <td width="18%"><div id="ABE_ladok_courses_P2_20172018"></div></td>
+  <td width="18%"><div id="ABE_ladok_courses_P3_20172018"></div></td>
+  <td width="18%"><div id="ABE_ladok_courses_P4_20172018"></div></td>
+  <td width="18%"><div id="ABE_ladok_courses_20172018"></div></td>
+</tr>
+
+<tr>
+  <td width="10%">CBH</td>
+  <td width="18%"><div id="CBH_ladok_courses_P1_20172018"></div></td>
+  <td width="18%"><div id="CBH_ladok_courses_P2_20172018"></div></td>
+  <td width="18%"><div id="CBH_ladok_courses_P3_20172018"></div></td>
+  <td width="18%"><div id="CBH_ladok_courses_P4_20172018"></div></td>
+  <td width="18%"><div id="CBH_ladok_courses_20172018"></div></td>
+</tr>
+
+<tr>
+  <td width="10%">EECS</td>
+  <td width="18%"><div id="EECS_ladok_courses_P1_20172018"></div></td>
+  <td width="18%"><div id="EECS_ladok_courses_P2_20172018"></div></td>
+  <td width="18%"><div id="EECS_ladok_courses_P3_20172018"></div></td>
+  <td width="18%"><div id="EECS_ladok_courses_P4_20172018"></div></td>
+  <td width="18%"><div id="EECS_ladok_courses_20172018"></div></td>
+</tr>
+
+<tr>
+  <td width="10%">ITM</td>
+  <td width="18%"><div id="ITM_ladok_courses_P1_20172018"></div></td>
+  <td width="18%"><div id="ITM_ladok_courses_P2_20172018"></div></td>
+  <td width="18%"><div id="ITM_ladok_courses_P3_20172018"></div></td>
+  <td width="18%"><div id="ITM_ladok_courses_P4_20172018"></div></td>
+  <td width="18%"><div id="ITM_ladok_courses_20172018"></div></td>
+</tr>
+
+<tr>
+  <td width="10%">SCI</td>
+  <td width="18%"><div id="SCI_ladok_courses_P1_20172018"></div></td>
+  <td width="18%"><div id="SCI_ladok_courses_P2_20172018"></div></td>
+  <td width="18%"><div id="SCI_ladok_courses_P3_20172018"></div></td>
+  <td width="18%"><div id="SCI_ladok_courses_P4_20172018"></div></td>
+  <td width="18%"><div id="SCI_ladok_courses_20172018"></div></td>
+</tr>
+
+
 </table>
 <br><hr><br>
 
@@ -178,7 +248,7 @@ Total number of video/audio objects created using the native Canvas media record
 
 
 
-<center>KTH LMS Stats version 2.2 (2018-05-04) - (<a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
+<center>KTH LMS Stats version 2.5 (2018-05-04) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></center>
 
 
@@ -370,6 +440,10 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
 
 // ABE school (simple 1-1 account mapping)
 
+    const ABE_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
+    const ABE_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
+
+
     const ABE_p1_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
     const ABE_p1_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
     const ABE_p1_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
@@ -443,6 +517,9 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     const ABE_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
 
 // SCI school (simple 1-1 account mapping)
+
+    const SCI_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
+    const SCI_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
 
     const SCI_p1_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
     const SCI_p1_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
@@ -519,6 +596,9 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
 
 // ITM School (combines data from both ITM and ECE subaccount due to reorganisation)
 
+    const ITM_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
+    const ITM_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
+
     const ITM_p1_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
     const ITM_p1_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
     const ITM_p1_20162017_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
@@ -591,6 +671,9 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     const ITM_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 24|| k.account_id === 27).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
 
 // CBH School (combines data from three sub accounts due to reorganisation)
+
+    const CBH_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
+    const CBH_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
 
     const CBH_p1_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
     const CBH_p1_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
@@ -665,6 +748,9 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     const CBH_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 17|| k.account_id === 22|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-03-16', '2019-06-10')  ).length
 
 // EECS School (combines data from three subaccounts due to reorganisation)
+
+    const EECS_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
+    const EECS_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
 
     const EECS_p1_20162017_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
     const EECS_p1_20162017_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2016-08-25', '2016-10-25')  ).length
@@ -1259,11 +1345,315 @@ const KTH_ladok_courses_P4_20172018_publ = myJsonKTHCOURSES.filter(k => k.workfl
               });
 
 
+        var chart = c3.generate({
+            bindto: '#ABE_ladok_courses_P1_20172018',
+          data: {
+              columns: [
+                  ['ABE P1 2017/2018', (ABE_p1_20172018_published/ABE_p1_20172018_courses)*100]
+              ],
+              type: 'gauge',
+          },
+          gauge: {
+            label: {
+                  value: function (value, ratio, id) {
+                      return value + ' (' + d3.format('%')(ratio) + ')';
+             },
+              show: false
+          },
+
+              units: ' %',
+              width: 10, // for adjusting arc thickness
+          },
+          color: {
+            pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+            threshold: {
+                                  values: [0, 60, 70, 80]
+            }
+          },
+          size: {
+              height: 100
+          },
+                });
+
+                var chart = c3.generate({
+                    bindto: '#ABE_ladok_courses_P2_20172018',
+                  data: {
+                      columns: [
+                                      ['ABE P2 2017/2018', (ABE_p2_20172018_published/ABE_p2_20172018_courses)*100]
+                      ],
+                      type: 'gauge',
+                  },
+                  gauge: {
+                    label: {
+                          value: function (value, ratio, id) {
+                              return value + ' (' + d3.format('%')(ratio) + ')';
+                     },
+                      show: false
+                  },
+
+                      units: ' %',
+                      width: 10, // for adjusting arc thickness
+                  },
+                  color: {
+                    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                    threshold: {
+                                                  values: [0, 60, 70, 80]
+                    }
+                  },
+                  size: {
+                      height: 100
+                  },
+              });
+
               var chart = c3.generate({
-                  bindto: '#KTH_ladok_courses_P1_20172018',
+                  bindto: '#ABE_ladok_courses_P3_20172018',
                 data: {
                     columns: [
-                        ['P1 2017/2018', (KTH_ladok_courses_P1_20172018_publ/KTH_ladok_courses_P1_20172018_enr)*100]
+                        ['ABE P3 2017/2018', (ABE_p3_20172018_published/ABE_p3_20172018_courses)*100]
+                    ],
+                    type: 'gauge',
+                },
+                gauge: {
+                  label: {
+                        value: function (value, ratio, id) {
+                            return value + ' (' + d3.format('%')(ratio) + ')';
+                   },
+                    show: false
+                },
+
+                    units: ' %',
+                    width: 10, // for adjusting arc thickness
+                },
+                color: {
+                  pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                  threshold: {
+                                                  values: [0, 60, 70, 80]
+                  }
+                },
+                size: {
+                    height: 100
+                },
+              });
+
+              var chart = c3.generate({
+                  bindto: '#ABE_ladok_courses_P4_20172018',
+                data: {
+                    columns: [
+                        ['ABE P4 2017/2018', (ABE_p4_20172018_published/ABE_p4_20172018_courses)*100]
+                    ],
+                    type: 'gauge',
+                },
+                gauge: {
+                  label: {
+                        value: function (value, ratio, id) {
+                            return value + ' (' + d3.format('%')(ratio) + ')';
+                   },
+                    show: false
+                },
+
+                    units: ' %',
+                    width: 10, // for adjusting arc thickness
+                },
+                color: {
+                  pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                  threshold: {
+                                                  values: [0, 60, 70, 80]
+                  }
+                },
+                size: {
+                    height: 100
+                },
+              });
+
+              var chart = c3.generate({
+                  bindto: '#ABE_ladok_courses_20172018',
+                data: {
+                    columns: [
+                        ['ABE Average 2017/2018', (ABE_20172018_published/ABE_20172018_courses)*100]
+                    ],
+                    type: 'gauge',
+                },
+                gauge: {
+                  label: {
+                        value: function (value, ratio, id) {
+                            return value + ' (' + d3.format('%')(ratio) + ')';
+                   },
+                    show: false
+                },
+
+                    units: ' %',
+                    width: 10, // for adjusting arc thickness
+                },
+                color: {
+                    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                    threshold: {
+                                                  values: [0, 60, 70, 80]
+                    }
+                },
+                size: {
+                    height: 100
+                },
+
+              });
+
+
+                            var chart = c3.generate({
+                                bindto: '#CBH_ladok_courses_P1_20172018',
+                              data: {
+                                  columns: [
+                                      ['CBH P1 2017/2018', (CBH_p1_20172018_published/CBH_p1_20172018_courses)*100]
+                                  ],
+                                  type: 'gauge',
+                              },
+                              gauge: {
+                                label: {
+                                      value: function (value, ratio, id) {
+                                          return value + ' (' + d3.format('%')(ratio) + ')';
+                                 },
+                                  show: false
+                              },
+
+                                  units: ' %',
+                                  width: 10, // for adjusting arc thickness
+                              },
+                              color: {
+                                pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                                threshold: {
+                                                      values: [0, 60, 70, 80]
+                                }
+                              },
+                              size: {
+                                  height: 100
+                              },
+                });
+
+                var chart = c3.generate({
+                    bindto: '#CBH_ladok_courses_P2_20172018',
+                  data: {
+                      columns: [
+                                      ['CBH P2 2017/2018', (CBH_p2_20172018_published/CBH_p2_20172018_courses)*100]
+                      ],
+                      type: 'gauge',
+                  },
+                  gauge: {
+                    label: {
+                          value: function (value, ratio, id) {
+                              return value + ' (' + d3.format('%')(ratio) + ')';
+                     },
+                      show: false
+                  },
+
+                      units: ' %',
+                      width: 10, // for adjusting arc thickness
+                  },
+                  color: {
+                    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                    threshold: {
+                                                  values: [0, 60, 70, 80]
+                    }
+                  },
+                  size: {
+                      height: 100
+                  },
+              });
+
+              var chart = c3.generate({
+                  bindto: '#CBH_ladok_courses_P3_20172018',
+                data: {
+                    columns: [
+                        ['CBH P3 2017/2018', (CBH_p3_20172018_published/CBH_p3_20172018_courses)*100]
+                    ],
+                    type: 'gauge',
+                },
+                gauge: {
+                  label: {
+                        value: function (value, ratio, id) {
+                            return value + ' (' + d3.format('%')(ratio) + ')';
+                   },
+                    show: false
+                },
+
+                    units: ' %',
+                    width: 10, // for adjusting arc thickness
+                },
+                color: {
+                  pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                  threshold: {
+                                                  values: [0, 60, 70, 80]
+                  }
+                },
+                size: {
+                    height: 100
+                },
+              });
+
+              var chart = c3.generate({
+                  bindto: '#CBH_ladok_courses_P4_20172018',
+                data: {
+                    columns: [
+                        ['CBH P4 2017/2018', (CBH_p4_20172018_published/CBH_p4_20172018_courses)*100]
+                    ],
+                    type: 'gauge',
+                },
+                gauge: {
+                  label: {
+                        value: function (value, ratio, id) {
+                            return value + ' (' + d3.format('%')(ratio) + ')';
+                   },
+                    show: false
+                },
+
+                    units: ' %',
+                    width: 10, // for adjusting arc thickness
+                },
+                color: {
+                  pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                  threshold: {
+                                                  values: [0, 60, 70, 80]
+                  }
+                },
+                size: {
+                    height: 100
+                },
+              });
+
+              var chart = c3.generate({
+                  bindto: '#CBH_ladok_courses_20172018',
+                data: {
+                    columns: [
+                        ['CBH Average 2017/2018', (CBH_20172018_published/CBH_20172018_courses)*100]
+                    ],
+                    type: 'gauge',
+                },
+                gauge: {
+                  label: {
+                        value: function (value, ratio, id) {
+                            return value + ' (' + d3.format('%')(ratio) + ')';
+                   },
+                    show: false
+                },
+
+                    units: ' %',
+                    width: 10, // for adjusting arc thickness
+                },
+                color: {
+                    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                    threshold: {
+                                                  values: [0, 60, 70, 80]
+                    }
+                },
+                size: {
+                    height: 100
+                },
+
+              });
+
+
+              var chart = c3.generate({
+                  bindto: '#EECS_ladok_courses_P1_20172018',
+                data: {
+                    columns: [
+                        ['EECS P1 2017/2018', (EECS_p1_20172018_published/EECS_p1_20172018_courses)*100]
                     ],
                     type: 'gauge',
                 },
@@ -1290,10 +1680,466 @@ const KTH_ladok_courses_P4_20172018_publ = myJsonKTHCOURSES.filter(k => k.workfl
   });
 
   var chart = c3.generate({
+      bindto: '#EECS_ladok_courses_P2_20172018',
+    data: {
+        columns: [
+                        ['EECS P2 2017/2018', (EECS_p2_20172018_published/EECS_p2_20172018_courses)*100]
+        ],
+        type: 'gauge',
+    },
+    gauge: {
+      label: {
+            value: function (value, ratio, id) {
+                return value + ' (' + d3.format('%')(ratio) + ')';
+       },
+        show: false
+    },
+
+        units: ' %',
+        width: 10, // for adjusting arc thickness
+    },
+    color: {
+      pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+      threshold: {
+                                    values: [0, 60, 70, 80]
+      }
+    },
+    size: {
+        height: 100
+    },
+});
+
+var chart = c3.generate({
+    bindto: '#EECS_ladok_courses_P3_20172018',
+  data: {
+      columns: [
+          ['EECS P3 2017/2018', (EECS_p3_20172018_published/EECS_p3_20172018_courses)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+    threshold: {
+                                    values: [0, 60, 70, 80]
+    }
+  },
+  size: {
+      height: 100
+  },
+});
+
+var chart = c3.generate({
+    bindto: '#EECS_ladok_courses_P4_20172018',
+  data: {
+      columns: [
+          ['EECS P4 2017/2018', (EECS_p4_20172018_published/EECS_p4_20172018_courses)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+    threshold: {
+                                    values: [0, 60, 70, 80]
+    }
+  },
+  size: {
+      height: 100
+  },
+});
+
+var chart = c3.generate({
+    bindto: '#EECS_ladok_courses_20172018',
+  data: {
+      columns: [
+          ['EECS Average 2017/2018', (EECS_20172018_published/EECS_20172018_courses)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+      pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+      threshold: {
+                                    values: [0, 60, 70, 80]
+      }
+  },
+  size: {
+      height: 100
+  },
+
+});
+
+
+              var chart = c3.generate({
+                  bindto: '#ITM_ladok_courses_P1_20172018',
+                data: {
+                    columns: [
+                        ['ITM P1 2017/2018', (ITM_p1_20172018_published/ITM_p1_20172018_courses)*100]
+                    ],
+                    type: 'gauge',
+                },
+                gauge: {
+                  label: {
+                        value: function (value, ratio, id) {
+                            return value + ' (' + d3.format('%')(ratio) + ')';
+                   },
+                    show: false
+                },
+
+                    units: ' %',
+                    width: 10, // for adjusting arc thickness
+                },
+                color: {
+                  pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                  threshold: {
+                                        values: [0, 60, 70, 80]
+                  }
+                },
+                size: {
+                    height: 100
+                },
+  });
+
+  var chart = c3.generate({
+      bindto: '#ITM_ladok_courses_P2_20172018',
+    data: {
+        columns: [
+                        ['ITM P2 2017/2018', (ITM_p2_20172018_published/ITM_p2_20172018_courses)*100]
+        ],
+        type: 'gauge',
+    },
+    gauge: {
+      label: {
+            value: function (value, ratio, id) {
+                return value + ' (' + d3.format('%')(ratio) + ')';
+       },
+        show: false
+    },
+
+        units: ' %',
+        width: 10, // for adjusting arc thickness
+    },
+    color: {
+      pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+      threshold: {
+                                    values: [0, 60, 70, 80]
+      }
+    },
+    size: {
+        height: 100
+    },
+});
+
+var chart = c3.generate({
+    bindto: '#ITM_ladok_courses_P3_20172018',
+  data: {
+      columns: [
+          ['ITM P3 2017/2018', (ITM_p3_20172018_published/ITM_p3_20172018_courses)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+    threshold: {
+                                    values: [0, 60, 70, 80]
+    }
+  },
+  size: {
+      height: 100
+  },
+});
+
+var chart = c3.generate({
+    bindto: '#ITM_ladok_courses_P4_20172018',
+  data: {
+      columns: [
+          ['ITM P4 2017/2018', (ITM_p4_20172018_published/ITM_p4_20172018_courses)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+    threshold: {
+                                    values: [0, 60, 70, 80]
+    }
+  },
+  size: {
+      height: 100
+  },
+});
+
+var chart = c3.generate({
+    bindto: '#ITM_ladok_courses_20172018',
+  data: {
+      columns: [
+          ['ITM Average 2017/2018', (ITM_20172018_published/ITM_20172018_courses)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+      pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+      threshold: {
+                                    values: [0, 60, 70, 80]
+      }
+  },
+  size: {
+      height: 100
+  },
+
+});
+
+
+              var chart = c3.generate({
+                  bindto: '#SCI_ladok_courses_P1_20172018',
+                data: {
+                    columns: [
+                        ['SCI P1 2017/2018', (SCI_p1_20172018_published/SCI_p1_20172018_courses)*100]
+                    ],
+                    type: 'gauge',
+                },
+                gauge: {
+                  label: {
+                        value: function (value, ratio, id) {
+                            return value + ' (' + d3.format('%')(ratio) + ')';
+                   },
+                    show: false
+                },
+
+                    units: ' %',
+                    width: 10, // for adjusting arc thickness
+                },
+                color: {
+                  pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+                  threshold: {
+                                        values: [0, 60, 70, 80]
+                  }
+                },
+                size: {
+                    height: 100
+                },
+  });
+
+  var chart = c3.generate({
+      bindto: '#SCI_ladok_courses_P2_20172018',
+    data: {
+        columns: [
+                        ['SCI P2 2017/2018', (SCI_p2_20172018_published/SCI_p2_20172018_courses)*100]
+        ],
+        type: 'gauge',
+    },
+    gauge: {
+      label: {
+            value: function (value, ratio, id) {
+                return value + ' (' + d3.format('%')(ratio) + ')';
+       },
+        show: false
+    },
+
+        units: ' %',
+        width: 10, // for adjusting arc thickness
+    },
+    color: {
+      pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+      threshold: {
+                                    values: [0, 60, 70, 80]
+      }
+    },
+    size: {
+        height: 100
+    },
+});
+
+var chart = c3.generate({
+    bindto: '#SCI_ladok_courses_P3_20172018',
+  data: {
+      columns: [
+          ['SCI P3 2017/2018', (SCI_p3_20172018_published/SCI_p3_20172018_courses)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+    threshold: {
+                                    values: [0, 60, 70, 80]
+    }
+  },
+  size: {
+      height: 100
+  },
+});
+
+var chart = c3.generate({
+    bindto: '#SCI_ladok_courses_P4_20172018',
+  data: {
+      columns: [
+          ['SCI P4 2017/2018', (SCI_p4_20172018_published/SCI_p4_20172018_courses)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+    pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+    threshold: {
+                                    values: [0, 60, 70, 80]
+    }
+  },
+  size: {
+      height: 100
+  },
+});
+
+var chart = c3.generate({
+    bindto: '#SCI_ladok_courses_20172018',
+  data: {
+      columns: [
+          ['SCI Average 2017/2018', (SCI_20172018_published/SCI_20172018_courses)*100]
+      ],
+      type: 'gauge',
+  },
+  gauge: {
+    label: {
+          value: function (value, ratio, id) {
+              return value + ' (' + d3.format('%')(ratio) + ')';
+     },
+      show: false
+  },
+
+      units: ' %',
+      width: 10, // for adjusting arc thickness
+  },
+  color: {
+      pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+      threshold: {
+                                    values: [0, 60, 70, 80]
+      }
+  },
+  size: {
+      height: 100
+  },
+
+});
+
+
+    var chart = c3.generate({
+        bindto: '#KTH_ladok_courses_P1_20172018',
+      data: {
+          columns: [
+              ['KTH P1 2017/2018', (KTH_ladok_courses_P1_20172018_publ/KTH_ladok_courses_P1_20172018_enr)*100]
+          ],
+          type: 'gauge',
+      },
+      gauge: {
+        label: {
+              value: function (value, ratio, id) {
+                  return value + ' (' + d3.format('%')(ratio) + ')';
+         },
+          show: false
+      },
+
+          units: ' %',
+          width: 10, // for adjusting arc thickness
+      },
+      color: {
+        pattern: ['#dd2100', '#ff4f30', '#F6C600', '#60B044'],
+        threshold: {
+                              values: [0, 60, 70, 80]
+        }
+      },
+      size: {
+          height: 100
+      },
+  });
+
+  var chart = c3.generate({
       bindto: '#KTH_ladok_courses_P2_20172018',
     data: {
         columns: [
-            ['P2 2017/2018', (KTH_ladok_courses_P2_20172018_publ/KTH_ladok_courses_P2_20172018_enr)*100]
+            ['KTH P2 2017/2018', (KTH_ladok_courses_P2_20172018_publ/KTH_ladok_courses_P2_20172018_enr)*100]
         ],
         type: 'gauge',
     },
@@ -1323,7 +2169,7 @@ var chart = c3.generate({
     bindto: '#KTH_ladok_courses_P3_20172018',
   data: {
       columns: [
-          ['P3 2017/2018', (KTH_ladok_courses_P3_20172018_publ/KTH_ladok_courses_P3_20172018_enr)*100]
+          ['KTH P3 2017/2018', (KTH_ladok_courses_P3_20172018_publ/KTH_ladok_courses_P3_20172018_enr)*100]
       ],
       type: 'gauge',
   },
@@ -1353,7 +2199,7 @@ var chart = c3.generate({
     bindto: '#KTH_ladok_courses_P4_20172018',
   data: {
       columns: [
-          ['P4 2017/2018', (KTH_ladok_courses_P4_20172018_publ/KTH_ladok_courses_P4_20172018_enr)*100]
+          ['KTH P4 2017/2018', (KTH_ladok_courses_P4_20172018_publ/KTH_ladok_courses_P4_20172018_enr)*100]
       ],
       type: 'gauge',
   },
