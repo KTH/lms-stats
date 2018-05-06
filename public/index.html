@@ -12,20 +12,30 @@
 
 <style>
 
-table {
-    border-collapse: collapse;
+body {
+   margin: 0;
+   padding: 0;
 }
 
-table, td, th {
-    border: 1px solid black;
+table {
+    border-collapse: collapse;
+    border: 1px #f2f2f2;
 }
+
+td, th {
+    text-align: center;
+    font-weight: bold;
+}
+
+tr:nth-child(odd) {background-color: #f2f2f2;}
 
 #load{
     width:100%;
     height:100%;
     position:fixed;
     z-index:9999;
-  background: rgba(255,255,255,0.9);
+    color: #ffffff;
+  background: rgba(0,0,0,0.8);
 }
 
 /* Center the loader */
@@ -63,7 +73,7 @@ table, td, th {
 <body>
 
 <div id="load">
-  <div="contents">
+
 <center><br><br><h2>Fetching data from KTH Canvas LMS</h2>This page is based on realtime data from the Canvas API.<br>It can take up to about 30 seconds for all graphs to be rendered.</center>
 <div id="loader"></div></div>
 
@@ -108,11 +118,11 @@ All courses imported from Ladok with at least one person enrolled (teacher and/o
 
   <tr>
     <td width="10%"></td>
-    <td width="18%"><center>P1 2017/2018</center></td>
-    <td width="18%"><center>P2 2017/2018</center></td>
-    <td width="18%"><center>P3 2017/2018</center></td>
-    <td width="18%"><center>P4 2017/2018</center></td>
-    <td width="18%"><center>Average 2017/2018</center></td>
+    <td width="18%">P1 2017/2018</td>
+    <td width="18%">P2 2017/2018</td>
+    <td width="18%">P3 2017/2018</td>
+    <td width="18%">P4 2017/2018</td>
+    <td width="18%">2017/2018</td>
 </tr>
 
 <tr>
@@ -122,10 +132,6 @@ All courses imported from Ladok with at least one person enrolled (teacher and/o
   <td width="18%"><div id="KTH_ladok_courses_P3_20172018"></div></td>
   <td width="18%"><div id="KTH_ladok_courses_P4_20172018"></div></td>
   <td width="18%"><div id="KTH_ladok_courses_20172018"></div></td>
-</tr>
-
-<tr>
-  <td width="100%" colspan="6"><center><br></td>
 </tr>
 
 <tr>
@@ -245,18 +251,11 @@ Total number of video/audio objects created using the native Canvas media record
 <div class="ct-chart9 ct-minor-seventh"></div>
 <br><hr><br>
 
-
-
-
-<center>KTH LMS Stats version 2.5.2 (2018-05-05) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
+<center>KTH LMS Stats version 2.5.3 (2018-05-05) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></center>
 
 
-
-
 <script>
-
-
 
     async function drawGraph(){
 
@@ -287,45 +286,36 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     var arr = [myJsonKTHA[0].by_date];
     var maxparticipations = Math.max(...participations);
 
-
 // Generate C3JS graph daily usage
 
     var chart = c3.generate({
         bindto: '#chart',
-
         data: {
           x: 'x',
-
           columns: [
               ['x', ...dates],
               ['views', ...views],
               ['participations', ...participations ]
             ],
-
           axes: {
             participations: 'y2'
             },
-
           types: {
             participations: 'step',
             views: 'line'
             }
           },
-
           point: {
             show: false
             },
-
           grid: {
             y: {
               show: false
             }
           },
-
         color: {
             pattern: ['#000000','#b0c92b']
             },
-
         axis: {
             x: {
                 type: 'timeseries',
@@ -333,30 +323,25 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
                     format: '%Y-%m-%d',
                     rotate: -90,
                     values: ['2016-08-29','2016-10-31','2017-01-17','2017-03-20','2017-08-28','2017-10-30', '2018-01-16','2018-03-19','2018-08-27','2018-10-19','2019-01-15','2019-03-18']
-
                 }
               },
-
           y: {
               label: {
                 text: 'Views (Black line)',
                 position: 'outer-middle'
               },
-
             min: 0,
             padding: {
               top: 0,
               bottom: 0
             }
           },
-
           y2: {
             show: true,
             label: {
               text: 'Participations (Green steps)',
               position: 'outer-middle'
             },
-
             min: 0,
               padding: {
                 top: 30,
@@ -364,11 +349,9 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
               }
             }
           },
-
           zoom: {
             enabled: true,
           }
-
     });
 
     // Draw vertical lines to indicate start of each study period
@@ -420,7 +403,6 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     setTimeout(function () {
     chart.xgrids.add([{value: '2019-03-18', class: 'studyline', text:'P4-18/19'}]);
     }, 2750);
-
 
 // Create constants for use in graphs making the code slightly easier to read.
 
@@ -584,7 +566,6 @@ const SCI_p4_20182019_published = myJsonKTHENRCOURSES.filter(k => k.workflow_sta
 const SCI_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-03-01', '2019-05-31')  ).length
 const SCI_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-03-01', '2019-05-31')  ).length
 const SCI_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 28).filter(k => moment(k.start_at).isBetween('2019-03-01', '2019-05-31')  ).length
-
 
 // ITM School (combines data from both ITM and ECE subaccount due to reorganisation)
 
@@ -817,7 +798,6 @@ const EECS_p4_20182019_published_KTH = myJsonKTHENRCOURSES.filter(k => k.workflo
 const EECS_p4_20182019_published_PUBLIC = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-03-01', '2019-05-31')  ).length
 const EECS_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 23|| k.account_id === 25|| k.account_id === 26).filter(k => moment(k.start_at).isBetween('2019-03-01', '2019-05-31')  ).length
 
-
 var chart = c3.generate({
           bindto: '#chart2',
     data: {
@@ -834,58 +814,39 @@ var chart = c3.generate({
             ['ITM published', ITM_p1_20162017_published, ITM_p2_20162017_published, ITM_p3_20162017_published, ITM_p4_20162017_published, ITM_p1_20172018_published, ITM_p2_20172018_published, ITM_p3_20172018_published, ITM_p4_20172018_published, ITM_p1_20182019_published, ITM_p2_20182019_published, ITM_p3_20182019_published, ITM_p4_20182019_published],
             ['SCI published', SCI_p1_20162017_published, SCI_p2_20162017_published, SCI_p3_20162017_published, SCI_p4_20162017_published, SCI_p1_20172018_published, SCI_p2_20172018_published, SCI_p3_20172018_published, SCI_p4_20172018_published, SCI_p1_20182019_published, SCI_p2_20182019_published, SCI_p3_20182019_published, SCI_p4_20182019_published],
 
-
             ['ABE open', ABE_p1_20162017_published_OPEN, ABE_p2_20162017_published_OPEN, ABE_p3_20162017_published_OPEN, ABE_p4_20162017_published_OPEN, ABE_p1_20172018_published_OPEN, ABE_p2_20172018_published_OPEN, ABE_p3_20172018_published_OPEN, ABE_p4_20172018_published_OPEN, ABE_p1_20182019_published_OPEN, ABE_p2_20182019_published_OPEN, ABE_p3_20182019_published_OPEN, ABE_p4_20182019_published_OPEN],
             ['CBH open', CBH_p1_20162017_published_OPEN, CBH_p2_20162017_published_OPEN, CBH_p3_20162017_published_OPEN, CBH_p4_20162017_published_OPEN, CBH_p1_20172018_published_OPEN, CBH_p2_20172018_published_OPEN, CBH_p3_20172018_published_OPEN, CBH_p4_20172018_published_OPEN, CBH_p1_20182019_published_OPEN, CBH_p2_20182019_published_OPEN, CBH_p3_20182019_published_OPEN, CBH_p4_20182019_published_OPEN],
             ['EECS open', EECS_p1_20162017_published_OPEN, EECS_p2_20162017_published_OPEN, EECS_p3_20162017_published_OPEN, EECS_p4_20162017_published_OPEN, EECS_p1_20172018_published_OPEN, EECS_p2_20172018_published_OPEN, EECS_p3_20172018_published_OPEN, EECS_p4_20172018_published_OPEN, EECS_p1_20182019_published_OPEN, EECS_p2_20182019_published_OPEN, EECS_p3_20182019_published_OPEN, EECS_p4_20182019_published_OPEN],
             ['ITM open', ITM_p1_20162017_published_OPEN, ITM_p2_20162017_published_OPEN, ITM_p3_20162017_published_OPEN, ITM_p4_20162017_published_OPEN, ITM_p1_20172018_published_OPEN, ITM_p2_20172018_published_OPEN, ITM_p3_20172018_published_OPEN, ITM_p4_20172018_published_OPEN, ITM_p1_20182019_published_OPEN, ITM_p2_20182019_published_OPEN, ITM_p3_20182019_published_OPEN, ITM_p4_20182019_published_OPEN],
             ['SCI open', SCI_p1_20162017_published_OPEN, SCI_p2_20162017_published_OPEN, SCI_p3_20162017_published_OPEN, SCI_p4_20162017_published_OPEN, SCI_p1_20172018_published_OPEN, SCI_p2_20172018_published_OPEN, SCI_p3_20172018_published_OPEN, SCI_p4_20172018_published_OPEN, SCI_p1_20182019_published_OPEN, SCI_p2_20182019_published_OPEN, SCI_p3_20182019_published_OPEN, SCI_p4_20182019_published_OPEN],
-
-
-//            ['ABE-public', ABE_p1_20162017_published_PUBLIC, ABE_p2_20162017_published_PUBLIC, ABE_p3_20162017_published_PUBLIC, ABE_p4_20162017_published_PUBLIC, ABE_p1_20172018_published_PUBLIC, ABE_p2_20172018_published_PUBLIC, ABE_p3_20172018_published_PUBLIC, ABE_p4_20172018_published_PUBLIC, ABE_p1_20182019_published_PUBLIC, ABE_p2_20182019_published_PUBLIC],
-//            ['CBH-public', CBH_p1_20162017_published_PUBLIC, CBH_p2_20162017_published_PUBLIC, CBH_p3_20162017_published_PUBLIC, CBH_p4_20162017_published_PUBLIC, CBH_p1_20172018_published_PUBLIC, CBH_p2_20172018_published_PUBLIC, CBH_p3_20172018_published_PUBLIC, CBH_p4_20172018_published_PUBLIC, CBH_p1_20182019_published_PUBLIC, CBH_p2_20182019_published_PUBLIC],
-//            ['EECS-public', EECS_p1_20162017_published_PUBLIC, EECS_p2_20162017_published_PUBLIC, EECS_p3_20162017_published_PUBLIC, EECS_p4_20162017_published_PUBLIC, EECS_p1_20172018_published_PUBLIC, EECS_p2_20172018_published_PUBLIC, EECS_p3_20172018_published_PUBLIC, EECS_p4_20172018_published_PUBLIC, EECS_p1_20182019_published_PUBLIC, EECS_p2_20182019_published_PUBLIC],
-//            ['ITM-public', ITM_p1_20162017_published_PUBLIC, ITM_p2_20162017_published_PUBLIC, ITM_p3_20162017_published_PUBLIC, ITM_p4_20162017_published_PUBLIC, ITM_p1_20172018_published_PUBLIC, ITM_p2_20172018_published_PUBLIC, ITM_p3_20172018_published_PUBLIC, ITM_p4_20172018_published_PUBLIC, ITM_p1_20182019_published_PUBLIC, ITM_p2_20182019_published_PUBLIC],
-//            ['SCI-public', SCI_p1_20162017_published_PUBLIC, SCI_p2_20162017_published_PUBLIC, SCI_p3_20162017_published_PUBLIC, SCI_p4_20162017_published_PUBLIC, SCI_p1_20172018_published_PUBLIC, SCI_p2_20172018_published_PUBLIC, SCI_p3_20172018_published_PUBLIC, SCI_p4_20172018_published_PUBLIC, SCI_p1_20182019_published_PUBLIC, SCI_p2_20182019_published_PUBLIC]
-
         ],
-
         type: 'bar',
         colors: {
           'ABE courses': '#1954a6',
           'ABE published': '#1954a6',
           'ABE open': '#1954a6',
-          'ABE public': '#1954a6',
 
           'CBH courses': '#24a0d8',
           'CBH published': '#24a0d8',
           'CBH open': '#24a0d8',
-          'CBH publik': '#24a0d8',
 
           'EECS courses': '#b0c92b',
           'EECS published': '#b0c92b',
           'EECS open': '#b0c92b',
-          'EECS public': '#b0c92b',
 
           'ITM courses': '#62922e',
           'ITM published': '#62922e',
           'ITM open': '#62922e',
-          'ITM public': '#62922e',
 
           'SCI courses': '#fab919',
           'SCI published': '#fab919',
           'SCI open': '#fab919',
-          'SCI public': '#fab919'
-
-
 
         },
         groups: [
             ['ABE courses', 'CBH courses', 'EECS courses', 'ITM courses','SCI courses'],
             ['ABE published', 'CBH published', 'EECS published', 'ITM published','SCI published'],
             ['ABE open', 'CBH open', 'EECS open', 'ITM open','SCI open'],
-//            ['ABE-public', 'CBH-public', 'EECS-public', 'ITM-public','SCI-public']
-
         ],
         order: null,
     },
@@ -900,15 +861,7 @@ var chart = c3.generate({
             show: true
         }
     },
-
-
-
 });
-
-
-
-
-
 
 // fetch global statistics data
 
@@ -973,7 +926,6 @@ var chart = c3.generate({
           return (value / 1000000) + 'M';
         }
       }
-
   });
 
 // fetch school level statistics data
@@ -1011,17 +963,14 @@ var chart = c3.generate({
       [0, myJsonICTS[0].courses, 0, myJsonSTHS[0].courses, 0, 0]
     ]
   },
-
   {
     stackBars: true,
-
     chartPadding: {
       right: 40,
       left: 40,
       top: 40,
       bottom: 40
     },
-
       plugins: [
         Chartist.plugins.ctBarLabels(
           {
@@ -1031,7 +980,6 @@ var chart = c3.generate({
               labelClass: 'ct-label-white',
             })
           ],
-
   });
 
 // draw graphs for teacher role school level statistics data
@@ -1044,7 +992,6 @@ var chart = c3.generate({
       [0, myJsonICTS[0].teachers, 0, myJsonSTHS[0].teachers, 0, 0]
     ]
   },
-
   {
     stackBars: true,
       showLabel: true,
@@ -1054,7 +1001,6 @@ var chart = c3.generate({
         top: 40,
         bottom: 40
       },
-
       plugins: [
         Chartist.plugins.ctBarLabels(
           {
@@ -1074,7 +1020,6 @@ var chart = c3.generate({
         [0, myJsonICTS[0].students, 0, myJsonSTHS[0].students, 0, 0]
         ]
     },
-
     {
       stackBars: true,
         showLabel: true,
@@ -1084,7 +1029,6 @@ var chart = c3.generate({
           top: 40,
           bottom: 40
         },
-
         plugins: [
           Chartist.plugins.ctBarLabels(
             {
@@ -1106,7 +1050,6 @@ var chart = c3.generate({
       [0, myJsonICTS[0].attachments, 0, myJsonSTHS[0].attachments, 0, 0]
     ]
   },
-
   {
     stackBars: true,
       showLabel: true,
@@ -1116,7 +1059,6 @@ var chart = c3.generate({
         top: 40,
         bottom: 40
       },
-
       plugins: [
         Chartist.plugins.ctBarLabels(
           {
@@ -1138,7 +1080,6 @@ var chart = c3.generate({
           [0, myJsonICTS[0].assignments, 0, myJsonSTHS[0].assignments, 0, 0]
           ]
         },
-
         {
         stackBars: true,
           showLabel: true,
@@ -1148,7 +1089,6 @@ var chart = c3.generate({
             top: 40,
             bottom: 40
           },
-
           plugins: [
             Chartist.plugins.ctBarLabels(
               {
@@ -1170,7 +1110,6 @@ var chart = c3.generate({
       [0, myJsonICTS[0].discussion_topics, 0, myJsonSTHS[0].discussion_topics, 0, 0]
       ]
     },
-
     {
     stackBars: true,
       showLabel: true,
@@ -1180,7 +1119,6 @@ var chart = c3.generate({
         top: 40,
         bottom: 40
       },
-
       plugins: [
         Chartist.plugins.ctBarLabels(
           {
@@ -1200,7 +1138,6 @@ var chart = c3.generate({
           [myJsonABES[0].media_objects, (myJsonCSCS[0].media_objects+myJsonEESS[0].media_objects+myJsonICTS[0].media_objects), (myJsonITMS[0].media_objects+myJsonECES[0].media_objects), (myJsonCHES[0].media_objects+myJsonBIOS[0].media_objects+myJsonSTHS[0].media_objects), myJsonSCIS[0].media_objects, myJsonUF[0].media_objects]
         ]
         },
-
         {
           chartPadding: {
             right: 40,
@@ -1208,7 +1145,6 @@ var chart = c3.generate({
             top: 40,
             bottom: 40
           },
-
           plugins: [
             Chartist.plugins.ctBarLabels(
               {
@@ -1217,8 +1153,6 @@ var chart = c3.generate({
                 },
               })
             ],
-
-
           });
 
 // fetch data for school level ladok statistics data
@@ -1254,11 +1188,8 @@ var chart = c3.generate({
       [0, myJsonICTSL[0].courses, 0, myJsonSTHSL[0].courses, 0]
     ]
   },
-
   {
-
     stackBars: true,
-
     chartPadding: {
       right: 40,
       left: 40,
@@ -1458,7 +1389,7 @@ var chart = c3.generate({
     bindto: '#ABE_ladok_courses_20172018',
   data: {
       columns: [
-          ['ABE Average 2017/2018', (ABE_20172018_published/ABE_20172018_courses)*100]
+          ['ABE 2017/2018', (ABE_20172018_published/ABE_20172018_courses)*100]
       ],
       type: 'gauge',
   },
@@ -1610,7 +1541,7 @@ var chart = c3.generate({
         bindto: '#CBH_ladok_courses_20172018',
       data: {
           columns: [
-              ['CBH Average 2017/2018', (CBH_20172018_published/CBH_20172018_courses)*100]
+              ['CBH 2017/2018', (CBH_20172018_published/CBH_20172018_courses)*100]
           ],
           type: 'gauge',
       },
@@ -1762,7 +1693,7 @@ var chart = c3.generate({
     bindto: '#EECS_ladok_courses_20172018',
   data: {
       columns: [
-          ['EECS Average 2017/2018', (EECS_20172018_published/EECS_20172018_courses)*100]
+          ['EECS 2017/2018', (EECS_20172018_published/EECS_20172018_courses)*100]
       ],
       type: 'gauge',
   },
@@ -1914,7 +1845,7 @@ var chart = c3.generate({
     bindto: '#ITM_ladok_courses_20172018',
   data: {
       columns: [
-          ['ITM Average 2017/2018', (ITM_20172018_published/ITM_20172018_courses)*100]
+          ['ITM 2017/2018', (ITM_20172018_published/ITM_20172018_courses)*100]
       ],
       type: 'gauge',
   },
@@ -2066,7 +1997,7 @@ var chart = c3.generate({
     bindto: '#SCI_ladok_courses_20172018',
   data: {
       columns: [
-          ['SCI Average 2017/2018', (SCI_20172018_published/SCI_20172018_courses)*100]
+          ['SCI 2017/2018', (SCI_20172018_published/SCI_20172018_courses)*100]
       ],
       type: 'gauge',
   },
@@ -2218,7 +2149,7 @@ var chart = c3.generate({
     bindto: '#KTH_ladok_courses_20172018',
   data: {
       columns: [
-          ['Average 2017/2018', (KTH_ladok_courses_20172018_publ/KTH_ladok_courses_20172018_enr)*100]
+          ['KTH 2017/2018', (KTH_ladok_courses_20172018_publ/KTH_ladok_courses_20172018_enr)*100]
       ],
       type: 'gauge',
   },
