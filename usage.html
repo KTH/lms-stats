@@ -1,0 +1,225 @@
+<html>
+
+<head>
+<script src="chartist.js"></script>
+<script src="moment.js"></script>
+<script src="chartist-plugin-barlabels.js"></script>
+<script src="d3.js"></script>
+<script src="c3.js"></script>
+
+<link rel="stylesheet" type="text/css" href="c3.css">
+<link rel="stylesheet" type="text/css" href="chartist.css">
+<link rel="stylesheet" type="text/css" href="basic.css">
+
+</head>
+
+<body>
+
+<div id="load">
+
+<center><br><br><h2>Fetching data from KTH Canvas LMS</h2>This page is based on realtime data from the Canvas API.<br>It can take up to about 30 seconds for all graphs to be rendered.</center>
+<div id="loader"></div></div>
+
+<div id="content">
+
+<h2 id="32">3.2. Uploaded files/school</h2>
+Total number of files uploaded to KTH Canvas instance.
+<br><br>
+<div class="ct-chart6 ct-minor-seventh"></div>
+<br><hr><br>
+
+<h2 id="33">3.3. Student assignement submissions/school</h2>
+Total number of student submissions in assignments in courses.
+<br><br>
+<div class="ct-chart7 ct-minor-seventh"></div>
+<br><hr><br>
+
+<h2 id="34">3.4. Discussion posts/school</h2>
+Total number of discussion posts in discussion forums in courses.
+<br><br>
+<div class="ct-chart8 ct-minor-seventh"></div>
+<br><hr><br>
+
+<h2 id="35">3.5. Video/Audio objects/school</h2>
+Total number of video/audio objects created using the native Canvas media recording tool.
+<br><br>
+<div class="ct-chart9 ct-minor-seventh"></div>
+<br><hr><br>
+
+<center>KTH LMS Stats version 2.5.3 (2018-05-05) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
+Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></center>
+
+</div>
+
+<script>
+
+    async function drawGraph(){
+
+
+
+
+    // fetch school level statistics data
+
+      const responseABES = await fetch('/api/lms-stats/abes')
+      const myJsonABES = await responseABES.json()
+      const responseBIOS = await fetch('/api/lms-stats/bios')
+      const myJsonBIOS = await responseBIOS.json()
+      const responseCHES = await fetch('/api/lms-stats/ches')
+      const myJsonCHES = await responseCHES.json()
+      const responseCSCS = await fetch('/api/lms-stats/cscs')
+      const myJsonCSCS = await responseCSCS.json()
+      const responseECES = await fetch('/api/lms-stats/eces')
+      const myJsonECES = await responseECES.json()
+      const responseEESS = await fetch('/api/lms-stats/eess')
+      const myJsonEESS = await responseEESS.json()
+      const responseICTS = await fetch('/api/lms-stats/icts')
+      const myJsonICTS = await responseICTS.json()
+      const responseITMS = await fetch('/api/lms-stats/itms')
+      const myJsonITMS = await responseITMS.json()
+      const responseSCIS = await fetch('/api/lms-stats/scis')
+      const myJsonSCIS = await responseSCIS.json()
+      const responseSTHS = await fetch('/api/lms-stats/sths')
+      const myJsonSTHS = await responseSTHS.json()
+      const responseUF = await fetch('/api/lms-stats/ufs')
+      const myJsonUF = await responseUF.json()
+
+// draw graphs for uploaded files school level statistics data
+
+  new Chartist.Bar('.ct-chart6', {
+    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
+    series: [
+      [myJsonABES[0].attachments, myJsonCSCS[0].attachments, myJsonITMS[0].attachments, myJsonCHES[0].attachments, myJsonSCIS[0].attachments, myJsonUF[0].attachments],
+      [0, myJsonEESS[0].attachments, myJsonECES[0].attachments, myJsonBIOS[0].attachments, 0, 0],
+      [0, myJsonICTS[0].attachments, 0, myJsonSTHS[0].attachments, 0, 0]
+    ]
+  },
+  {
+    stackBars: true,
+      showLabel: true,
+      chartPadding: {
+        right: 40,
+        left: 40,
+        top: 40,
+        bottom: 40
+      },
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: 17
+            },
+            labelClass: 'ct-label-white',
+          })
+        ],
+      });
+
+// draw graphs for student submission school level statistics data
+
+      new Chartist.Bar('.ct-chart7', {
+        labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
+        series: [
+          [myJsonABES[0].assignments, myJsonCSCS[0].assignments, myJsonITMS[0].assignments, myJsonCHES[0].assignments, myJsonSCIS[0].assignments, myJsonUF[0].assignments],
+          [0, myJsonEESS[0].assignments, myJsonECES[0].assignments, myJsonBIOS[0].assignments, 0, 0],
+          [0, myJsonICTS[0].assignments, 0, myJsonSTHS[0].assignments, 0, 0]
+          ]
+        },
+        {
+        stackBars: true,
+          showLabel: true,
+          chartPadding: {
+            right: 40,
+            left: 40,
+            top: 40,
+            bottom: 40
+          },
+          plugins: [
+            Chartist.plugins.ctBarLabels(
+              {
+                labelOffset: {
+                  y: 17
+                },
+                labelClass: 'ct-label-white',
+              })
+            ],
+          });
+
+// draw graphs for discussion forum posts school level statistics data
+
+  new Chartist.Bar('.ct-chart8', {
+    labels: ['ABE', 'EECS (CSC+EES+ICT)', 'ITM (ITM+ECE)', 'CBH (CHE+BIO+STH)','SCI', 'UF'],
+    series: [
+      [myJsonABES[0].discussion_topics, myJsonCSCS[0].discussion_topics, myJsonITMS[0].discussion_topics, myJsonCHES[0].discussion_topics, myJsonSCIS[0].discussion_topics, myJsonUF[0].discussion_topics],
+      [0, myJsonEESS[0].discussion_topics, myJsonECES[0].discussion_topics, myJsonBIOS[0].discussion_topics, 0, 0],
+      [0, myJsonICTS[0].discussion_topics, 0, myJsonSTHS[0].discussion_topics, 0, 0]
+      ]
+    },
+    {
+    stackBars: true,
+      showLabel: true,
+      chartPadding: {
+        right: 40,
+        left: 40,
+        top: 40,
+        bottom: 40
+      },
+      plugins: [
+        Chartist.plugins.ctBarLabels(
+          {
+            labelOffset: {
+              y: 17
+            },
+            labelClass: 'ct-label-white',
+          })
+        ],
+      });
+
+// draw graphs for media objects school level statistics data
+
+      new Chartist.Bar('.ct-chart9', {
+        labels: ['ABE', 'EECS', 'ITM', 'CBH', 'SCI', 'UF'],
+        series: [
+          [myJsonABES[0].media_objects, (myJsonCSCS[0].media_objects+myJsonEESS[0].media_objects+myJsonICTS[0].media_objects), (myJsonITMS[0].media_objects+myJsonECES[0].media_objects), (myJsonCHES[0].media_objects+myJsonBIOS[0].media_objects+myJsonSTHS[0].media_objects), myJsonSCIS[0].media_objects, myJsonUF[0].media_objects]
+        ]
+        },
+        {
+          chartPadding: {
+            right: 40,
+            left: 40,
+            top: 40,
+            bottom: 40
+          },
+          plugins: [
+            Chartist.plugins.ctBarLabels(
+              {
+                labelOffset: {
+                  y: -5
+                },
+              })
+            ],
+          });
+
+
+
+
+
+
+  document.getElementById('load').style.visibility="hidden";
+  document.getElementById('content').style.visibility="visible";
+
+
+
+  }
+
+
+
+drawGraph()
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
