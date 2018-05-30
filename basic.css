@@ -1,0 +1,87 @@
+body {
+   margin: 0;
+   padding: 0;
+}
+
+
+.sidenav {
+    background: #eee;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    left: 10px;
+    overflow-x: hidden;
+    padding: 8px;
+    border: #777 2px solid;
+    font-size: small;
+}
+
+.main {
+    top: 20px;
+    margin-left: 250px;
+    padding: 8px;
+}
+
+.c3-chart-arcs-background{fill:#e0e0e0!important;stroke:#222}
+
+#content {
+    visibility: hidden;
+}
+
+table {
+    border: 1px #f2f2f2;
+    font-weight: bold;
+}
+
+table#legend {
+    font-size: small;
+    font-weight: normal;
+    border: 1px #f2f2f2;
+}
+
+td, th {
+    text-align: center;
+}
+
+tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+#load{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:9999;
+    color: #ffffff;
+  background: rgba(0,0,0,0.8);
+}
+
+/* Center the loader */
+
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
