@@ -3,6 +3,28 @@ body {
    padding: 0;
 }
 
+
+.sidenav {
+    background: #eee;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    left: 10px;
+    overflow-x: hidden;
+    padding: 8px;
+    border: #777 2px solid;
+    font-size: small;
+}
+
+.main {
+    top: 20px;
+    margin-left: 250px;
+    padding: 8px;
+}
+
+.c3-chart-arcs-background{fill:#e0e0e0!important;stroke:#222}
+
 #content {
     visibility: hidden;
 }
