@@ -1,0 +1,123 @@
+<html>
+
+<head>
+<script src="chartist.js"></script>
+<script src="moment.js"></script>
+<script src="chartist-plugin-barlabels.js"></script>
+<script src="d3.js"></script>
+<script src="c3.js"></script>
+
+<link rel="stylesheet" type="text/css" href="basic.css">
+<link rel="stylesheet" type="text/css" href="c3.css">
+<link rel="stylesheet" type="text/css" href="chartist.css">
+
+
+
+</head>
+
+<body>
+  <div id="load">
+
+  <center><br><br><h2>Fetching data from KTH Canvas LMS</h2>This page is based on realtime data from the Canvas API.<br>It can take up to about 30 seconds for all graphs to be rendered.</center>
+  <div id="loader"></div></div>
+
+<div id="content">
+
+
+
+<h3 id="242">2.4.2. Courses published to all at KTH</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Course name</th><th>School</th>
+    </tr>
+  </thead>
+  <tbody id="open to kth">
+  </tbody>
+</table>
+
+</div>
+<script>
+
+    async function drawGraph(){
+
+// Fetch global course data for all courses. This data is refreshed only on app restart.
+
+    const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
+    const myJsonKTHCOURSES = await responseKTHCOURSES.json()
+
+// Fetch global course data for all courses with active enrollments. This data is refreshed only on app restart.
+
+    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
+    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
+
+
+const KTH_ladok_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
+const KTH_ladok_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
+const KTH_ladok_courses_OPEN = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
+
+
+
+
+
+var orderKTH = KTH_ladok_courses_KTH;
+
+orderKTH.sort(function(a, b) {
+  var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+  var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+
+  // names must be equal
+  return 0;
+});
+
+
+
+
+
+// Create hyperlinked list of Courses open to
+
+var text = "";
+var i;
+
+for (i = 0; i < orderKTH.length; i++) {
+  text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH[i].id + "/\" target=\"_blank\">" + orderKTH[i].name + "</a></td><td> Account:" + orderKTH[i].account_id + "</td></tr>";
+}
+
+document.getElementById('load').style.visibility="hidden";
+document.getElementById('content').style.visibility="visible";
+document.getElementById("open to kth").innerHTML = text;
+
+// Bars for Ladok courses
+
+
+
+// Draw a big number of gauge charts
+
+
+
+
+
+
+
+
+  }
+
+
+
+drawGraph()
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
