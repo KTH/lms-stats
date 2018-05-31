@@ -189,11 +189,13 @@ All courses imported from Ladok with <em>at least one</em> person enrolled (teac
 <div id="usage"></div>
 <br><hr><br>
 
-<h2 id="32">3.2. Course startpage</h2>
+<h2 id="32">3.2. Course setting: startpage</h2>
+This graph indicates which setting teachers have used for published Ladok courses with regards to starting page. The default setting used to be "activity feed" but was changed to "modules" with the 2017-07-15 release, though the course must contain at least one module in order to allow using the default setting.
 <div id="settings"></div>
 <br><hr><br>
 
 <h1 id="4">4. User activity</h1>
+Number of accounts that has logged into at least one course. Please observe that the same user can be both student and teacher, the role is set on course level. New schools at KTH also have a slighly increased number of users since they encompass legacy courses that belong to 2 or 3 sub-accounts and thus a user can be counted more than once for ITM (ITM+ECE), CBH (BIO+CHE+STH) and EECS (CSC+EES+ICT).
 <h2 id="41">4.1. Active teachers/school</h2>
 Number of users with a teacher role (Teacher, Course responsible, Examinator or TA). Please note that one user can be listed as "teacher" on more than one of the school due to roles being set for each course.
 <br>
@@ -206,7 +208,7 @@ Number of users with a student role (Admitted and/or Registrered) that has logge
 <div id="students"></div>
 <br><hr><br>
 
-<center>KTH LMS Stats version 4.1.0 (2018-05-30) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
+<center>KTH LMS Stats version 4.1.1 (2018-05-31) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></center>
 
 </div>
@@ -618,7 +620,7 @@ var chart = c3.generate({
     bindto: '#settings',
     data: {
         columns: [
-            ['Course page', KTH_ladok_courses_publ_settings_wiki],
+            ['Course wiki/content page', KTH_ladok_courses_publ_settings_wiki],
             ['Activity feed', KTH_ladok_courses_publ_settings_feed],
             ['Modules', KTH_ladok_courses_publ_settings_modules],
             ['Syllabus', KTH_ladok_courses_publ_settings_syllabus],
@@ -1188,10 +1190,7 @@ grid: {
         show: true
     }
 },
-onrendered: function() {
-document.getElementById('load').style.visibility="hidden";
-document.getElementById('content').style.visibility="visible";
-}
+
 });
 
 
@@ -2032,7 +2031,10 @@ show: false
 size: {
   height: 100
 },
-
+onrendered: function() {
+document.getElementById('load').style.visibility="hidden";
+document.getElementById('content').style.visibility="visible";
+}
 });
 
   }
