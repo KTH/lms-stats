@@ -46,8 +46,12 @@
 <div class="main">
 <h1>KTH Canvas LMS Stats</h1>
 Data from KTH Canvas LMS (https://kth.instructure.com). All graphs display realtime data unless stated otherwise.
+<br>
 <br><hr><br>
 <h1 id="1">1. Statistics</h1>
+The data presented is collected since Canvas was first deployed at KTH 2016-05-10.
+<br>
+<br><hr><br>
 <h2 id="11">1.1. Daily Statistics</h2>
 <br>
 <br>
@@ -61,13 +65,15 @@ Data from KTH Canvas LMS (https://kth.instructure.com). All graphs display realt
 
 <br><hr><br>
 
-<h2 id="12">1.2. Page views per content category</h2>
-Total number of pageviews grouped by category for the KTH Canvas instance gathered from 2016-05-10 when the system was deployed.
+<h2 id="12">1.2. Pageviews per content category</h2>
+Total number of pageviews grouped by category.
 <br>
 <div id="pageviews"></div>
 <br><hr><br>
 
 <h1 id="2">2. Ladok course publishing</h1>
+At KTH Canvas is mainly used to support regualar programme courses defined by the SIS Ladok. There are also other courses within Canvas such as sandboxes, demos or courses used for other purposes but they are not included in the course publishing data below. Ladok courses have 1-9 offerings/yearly and all offerings are represented as courses in Canvas. Cross listing is common due to teachers combining different offerings into one class.<br>
+<br><hr><br>
 <h2 id="21">2.1. Ladok course publishing over time</h2>
 All courses imported from Ladok with <em>at least one</em> person enrolled (teacher and/or student) and their publishing state in Canvas. The data grouped for each study period (P1-4) during the academic year. The bars represent the sum of all five schools at KTH.
 <br><br>
@@ -75,12 +81,12 @@ All courses imported from Ladok with <em>at least one</em> person enrolled (teac
 <br><br>
 <table id="legend" width="100%">
   <tr>
-    <td width="33%">Courses</td>
-    <td width="34%">Published</td>
-    <td width="33%">Open</td>
+    <td width="33%">Ladok courses created</td>
+    <td width="34%">Ladoc courses published</td>
+    <td width="33%">Ladok courses open</td>
   </tr>
   <tr>
-    <td>Shows all courses currently imported with <em>at least one</em> user enrolled. For future courses the bar is likely to grow as more courses are added in KOPPS.</td>
+    <td>Shows all Ladok courses currently imported with <em>at least one</em> user enrolled. For future courses the bar is likely to grow as more courses are added in KOPPS.</td>
     <td>Ladok courses current published for the particular study period regardless of access restriction (closed, institution, public).</td>
     <td>All published Ladok courses that are published either as <em>open to all users at KTH</em> or <em>Public</em> and thus not requiring a KTH-account to access them.</td>
   </tr>
@@ -89,9 +95,12 @@ All courses imported from Ladok with <em>at least one</em> person enrolled (teac
 <br><hr><br>
 
 <h2 id="22">2.2. Ladok Course publishing ratio</h2>
-
-<h3 id="221">2.2.1. Ladok Course publishing ratio 2017/2018</h3>
+Percentage of all Ladok courses at KTH with <em>at least one</em> enrolled user that are <em>published</em>.
 <br>
+<br><hr><br>
+<h3 id="221">2.2.1. Ladok Course publishing ratio 2017/2018</h3>
+Percentage of Ladok courses with at KTH with at least one enrolled user that are published during the academic year 2017/2018. Please observe that a course is counted <em>only</em> for the study period (P1-4) on which the course <em>starts</em>. This means that courses spanning more than one study period is only counted towards the first one.
+<br><br>
 <table Width="100%">
   <tr>
     <td width="10%"></td>
@@ -114,8 +123,12 @@ All courses imported from Ladok with <em>at least one</em> person enrolled (teac
 <br><hr><br>
 
 <h2 id="23">2.3. Ladok Course publishing ratio school level</h2>
+Percentage of Ladok courses for each school with <em>at least one</em> enrolled user that are <em>published</em>.
+<br>
+<br><hr><br>
 <h3 id="231">2.3.1. Ladok Course publishing ratio on school level 2017/2018</h3>
-
+Percentage of Ladok courses with at KTH with at least one enrolled user that are published during the academic year 2017/2018. Please observe that a course is counted <em>only</em> for the study period (P1-4) on which the course <em>starts</em>. This means that courses spanning more than one study period is only counted towards the first one.
+<br><br>
 <table Width="100%">
 
   <tr>
@@ -176,39 +189,62 @@ All courses imported from Ladok with <em>at least one</em> person enrolled (teac
 <br><hr><br>
 
 <h2 id="24">2.4. Ladok courses published 'open'</h2>
+Canvas allows for teachers to set the "visibilty" of courses to a higher level than just registrered students. Below are links to listings of all Ladok courses in Canvas that currently are accessible either on "institution" (all with KTH account) or "public".
+<br>
+<br><hr><br>
+
 <h3 id="241">2.4.1. Ladok courses published open to 'public'</h3>
+Courses that are accessible to everyone. No account needed to view the contents of the course. Please note that this only applies to the course contents. You can not recieve credits for these courses without being a registrered student at KTH.
+<br>
+<br>
 <a href="courses_public.html" target="_blank">List of all Ladok courses published with public access</a> (new window/tab).
+<br>
+<br><hr><br>
+
 <h3 id="242">2.4.2. Ladok courses published open to 'all at KTH'</h3>
+Courses that are accessible to everyone with an KTH account. Please note that this only applies to the course contents. You can not recieve credits for these courses without being a registrered student at KTH.
+<br>
+<br>
 <a href="courses_kth.html" target="_blank">List of all Ladok courses published with public access</a> (new window/tab).
 <br>
 <br><hr><br>
 
 <h1 id="3">3. Usage</h1>
-
+Overview of what is used in Canvas for Ladok courses.
+<br>
+<br><hr><br>
 <h2 id="31">3.1. Usage on school level</h2>
+<br><br>
 <div id="usage"></div>
+<br>
 <br><hr><br>
 
-<h2 id="32">3.2. Course setting: startpage</h2>
+<h2 id="32">3.2. Course settings startpage</h2>
 This graph indicates which setting teachers have used for published Ladok courses with regards to starting page. The default setting used to be "activity feed" but was changed to "modules" with the 2017-07-15 release, though the course must contain at least one module in order to allow using the default setting.
+<br><br>
 <div id="settings"></div>
+<br>
 <br><hr><br>
 
 <h1 id="4">4. User activity</h1>
 Number of accounts that has logged into at least one course. Please observe that the same user can be both student and teacher, the role is set on course level. New schools at KTH also have a slighly increased number of users since they encompass legacy courses that belong to 2 or 3 sub-accounts and thus a user can be counted more than once for ITM (ITM+ECE), CBH (BIO+CHE+STH) and EECS (CSC+EES+ICT).
+<br>
+<br><hr><br>
 <h2 id="41">4.1. Active teachers/school</h2>
 Number of users with a teacher role (Teacher, Course responsible, Examinator or TA). Please note that one user can be listed as "teacher" on more than one of the school due to roles being set for each course.
-<br>
+<br><br>
 <div id="teachers"></div>
+<br>
 <br><hr><br>
 
 <h2 id="42">4.2. Active students/school</h2>
 Number of users with a student role (Admitted and/or Registrered) that has logged into the system. Please note that one user can be listed as "student" on more than one of the school due to roles being set on each course.
 <br><br>
 <div id="students"></div>
+<br>
 <br><hr><br>
 
-<center>KTH LMS Stats version 4.1.1 (2018-05-31) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
+<center>KTH LMS Stats version 4.1.2 (2018-06-01) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></center>
 
 </div>
@@ -287,6 +323,7 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
 // P2 XXXX-10-01 - XXXX-12-31
 // P3 XXXY-01-01 - XXXY-02-28
 // P3 XXXY-03-01 - XXXY-05-31
+
 
 const KTH_ladok_courses_publ_settings_wiki = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.default_view === 'wiki').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
 const KTH_ladok_courses_publ_settings_feed = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.default_view === 'feed').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
