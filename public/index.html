@@ -82,7 +82,7 @@ All courses imported from Ladok with <em>at least one</em> person enrolled (teac
 <table id="legend" width="100%">
   <tr>
     <td width="33%">Ladok courses created</td>
-    <td width="34%">Ladoc courses published</td>
+    <td width="34%">Ladok courses published</td>
     <td width="33%">Ladok courses open</td>
   </tr>
   <tr>
@@ -220,9 +220,11 @@ Overview of what is used in Canvas for Ladok courses.
 <br><hr><br>
 
 <h2 id="32">3.2. Course settings startpage</h2>
-This graph indicates which setting teachers have used for published Ladok courses with regards to starting page. The default setting used to be "activity feed" but was changed to "modules" with the 2017-07-15 release, though the course must contain at least one module in order to allow using the default setting.
+This graph indicates which setting teachers have used for published Ladok courses with regards to starting page.
 <br><br>
 <div id="settings"></div>
+<br>
+The default setting used to be "activity feed" but was changed to "modules" with the 2017-07-15 release, though the course must contain at least one module in order to allow using the default setting.
 <br>
 <br><hr><br>
 
@@ -244,7 +246,7 @@ Number of users with a student role (Admitted and/or Registrered) that has logge
 <br>
 <br><hr><br>
 
-<center>KTH LMS Stats version 4.1.1 (2018-05-31) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
+<center>KTH LMS Stats version 4.1.2 (2018-06-05) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></center>
 
 </div>
@@ -262,8 +264,8 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
 
 // Fetch global course data for all courses. This data is refreshed only on app restart.
 
-    const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
-    const myJsonKTHCOURSES = await responseKTHCOURSES.json()
+//    const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
+//    const myJsonKTHCOURSES = await responseKTHCOURSES.json()
 
 // Fetch global course data for all courses with active enrollments. This data is refreshed only on app restart.
 
@@ -656,15 +658,14 @@ const EECS_p4_20182019_published_OPEN = myJsonKTHENRCOURSES.filter(k => k.workfl
 var chart = c3.generate({
     bindto: '#settings',
     data: {
-        columns: [
+          columns: [
             ['Course wiki/content page', KTH_ladok_courses_publ_settings_wiki],
             ['Activity feed', KTH_ladok_courses_publ_settings_feed],
             ['Modules', KTH_ladok_courses_publ_settings_modules],
             ['Syllabus', KTH_ladok_courses_publ_settings_syllabus],
             ['Assignments', KTH_ladok_courses_publ_settings_assignments]
         ],
-        type : 'pie'
-
+        type : 'pie',
     }
 });
 
@@ -1103,64 +1104,6 @@ var chart = c3.generate({
         enabled: true,
       }
 });
-
-// Draw vertical lines to indicate start of each study period
-/*
-
-setTimeout(function () {
-chart.xgrids([{value: '2016-08-29', class: 'studyline', text:'P1-16/17'}]);
-}, 0);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2016-10-31', class: 'studyline', text:'P2-16/17'}]);
-}, 250);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2017-01-17', class: 'studyline', text:'P3-16/17'}]);
-}, 500);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2017-03-20', class: 'studyline', text:'P4-16/17'}]);
-}, 750);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2017-08-28', class: 'studyline', text:'P1-17/18'}]);
-}, 1000);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2017-10-30', class: 'studyline', text:'P2-17/18'}]);
-}, 1250);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2018-01-16', class: 'studyline', text:'P3-17/18'}]);
-}, 1500);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2018-03-19', class: 'studyline', text:'P4-17/18'}]);
-}, 1750);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2018-08-27', tclass: 'studyline', ext:'P1-18/19'}]);
-}, 2000);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2018-10-19', class: 'studyline', text:'P2-18/19'}]);
-}, 2250);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2019-01-15', class: 'studyline', text:'P3-18/19'}]);
-}, 2500);
-
-setTimeout(function () {
-chart.xgrids.add([{value: '2019-03-18', class: 'studyline', text:'P4-18/19'}]);
-}, 2750);
-
-*/
-
-
-
-
-
 
 
 
