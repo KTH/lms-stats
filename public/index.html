@@ -2,6 +2,8 @@
 
 <head>
 
+<link rel="shortcut icon" id="favicon" href="https://www.kth.se/img/v/8.19.3/icon/favicon.ico" />
+
 <script src="moment.js"></script>
 <script src="d3.js"></script>
 <script src="c3.js"></script>
@@ -246,7 +248,7 @@ Number of users with a student role (Admitted and/or Registrered) that has logge
 <br>
 <br><hr><br>
 
-<center>KTH LMS Stats version 4.1.2 (2018-06-05) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
+<center>KTH LMS Stats version 4.1.3 (2018-06-11) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></center>
 
 </div>
@@ -255,10 +257,10 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
 
     async function drawGraph(){
 
+// Currently not used
+
 // fetch global statistics data
 
-
-// Currently not used
 //    const responseKTHS = await fetch('/api/lms-stats/kths')
 //    const myJsonKTHS = await responseKTHS.json()
 
@@ -378,15 +380,12 @@ const KTH_ladok_courses_P4_20182019_publ = myJsonKTHENRCOURSES.filter(k => k.wor
 const KTH_ladok_courses_P4_20172018_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-03-02', '2018-06-01')  ).length
 const KTH_ladok_courses_P4_20182019_OPEN = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2019-03-02', '2019-06-01')  ).length
 
-
 // Courses are mapped to each studyperiod based on start-date.
 
 // P1 XXXX-08-01 - XXXX-09-30
 // P2 XXXX-10-01 - XXXX-12-31
 // P3 XXXY-01-01 - XXXY-02-28
 // P3 XXXY-03-01 - XXXY-05-31
-
-
 
 const ABE_20172018_courses = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
 const ABE_20172018_published = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.account_id=== 14).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
@@ -1058,9 +1057,13 @@ var chart = c3.generate({
       {value: '2018-01-16', class: 'studyline', text:'P3-17/18'},
       {value: '2018-03-19', class: 'studyline', text:'P4-17/18'},
       {value: '2018-08-27', class: 'studyline', text:'P1-18/19'},
-      {value: '2018-10-19', class: 'studyline', text:'P2-18/19'},
+      {value: '2018-10-29', class: 'studyline', text:'P2-18/19'},
       {value: '2019-01-15', class: 'studyline', text:'P3-18/19'},
-      {value: '2019-03-18', class: 'studyline', text:'P4-18/19'}
+      {value: '2019-03-18', class: 'studyline', text:'P4-18/19'},
+      {value: '2019-08-26', class: 'studyline', text:'P1-19/20'},
+      {value: '2019-10-29', class: 'studyline', text:'P2-19/20'},
+      {value: '2020-01-15', class: 'studyline', text:'P3-19/20'},
+      {value: '2020-03-16', class: 'studyline', text:'P4-19/20'}
     ]
 }
       },
