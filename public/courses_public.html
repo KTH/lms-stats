@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
 
 <meta charset="utf-8"/>
 
-<script type="text/javascript" src="moment.js"></script>
+<script src="moment.js"></script>
 
 <link rel="stylesheet" type="text/css" href="basic.css">
+
+<title>Published KTH Ladok courses in Canvas LMS available publicly.</title>
 
 </head>
 
@@ -47,10 +49,7 @@
     const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
     const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
 
-
-const KTH_ladok_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
-const KTH_ladok_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
-const KTH_ladok_courses_OPEN = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
+    const KTH_ladok_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
 
 
 var orderPUBLIC = KTH_ladok_courses_PUBLIC;
@@ -98,6 +97,8 @@ drawGraph()
 
 
 </script>
+
+</div>
 
 </body>
 
