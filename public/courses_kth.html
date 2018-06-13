@@ -23,7 +23,7 @@
 
 <div id="content">
 
-<h3>Courses published as accessible to all at KTH</h3>
+<h3>Courses published as accessible to all at KTH (Updated every 15 minute).</h3>
 <table>
   <thead>
     <tr>
@@ -37,7 +37,20 @@
 </div>
 <script>
 
+// Const accounts
 
+const accounts={
+  14:'ABE',
+  17:'CBH',
+  22:'CBH',
+  23:'EECS',
+  24:'ITM',
+  25:'EECS',
+  26:'EECS',
+  27:'ITM',
+  28:'SCI',
+  29:'CBH'
+}
 
     async function drawGraph(){
 
@@ -86,7 +99,7 @@ var text = "";
 var i;
 
 for (i = 0; i < orderKTH.length; i++) {
-  text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH[i].id + "/\" target=\"_blank\">" + orderKTH[i].name + "</a></td><td> Account:" + orderKTH[i].account_id + "</td></tr>";
+  text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH[i].id + "/\" target=\"_blank\">" + orderKTH[i].name + "</a></td><td> Account:" + accounts[''+orderPUBLIC[i].account_id] + "</td></tr>";
 }
 
 
