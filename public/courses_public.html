@@ -10,7 +10,7 @@
 
 <link rel="stylesheet" type="text/css" href="basic.css">
 
-<title>Published KTH Ladok courses in Canvas LMS available publicly. (Updated every 15 minute)</title>
+<title>Published KTH Ladok courses in Canvas LMS available publicly.</title>
 
 </head>
 
@@ -22,7 +22,7 @@
 
 
 <div id="content">
-<h3>Courses published publicly</h3>
+<h3>Published KTH Ladok courses in Canvas LMS available publicly</h3>
 Source data from Canvas updated every 15 minute.<br><br>
 <table>
   <thead>
@@ -96,7 +96,7 @@ orderPUBLIC.sort(function(a, b) {
 var text = "";
 var i;
 for (i = 0; i < orderPUBLIC.length; i++) {
-    text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC[i].id + "/\" target=\"_blank\">" + orderPUBLIC[i].name + "</a></td><td>" + accounts[''+orderPUBLIC[i].account_id] + "</td></tr>";
+    text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC[i].id + "/\" target=\"_blank\">" + orderPUBLIC[i].name + "</a></td><td>" + accounts[''+ orderPUBLIC[i].account_id] + "</td></tr>";
 }
 
 document.getElementById('load').style.visibility="hidden";
