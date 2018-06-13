@@ -54,7 +54,8 @@ tr:nth-child(odd) {
     position:fixed;
     z-index:9999;
     color: #ffffff;
-  background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.8);
+    text-align: center;
 
 }
 
