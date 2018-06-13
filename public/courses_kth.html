@@ -81,35 +81,22 @@ orderKTH.sort(function(a, b) {
   return 0;
 });
 
-
-
-
 // Create hyperlinked list of Courses open to
 
 var text = "";
 var i;
 
 for (i = 0; i < orderKTH.length; i++) {
-  text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH[i].id + "/\" target=\"_blank\">" + orderKTH[i].name + "</a></td><td> Account:" + accounts[''+orderKTH[i].account_id] + "</td></tr>";
+  text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH[i].id + "/\" target=\"_blank\">" + orderKTH[i].name + "</a></td><td>" + accounts[''+orderKTH[i].account_id] + "</td></tr>";
 }
-
-
 
 document.getElementById('load').style.visibility="hidden";
 document.getElementById('content').style.visibility="visible";
 document.getElementById("open to kth").innerHTML = text;
 
-
-
   }
-
-
-
+  
 drawGraph()
-
-
-
-
 
 </script>
 
