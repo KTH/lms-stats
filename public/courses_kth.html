@@ -24,7 +24,6 @@
 <div id="content">
 
 <h3>Courses published as accessible to all at KTH</h3>
-Source data from Canvas updated every 15 minute.<br><br>
 <table>
   <thead>
     <tr>
@@ -60,22 +59,9 @@ const accounts={
     const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
     const myJsonKTHCOURSES = await responseKTHCOURSES.json()
 
-// Fetch global course data for all courses with active enrollments. This data is refreshed only on app restart.
+    const KTH_ladok_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
 
-//    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
-//    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
-
-
-const KTH_ladok_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
-
-// const KTH_ladok_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
-// const KTH_ladok_courses_OPEN = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true|| k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
-
-
-
-
-
-var orderKTH = KTH_ladok_courses_KTH;
+    var orderKTH = KTH_ladok_courses_KTH;
 
 orderKTH.sort(function(a, b) {
   var nameA = a.name.toUpperCase(); // ignore upper and lowercase
@@ -100,7 +86,7 @@ var text = "";
 var i;
 
 for (i = 0; i < orderKTH.length; i++) {
-  text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH[i].id + "/\" target=\"_blank\">" + orderKTH[i].name + "</a></td><td> Account:" + accounts[''+orderPUBLIC[i].account_id] + "</td></tr>";
+  text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH[i].id + "/\" target=\"_blank\">" + orderKTH[i].name + "</a></td><td> Account:" + accounts[''+orderKTH[i].account_id] + "</td></tr>";
 }
 
 
