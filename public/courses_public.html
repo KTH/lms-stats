@@ -37,7 +37,16 @@
 
 <script>
 
+// Const accounts
+
+const accounts={
+  23:'ECE'
+}
+
+
     async function drawGraph(){
+
+
 
 // Fetch global course data for all courses. This data is refreshed only on app restart.
 
@@ -77,7 +86,7 @@ orderPUBLIC.sort(function(a, b) {
 var text = "";
 var i;
 for (i = 0; i < orderPUBLIC.length; i++) {
-    text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC[i].id + "/\" target=\"_blank\">" + orderPUBLIC[i].name + "</a></td><td> Account:" + orderPUBLIC[i].account_id + "</td></tr>";
+    text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC[i].id + "/\" target=\"_blank\">" + orderPUBLIC[i].name + "</a></td><td>" + accounts[''+orderPUBLIC[i].account_id] + "</td></tr>";
 }
 
 document.getElementById('load').style.visibility="hidden";
