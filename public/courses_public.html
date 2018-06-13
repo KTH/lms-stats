@@ -23,6 +23,7 @@
 
 <div id="content">
 <h3>Courses published publicly</h3>
+Source data from Canvas updated every 15 minute.<br><br>
 <table>
   <thead>
     <tr>
@@ -55,17 +56,8 @@ const accounts={
 
     async function drawGraph(){
 
-
-
-// Fetch global course data for all courses. This data is refreshed only on app restart.
-
     const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
     const myJsonKTHCOURSES = await responseKTHCOURSES.json()
-
-// Fetch global course data for all courses with active enrollments. This data is refreshed only on app restart.
-
-//    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
-//    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
 
     const KTH_ladok_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
 
@@ -101,18 +93,10 @@ for (i = 0; i < orderPUBLIC.length; i++) {
 document.getElementById('load').style.visibility="hidden";
 document.getElementById('content').style.visibility="visible";
 document.getElementById("public_courses").innerHTML = text;
-
-
-
+      
   }
 
-
-
 drawGraph()
-
-
-
-
 
 </script>
 
