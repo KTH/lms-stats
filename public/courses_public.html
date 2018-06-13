@@ -99,7 +99,7 @@ for (i = 0; i < orderPUBLIC.length; i++) {
     text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC[i].id + "/\" target=\"_blank\">" + orderPUBLIC[i].name + "</a></td><td>" + accounts[''+orderPUBLIC[i].account_id] + "</td></tr>";
 }
 
-document.getElementById('load').style.display:"none";
+document.getElementById('load').style.display="none";
 document.getElementById('content').style.visibility="visible";
 document.getElementById("public_courses").innerHTML = text;
 
