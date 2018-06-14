@@ -6,37 +6,57 @@
 
 <meta charset="utf-8"/>
 
-<title>Published KTH Ladok courses in Canvas LMS available to all users at KTH.</title>
-
 <script src="moment.js"></script>
 
 <link rel="stylesheet" type="text/css" href="basic.css">
 
+<title>Published KTH Ladok courses in Canvas LMS available to all at KTH.</title>
+
 </head>
 
 <body>
-
-<div id="load">
+  <div id="load">
 
   <br><br><h2>Fetching data from KTH Canvas LMS</h2>This page is based on realtime data from the Canvas API.<br>It can take up to about 30 seconds for all graphs to be rendered.
   <div id="loader"></div></div>
 
+
 <div id="content">
-
-<h3>Published KTH Ladok courses in Canvas LMS accessible to all at KTH</h3>
+<h1>Published KTH Ladok courses in Canvas LMS available to all at KTH</h1>
 Source data from Canvas updated every 15 minute.<br><br>
-
-<table>
+<h2>Academic year 2018/2019</h2>
+<table id="courses">
   <thead>
     <tr>
       <th>Course name</th><th>School</th>
     </tr>
   </thead>
-  <tbody id="open_to_kth">
+  <tbody id="KTH_courses_1819">
+  </tbody>
+</table>
+<h2>Academic year 2017/2018</h2>
+<table id="courses">
+  <thead>
+    <tr>
+      <th>Course name</th><th>School</th>
+    </tr>
+  </thead>
+  <tbody id="KTH_courses_1718">
+  </tbody>
+</table>
+<h2>Academic year 2016/2017</h2>
+<table id="courses">
+  <thead>
+    <tr>
+      <th>Course name</th><th>School</th>
+    </tr>
+  </thead>
+  <tbody id="KTH_courses_1617">
   </tbody>
 </table>
 
-</div>
+
+
 <script>
 
 // Const accounts
@@ -54,18 +74,86 @@ const accounts={
   29:'CBH'
 }
 
+
     async function drawGraph(){
+
+
 
 // Fetch global course data for all courses. This data is refreshed only on app restart.
 
     const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
     const myJsonKTHCOURSES = await responseKTHCOURSES.json()
 
-    const KTH_ladok_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29)
+// Fetch global course data for all courses with active enrollments. This data is refreshed only on app restart.
 
-    var orderKTH = KTH_ladok_courses_KTH;
+//    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
+//    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
 
-orderKTH.sort(function(a, b) {
+    const KTH_ladok_courseis_public_to_auth_users_1617 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.iis_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-07-01', '2017-06-30')  )
+    const KTH_ladok_courseis_public_to_auth_users_1718 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.iis_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-07-01', '2018-06-30')  )
+    const KTH_ladok_courseis_public_to_auth_users_1819 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.iis_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-07-01', '2019-06-30')  )
+
+    // 2018-2019
+
+    var orderKTH_1819 = KTH_ladok_courseis_public_to_auth_users_1819;
+
+    orderKTH_1819.sort(function(a, b) {
+      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // names must be equal
+      return 0;
+
+    });
+
+    // Create hyperlinked list of KTH Courses
+
+    var text = "";
+    var i;
+    for (i = 0; i < orderKTH_1819.length; i++) {
+        text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH_1819[i].id + "/\" target=\"_blank\">" + orderKTH_1819[i].name + "</a></td><td>" + accounts[''+ orderKTH_1819[i].account_id] + "</td></tr>";
+    }
+
+    document.getElementById("KTH_courses_1819").innerHTML = text;
+
+    // 2017-2018
+
+    var orderKTH_1718 = KTH_ladok_courseis_public_to_auth_users_1718;
+
+    orderKTH_1718.sort(function(a, b) {
+      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // names must be equal
+      return 0;
+
+    });
+
+    // Create hyperlinked list of KTH Courses
+
+    var text = "";
+    var i;
+    for (i = 0; i < orderKTH_1718.length; i++) {
+        text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH_1718[i].id + "/\" target=\"_blank\">" + orderKTH_1718[i].name + "</a></td><td>" + accounts[''+ orderKTH_1718[i].account_id] + "</td></tr>";
+    }
+
+    document.getElementById("KTH_courses_1718").innerHTML = text;
+
+// 2016-2017
+
+var orderKTH_1617 = KTH_ladok_courseis_public_to_auth_users_1617;
+
+orderKTH_1617.sort(function(a, b) {
   var nameA = a.name.toUpperCase(); // ignore upper and lowercase
   var nameB = b.name.toUpperCase(); // ignore upper and lowercase
   if (nameA < nameB) {
@@ -74,28 +162,24 @@ orderKTH.sort(function(a, b) {
   if (nameA > nameB) {
     return 1;
   }
-
   // names must be equal
   return 0;
+
 });
 
-
-
-
-// Create hyperlinked list of Courses open to
+// Create hyperlinked list of KTH Courses
 
 var text = "";
 var i;
-
-for (i = 0; i < orderKTH.length; i++) {
-  text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH[i].id + "/\" target=\"_blank\">" + orderKTH[i].name + "</a></td><td>" + accounts[''+orderKTH[i].account_id] + "</td></tr>";
+for (i = 0; i < orderKTH_1617.length; i++) {
+    text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderKTH_1617[i].id + "/\" target=\"_blank\">" + orderKTH_1617[i].name + "</a></td><td>" + accounts[''+ orderKTH_1617[i].account_id] + "</td></tr>";
 }
 
-
+document.getElementById("KTH_courses_1617").innerHTML = text;
 
 document.getElementById('load').style.visibility="hidden";
 document.getElementById('content').style.visibility="visible";
-document.getElementById("open_to_kth").innerHTML = text;
+
 
 
 
@@ -110,6 +194,8 @@ drawGraph()
 
 
 </script>
+
+</div>
 
 </body>
 
