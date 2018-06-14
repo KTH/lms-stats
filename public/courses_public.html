@@ -22,15 +22,16 @@
 
 
 <div id="content">
-<h3>Published KTH Ladok courses in Canvas LMS available publicly</h3>
+<h1>Published KTH Ladok courses in Canvas LMS available publicly</h1>
 Source data from Canvas updated every 15 minute.<br><br>
+<h2>Academic year 2016/2017</h2>
 <table>
   <thead>
     <tr>
       <th>Course name</th><th>School</th>
     </tr>
   </thead>
-  <tbody id="public_courses">
+  <tbody id="public_courses_1617">
   </tbody>
 </table>
 
@@ -71,7 +72,7 @@ const accounts={
     const KTH_ladok_courses_PUBLIC_1617 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-08-01', '2017-06-01')  )
 
 
-var orderPUBLIC_1617 = KTH_ladok_courses_PUBLIC;
+var orderPUBLIC_1617 = KTH_ladok_courses_PUBLIC_1617;
 
 orderPUBLIC_1617.sort(function(a, b) {
   var nameA = a.name.toUpperCase(); // ignore upper and lowercase
@@ -101,7 +102,7 @@ for (i = 0; i < orderPUBLIC_1617.length; i++) {
 
 document.getElementById('load').style.visibility="hidden";
 document.getElementById('content').style.visibility="visible";
-document.getElementById("public_courses").innerHTML = text;
+document.getElementById("public_courses_1617").innerHTML = text;
 
 
 
