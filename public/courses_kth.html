@@ -89,13 +89,13 @@ const accounts={
 //    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
 //    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
 
-    const KTH_ladok_courses_1617 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.iis_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-07-01', '2017-06-30')  )
-    const KTH_ladok_courses_1718 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.iis_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-07-01', '2018-06-30')  )
-    const KTH_ladok_courses_1819 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.iis_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-07-01', '2019-06-30')  )
+    const KTH_ladok_courses_1617 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-07-01', '2017-06-30')  )
+    const KTH_ladok_courses_1718 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-07-01', '2018-06-30')  )
+    const KTH_ladok_courses_1819 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-07-01', '2019-06-30')  )
 
     // 2018-2019
 
-    var orderKTH_1819 = KTH_ladok_courseis_public_to_auth_users_1819;
+    var orderKTH_1819 = KTH_ladok_courses_1819;
 
     orderKTH_1819.sort(function(a, b) {
       var nameA = a.name.toUpperCase(); // ignore upper and lowercase
@@ -123,7 +123,7 @@ const accounts={
 
     // 2017-2018
 
-    var orderKTH_1718 = KTH_ladok_courseis_public_to_auth_users_1718;
+    var orderKTH_1718 = KTH_ladok_courses_1718;
 
     orderKTH_1718.sort(function(a, b) {
       var nameA = a.name.toUpperCase(); // ignore upper and lowercase
@@ -151,7 +151,7 @@ const accounts={
 
 // 2016-2017
 
-var orderKTH_1617 = KTH_ladok_courseis_public_to_auth_users_1617;
+var orderKTH_1617 = KTH_ladok_courses_1617;
 
 orderKTH_1617.sort(function(a, b) {
   var nameA = a.name.toUpperCase(); // ignore upper and lowercase
