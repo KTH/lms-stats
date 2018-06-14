@@ -70,7 +70,8 @@ const accounts={
 //    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
 
     const KTH_ladok_courses_PUBLIC_1617 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-08-01', '2017-06-01')  )
-
+    const KTH_ladok_courses_PUBLIC_1718 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  )
+    const KTH_ladok_courses_PUBLIC_1819 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-08-01', '2019-06-01')  )
 
 var orderPUBLIC_1617 = KTH_ladok_courses_PUBLIC_1617;
 
@@ -100,9 +101,11 @@ for (i = 0; i < orderPUBLIC_1617.length; i++) {
     text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC_1617[i].id + "/\" target=\"_blank\">" + orderPUBLIC_1617[i].name + "</a></td><td>" + accounts[''+ orderPUBLIC_1617[i].account_id] + "</td></tr>";
 }
 
+document.getElementById("public_courses_1617").innerHTML = text;
+
 document.getElementById('load').style.visibility="hidden";
 document.getElementById('content').style.visibility="visible";
-document.getElementById("public_courses_1617").innerHTML = text;
+
 
 
 
