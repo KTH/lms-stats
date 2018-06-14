@@ -1,202 +1,92 @@
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-
-<meta charset="utf-8"/>
-
-<script src="moment.js"></script>
-
-<link rel="stylesheet" type="text/css" href="basic.css">
-
-<title>Published KTH Ladok courses in Canvas LMS available publicly.</title>
-
-</head>
-
-<body>
-  <div id="load">
-
-  <br><br><h2>Fetching data from KTH Canvas LMS</h2>This page is based on realtime data from the Canvas API.<br>It can take up to about 30 seconds for all graphs to be rendered.
-  <div id="loader"></div></div>
-
-
-<div id="content">
-<h1>Published KTH Ladok courses in Canvas LMS available publicly</h1>
-Source data from Canvas updated every 15 minute.<br><br>
-<h2>Academic year 2018/2019</h2>
-<table id="courses">
-  <thead>
-    <tr>
-      <th>Course name</th><th>School</th>
-    </tr>
-  </thead>
-  <tbody id="public_courses_1819">
-  </tbody>
-</table>
-<h2>Academic year 2017/2018</h2>
-<table id="courses">
-  <thead>
-    <tr>
-      <th>Course name</th><th>School</th>
-    </tr>
-  </thead>
-  <tbody id="public_courses_1718">
-  </tbody>
-</table>
-<h2>Academic year 2016/2017</h2>
-<table id="courses">
-  <thead>
-    <tr>
-      <th>Course name</th><th>School</th>
-    </tr>
-  </thead>
-  <tbody id="public_courses_1617">
-  </tbody>
-</table>
-
-
-
-<script>
-
-// Const accounts
-
-const accounts={
-  14:'ABE',
-  17:'CBH',
-  22:'CBH',
-  23:'EECS',
-  24:'ITM',
-  25:'EECS',
-  26:'EECS',
-  27:'ITM',
-  28:'SCI',
-  29:'CBH'
+body {
+   margin: 0;
+   padding: 0;
 }
 
 
-    async function drawGraph(){
-
-
-
-// Fetch global course data for all courses. This data is refreshed only on app restart.
-
-    const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
-    const myJsonKTHCOURSES = await responseKTHCOURSES.json()
-
-// Fetch global course data for all courses with active enrollments. This data is refreshed only on app restart.
-
-//    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
-//    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
-
-    const KTH_ladok_courses_PUBLIC_1617 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-07-01', '2017-06-30')  )
-    const KTH_ladok_courses_PUBLIC_1718 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-07-01', '2018-06-30')  )
-    const KTH_ladok_courses_PUBLIC_1819 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-07-01', '2019-06-30')  )
-
-    // 2018-2019
-
-    var orderPUBLIC_1819 = KTH_ladok_courses_PUBLIC_1819;
-
-    orderPUBLIC_1819.sort(function(a, b) {
-      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      // names must be equal
-      return 0;
-
-    });
-
-    // Create hyperlinked list of Public Courses
-
-    var text = "";
-    var i;
-    for (i = 0; i < orderPUBLIC_1819.length; i++) {
-        text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC_1819[i].id + "/\" target=\"_blank\">" + orderPUBLIC_1819[i].name + "</a></td><td>" + accounts[''+ orderPUBLIC_1819[i].account_id] + "</td></tr>";
-    }
-
-    document.getElementById("public_courses_1819").innerHTML = text;
-
-    // 2017-2018
-
-    var orderPUBLIC_1718 = KTH_ladok_courses_PUBLIC_1718;
-
-    orderPUBLIC_1718.sort(function(a, b) {
-      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      // names must be equal
-      return 0;
-
-    });
-
-    // Create hyperlinked list of Public Courses
-
-    var text = "";
-    var i;
-    for (i = 0; i < orderPUBLIC_1718.length; i++) {
-        text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC_1718[i].id + "/\" target=\"_blank\">" + orderPUBLIC_1718[i].name + "</a></td><td>" + accounts[''+ orderPUBLIC_1718[i].account_id] + "</td></tr>";
-    }
-
-    document.getElementById("public_courses_1718").innerHTML = text;
-
-// 2016-2017
-
-var orderPUBLIC_1617 = KTH_ladok_courses_PUBLIC_1617;
-
-orderPUBLIC_1617.sort(function(a, b) {
-  var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-  var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-  if (nameA < nameB) {
-    return -1;
-  }
-  if (nameA > nameB) {
-    return 1;
-  }
-  // names must be equal
-  return 0;
-
-});
-
-// Create hyperlinked list of Public Courses
-
-var text = "";
-var i;
-for (i = 0; i < orderPUBLIC_1617.length; i++) {
-    text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC_1617[i].id + "/\" target=\"_blank\">" + orderPUBLIC_1617[i].name + "</a></td><td>" + accounts[''+ orderPUBLIC_1617[i].account_id] + "</td></tr>";
+.sidenav {
+    background: #eee;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    left: 10px;
+    overflow-x: hidden;
+    padding: 8px;
+    border: #777 2px solid;
+    font-size: small;
 }
 
-document.getElementById("public_courses_1617").innerHTML = text;
+.main {
+    top: 20px;
+    margin-left: 250px;
+    padding: 8px;
+}
 
-document.getElementById('load').style.visibility="hidden";
-document.getElementById('content').style.visibility="visible";
+.c3-chart-arcs-background{fill:#e0e0e0!important;stroke:#222}
 
+#content {
+    visibility: hidden;
+}
 
+table {
+    border: 1px #f2f2f2;
+}
 
+table#legend {
+    font-size: small;
+    font-weight: normal;
+    border: 1px #f2f2f2;
+}
 
-  }
+table#courses {
+    width: 80%;
+}
 
+td, th {
+    text-align: center;
+}
 
+tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
 
-drawGraph()
+#load{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:9999;
+    color: #ffffff;
+    background: rgba(0,0,0,0.8);
+    text-align: center;
 
+}
 
+/* Center the loader */
 
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
 
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
 
-</script>
-
-</div>
-
-</body>
-
-</html>
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
