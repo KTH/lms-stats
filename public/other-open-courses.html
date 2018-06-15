@@ -77,7 +77,7 @@ const accounts={
 //    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
 //    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
 
-    const KTH_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id !== 14! k.account_id !== 17! k.account_id !== 22! k.account_id !== 23! k.account_id !== 24! k.account_id !== 25! k.account_id !== 26! k.account_id !== 27! k.account_id !== 28! k.account_id !== 29).length
+    const KTH_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id !== 14&& k.account_id !== 17&& k.account_id !== 22&& k.account_id !== 23&& k.account_id !== 24&& k.account_id !== 25&& k.account_id !== 26&& k.account_id !== 27&& k.account_id !== 28&& k.account_id !== 29).length
 
     const KTH_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id !== 14&& k.account_id !== 17&& k.account_id !== 22&& k.account_id !== 23&& k.account_id !== 24&& k.account_id !== 25&& k.account_id !== 26&& k.account_id !== 27&& k.account_id !== 28&& k.account_id !== 29).length
 
