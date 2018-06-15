@@ -6,8 +6,6 @@
 
 <meta charset="utf-8"/>
 
-<head>
-
 <link rel="shortcut icon" id="favicon" href="https://www.kth.se/img/v/8.19.3/icon/favicon.ico" />
 
 <script src="moment.js"></script>
@@ -16,6 +14,8 @@
 
 <link rel="stylesheet" type="text/css" href="c3.css">
 <link rel="stylesheet" type="text/css" href="basic.css">
+
+<title>KTH Canvas LMS Statistics</title>
 
 </head>
 
@@ -87,11 +87,11 @@ All courses imported from Ladok with <em>at least one</em> person enrolled (teac
 <br><br>
 <div id="chart2"></div>
 <br><br>
-<table id="legend" width="100%">
+<table id="legend">
   <tr>
-    <td width="33%">Ladok courses created</td>
-    <td width="34%">Ladok courses published</td>
-    <td width="33%">Ladok courses open</td>
+    <td>Ladok courses created</td>
+    <td>Ladok courses published</td>
+    <td>Ladok courses open</td>
   </tr>
   <tr>
     <td>Shows all Ladok courses currently imported with <em>at least one</em> user enrolled. For future courses the bar is likely to grow as more courses are added in KOPPS.</td>
@@ -109,22 +109,22 @@ Percentage of all Ladok courses at KTH with <em>at least one</em> enrolled user 
 <h3 id="221">2.2.1. Ladok Course publishing ratio 2017/2018</h3>
 Percentage of Ladok courses with at KTH with at least one enrolled user that are published during the academic year 2017/2018. Please observe that a course is counted <em>only</em> for the study period (P1-4) on which the course <em>starts</em>. This means that courses spanning more than one study period is only counted towards the first one.
 <br><br>
-<table Width="100%">
+<table id="ratiotable">
   <tr>
-    <td width="10%"></td>
-    <td width="18%">P1 2017/2018</td>
-    <td width="18%">P2 2017/2018</td>
-    <td width="18%">P3 2017/2018</td>
-    <td width="18%">P4 2017/2018</td>
-    <td width="18%">2017/2018</td>
+    <td></td>
+    <td>P1 2017/2018</td>
+    <td>P2 2017/2018</td>
+    <td>P3 2017/2018</td>
+    <td>P4 2017/2018</td>
+    <td>2017/2018</td>
 </tr>
 <tr>
-  <td width="10%">KTH</td>
-  <td width="18%"><div id="KTH_ladok_courses_P1_20172018"></div></td>
-  <td width="18%"><div id="KTH_ladok_courses_P2_20172018"></div></td>
-  <td width="18%"><div id="KTH_ladok_courses_P3_20172018"></div></td>
-  <td width="18%"><div id="KTH_ladok_courses_P4_20172018"></div></td>
-  <td width="18%"><div id="KTH_ladok_courses_20172018"></div></td>
+  <td>KTH</td>
+  <td><div id="KTH_ladok_courses_P1_20172018"></div></td>
+  <td><div id="KTH_ladok_courses_P2_20172018"></div></td>
+  <td><div id="KTH_ladok_courses_P3_20172018"></div></td>
+  <td><div id="KTH_ladok_courses_P4_20172018"></div></td>
+  <td><div id="KTH_ladok_courses_20172018"></div></td>
 </tr>
 </table>
 <br>
@@ -137,60 +137,60 @@ Percentage of Ladok courses for each school with <em>at least one</em> enrolled 
 <h3 id="231">2.3.1. Ladok Course publishing ratio on school level 2017/2018</h3>
 Percentage of Ladok courses with at KTH with at least one enrolled user that are published during the academic year 2017/2018. Please observe that a course is counted <em>only</em> for the study period (P1-4) on which the course <em>starts</em>. This means that courses spanning more than one study period is only counted towards the first one.
 <br><br>
-<table Width="100%">
+<table id="ratiotable">
 
   <tr>
-    <td width="10%"></td>
-    <td width="18%">P1 2017/2018</td>
-    <td width="18%">P2 2017/2018</td>
-    <td width="18%">P3 2017/2018</td>
-    <td width="18%">P4 2017/2018</td>
-    <td width="18%">2017/2018</td>
+    <td></td>
+    <td>P1 2017/2018</td>
+    <td>P2 2017/2018</td>
+    <td>P3 2017/2018</td>
+    <td>P4 2017/2018</td>
+    <td>2017/2018</td>
 </tr>
 
 <tr>
-  <td width="10%">ABE</td>
-  <td width="18%"><div id="ABE_ladok_courses_P1_20172018"></div></td>
-  <td width="18%"><div id="ABE_ladok_courses_P2_20172018"></div></td>
-  <td width="18%"><div id="ABE_ladok_courses_P3_20172018"></div></td>
-  <td width="18%"><div id="ABE_ladok_courses_P4_20172018"></div></td>
-  <td width="18%"><div id="ABE_ladok_courses_20172018"></div></td>
+  <td>ABE</td>
+  <td><div id="ABE_ladok_courses_P1_20172018"></div></td>
+  <td><div id="ABE_ladok_courses_P2_20172018"></div></td>
+  <td><div id="ABE_ladok_courses_P3_20172018"></div></td>
+  <td><div id="ABE_ladok_courses_P4_20172018"></div></td>
+  <td><div id="ABE_ladok_courses_20172018"></div></td>
 </tr>
 
 <tr>
-  <td width="10%">CBH</td>
-  <td width="18%"><div id="CBH_ladok_courses_P1_20172018"></div></td>
-  <td width="18%"><div id="CBH_ladok_courses_P2_20172018"></div></td>
-  <td width="18%"><div id="CBH_ladok_courses_P3_20172018"></div></td>
-  <td width="18%"><div id="CBH_ladok_courses_P4_20172018"></div></td>
-  <td width="18%"><div id="CBH_ladok_courses_20172018"></div></td>
+  <td>CBH</td>
+  <td><div id="CBH_ladok_courses_P1_20172018"></div></td>
+  <td><div id="CBH_ladok_courses_P2_20172018"></div></td>
+  <td><div id="CBH_ladok_courses_P3_20172018"></div></td>
+  <td><div id="CBH_ladok_courses_P4_20172018"></div></td>
+  <td><div id="CBH_ladok_courses_20172018"></div></td>
 </tr>
 
 <tr>
-  <td width="10%">EECS</td>
-  <td width="18%"><div id="EECS_ladok_courses_P1_20172018"></div></td>
-  <td width="18%"><div id="EECS_ladok_courses_P2_20172018"></div></td>
-  <td width="18%"><div id="EECS_ladok_courses_P3_20172018"></div></td>
-  <td width="18%"><div id="EECS_ladok_courses_P4_20172018"></div></td>
-  <td width="18%"><div id="EECS_ladok_courses_20172018"></div></td>
+  <td>EECS</td>
+  <td><div id="EECS_ladok_courses_P1_20172018"></div></td>
+  <td><div id="EECS_ladok_courses_P2_20172018"></div></td>
+  <td><div id="EECS_ladok_courses_P3_20172018"></div></td>
+  <td><div id="EECS_ladok_courses_P4_20172018"></div></td>
+  <td><div id="EECS_ladok_courses_20172018"></div></td>
 </tr>
 
 <tr>
-  <td width="10%">ITM</td>
-  <td width="18%"><div id="ITM_ladok_courses_P1_20172018"></div></td>
-  <td width="18%"><div id="ITM_ladok_courses_P2_20172018"></div></td>
-  <td width="18%"><div id="ITM_ladok_courses_P3_20172018"></div></td>
-  <td width="18%"><div id="ITM_ladok_courses_P4_20172018"></div></td>
-  <td width="18%"><div id="ITM_ladok_courses_20172018"></div></td>
+  <td>ITM</td>
+  <td><div id="ITM_ladok_courses_P1_20172018"></div></td>
+  <td><div id="ITM_ladok_courses_P2_20172018"></div></td>
+  <td><div id="ITM_ladok_courses_P3_20172018"></div></td>
+  <td><div id="ITM_ladok_courses_P4_20172018"></div></td>
+  <td><div id="ITM_ladok_courses_20172018"></div></td>
 </tr>
 
 <tr>
-  <td width="10%">SCI</td>
-  <td width="18%"><div id="SCI_ladok_courses_P1_20172018"></div></td>
-  <td width="18%"><div id="SCI_ladok_courses_P2_20172018"></div></td>
-  <td width="18%"><div id="SCI_ladok_courses_P3_20172018"></div></td>
-  <td width="18%"><div id="SCI_ladok_courses_P4_20172018"></div></td>
-  <td width="18%"><div id="SCI_ladok_courses_20172018"></div></td>
+  <td>SCI</td>
+  <td><div id="SCI_ladok_courses_P1_20172018"></div></td>
+  <td><div id="SCI_ladok_courses_P2_20172018"></div></td>
+  <td><div id="SCI_ladok_courses_P3_20172018"></div></td>
+  <td><div id="SCI_ladok_courses_P4_20172018"></div></td>
+  <td><div id="SCI_ladok_courses_20172018"></div></td>
 </tr>
 
 </table>
