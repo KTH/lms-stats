@@ -79,7 +79,7 @@ const accounts={
 
 // Fetch global course data for all courses. This data is refreshed only on app restart.
 
-    const responseKTHCOURSES = await fetch('https://api.kth.se/api/lms-api/api/courses')
+    const responseKTHCOURSES = await get('https://api.kth.se/api/lms-api/api/courses')
     const myJsonKTHCOURSES = await responseKTHCOURSES.json()
 
 // Filter out courses from relevant non Ladok accounts and that are published with a certain access setting
