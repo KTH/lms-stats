@@ -34,13 +34,26 @@ table {
 }
 
 table#legend {
+    width: 100%;
     font-size: small;
     font-weight: normal;
     border: 1px #f2f2f2;
 }
 
-table.courses {
+table#legend td {
+    width: 33%;
+}
+
+table#courses {
     width: 80%;
+}
+
+table#ratiotable {
+    width: 100%;
+}
+
+table#ratiotable td {
+    width: 16%;
 }
 
 td, th {
