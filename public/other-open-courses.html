@@ -60,6 +60,27 @@ const accounts={
   27:'ITM',
   28:'SCI',
   29:'CBH'
+  15:'ABE Manual'
+  16:'ABE Sandbox'
+  48:'ABE Studios'
+  18:'CBH Manual'
+  19:'CBH Sandbox'
+  21:'CBH Sandbox'
+  20:'CBH Manual'
+  31:'EECS Manual'
+  39:'EECS Sandbox'
+  32:'ITM Manual'
+  40:'ITM Sandbox'
+  33:'EECS Manual'
+  41:'EECS Sandbox'
+  34:'EECS Manual'
+  42:'EECS Sandbox'
+  35:'ITM Manual'
+  43:'ITM Sandbox'
+  36:'SCI Manual'
+  44:'SCI Sandbox'
+  37:'CBH Manual'
+  45:'CBH Sandbox'
 }
 
 
@@ -77,9 +98,10 @@ const accounts={
 //    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
 //    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
 
-    const KTH_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id !== 14&& k.account_id !== 17&& k.account_id !== 22&& k.account_id !== 23&& k.account_id !== 24&& k.account_id !== 25&& k.account_id !== 26&& k.account_id !== 27&& k.account_id !== 28&& k.account_id !== 29).length
+    const KTH_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id === 15|| k.account_id === 16|| k.account_id === 48|| k.account_id === 18|| k.account_id === 19|| k.account_id === 20|| k.account_id === 21|| k.account_id === 31|| k.account_id === 39|| k.account_id === 32|| k.account_id === 40|| k.account_id === 33|| k.account_id === 41|| k.account_id === 34|| k.account_id === 42|| k.account_id === 35|| k.account_id === 43|| k.account_id === 36|| k.account_id === 44|| k.account_id === 37|| k.account_id === 45).length
 
-    const KTH_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id !== 14&& k.account_id !== 17&& k.account_id !== 22&& k.account_id !== 23&& k.account_id !== 24&& k.account_id !== 25&& k.account_id !== 26&& k.account_id !== 27&& k.account_id !== 28&& k.account_id !== 29).length
+    const KTH_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id === 15|| k.account_id === 16|| k.account_id === 48|| k.account_id === 18|| k.account_id === 19|| k.account_id === 20|| k.account_id === 21|| k.account_id === 31|| k.account_id === 39|| k.account_id === 32|| k.account_id === 40|| k.account_id === 33|| k.account_id === 41|| k.account_id === 34|| k.account_id === 42|| k.account_id === 35|| k.account_id === 43|| k.account_id === 36|| k.account_id === 44|| k.account_id === 37|| k.account_id === 45).length
+
 
     // 2018-2019
 
