@@ -93,11 +93,8 @@ const accounts={
     const KTH_ladok_courses_PUBLIC_1718 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id === 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-07-01', '2018-06-30')  )
     const KTH_ladok_courses_PUBLIC_1819 = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id === 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-07-01', '2019-06-30')  )
 
-    const KTH_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id !== 14|| k.account_id !== 17|| k.account_id !== 22|| k.account_id !== 23|| k.account_id !== 24|| k.account_id !== 25|| k.account_id !== 26|| k.account_id !== 27|| k.account_id !== 28|| k.account_id !== 29).length
 
     // 2018-2019
-
-console.log(KTH_courses_PUBLIC);
 
     var orderPUBLIC_1819 = KTH_ladok_courses_PUBLIC_1819;
 
