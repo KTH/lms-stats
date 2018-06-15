@@ -1,8 +1,3 @@
-body {
-   margin: 0;
-   padding: 0;
-}
-
 
 .sidenav {
     background: #eee;
@@ -29,6 +24,10 @@ body {
     visibility: hidden;
 }
 
+.foot {
+    text-align: center;
+    }
+
 table {
     border: 1px #f2f2f2;
 }
@@ -48,11 +47,11 @@ table#courses {
     width: 80%;
 }
 
-table#ratiotable {
+table.ratiotable {
     width: 100%;
 }
 
-table#ratiotable td {
+table.ratiotable td {
     width: 16%;
 }
 
