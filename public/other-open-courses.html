@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8"/>
+
+<script src="moment.js"></script>
+
+<link rel="stylesheet" type="text/css" href="basic.css">
+
+<title>Other published KTH courses in Canvas LMS.</title>
+
+</head>
+
+<body>
+  <div id="load">
+
+  <br><br><h2>Fetching data from KTH Canvas LMS</h2>This page is based on realtime data from the Canvas API.<br>It can take up to about 30 seconds for all graphs to be rendered.
+  <div id="loader"></div></div>
+
+
+<div id="content">
+<h2>Non-Ladok courses published publicly</h2>
+<table class="courses">
+  <thead>
+    <tr>
+      <th>Course name</th><th>School</th>
+    </tr>
+  </thead>
+  <tbody id="public_courses_other">
+  </tbody>
+</table>
+<h2>Non-Ladok courses published open to KTH</h2>
+<table class="courses">
+  <thead>
+    <tr>
+      <th>Course name</th><th>School</th>
+    </tr>
+  </thead>
+  <tbody id="kth_courses_other">
+  </tbody>
+</table>
+
+
+
+<script>
+
+// Const accounts
+
+const accounts={
+  14:'ABE',
+  17:'CBH',
+  22:'CBH',
+  23:'EECS',
+  24:'ITM',
+  25:'EECS',
+  26:'EECS',
+  27:'ITM',
+  28:'SCI',
+  29:'CBH'
+}
+
+
+    async function drawGraph(){
+
+
+
+// Fetch global course data for all courses. This data is refreshed only on app restart.
+
+    const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
+    const myJsonKTHCOURSES = await responseKTHCOURSES.json()
+
+// Fetch global course data for all courses with active enrollments. This data is refreshed only on app restart.
+
+//    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
+//    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
+
+    const KTH_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id !== 14|| k.account_id !== 17|| k.account_id !== 22|| k.account_id !== 23|| k.account_id !== 24|| k.account_id !== 25|| k.account_id !== 26|| k.account_id !== 27|| k.account_id !== 28|| k.account_id !== 29).length
+
+    const KTH_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id !== 14|| k.account_id !== 17|| k.account_id !== 22|| k.account_id !== 23|| k.account_id !== 24|| k.account_id !== 25|| k.account_id !== 26|| k.account_id !== 27|| k.account_id !== 28|| k.account_id !== 29).length
+
+    // 2018-2019
+
+    var orderPUBLIC_kth = KTH_courses_KTH;
+
+    orderPUBLIC_kth.sort(function(a, b) {
+      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // names must be equal
+      return 0;
+
+    });
+
+    // Create hyperlinked list of Public Courses
+
+    var text = "";
+    var i;
+    for (i = 0; i < orderPUBLIC_kth.length; i++) {
+        text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC_kth[i].id + "/\" target=\"_blank\">" + orderPUBLIC_kth[i].name + "</a></td><td>" + accounts[''+ orderPUBLIC_kth[i].account_id] + "</td></tr>";
+    }
+
+    document.getElementById("kth_courses_other").innerHTML = text;
+
+
+
+var orderPUBLIC_other = KTH_courses_PUBLIC;
+
+orderPUBLIC_other.sort(function(a, b) {
+  var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+  var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+  // names must be equal
+  return 0;
+
+});
+
+// Create hyperlinked list of Public Courses
+
+var text = "";
+var i;
+for (i = 0; i < orderPUBLIC_other.length; i++) {
+    text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC_other[i].id + "/\" target=\"_blank\">" + orderPUBLIC_other[i].name + "</a></td><td>" + accounts[''+ orderPUBLIC_other[i].account_id] + "</td></tr>";
+}
+
+document.getElementById("public_courses_other").innerHTML = text;
+
+document.getElementById('load').style.visibility="hidden";
+document.getElementById('content').style.visibility="visible";
+
+
+
+
+
+  }
+
+
+
+drawGraph()
+
+
+
+
+
+</script>
+
+</div>
+
+</body>
+
+</html>
