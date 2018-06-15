@@ -8,21 +8,14 @@
 
 <script src="moment.js"></script>
 
-<link rel="stylesheet" type="text/css" href="basic.css">
-
 <title>Other published KTH courses in Canvas LMS.</title>
 
 </head>
 
 <body>
-  <div id="load">
 
-  <br><br><h2>Fetching data from KTH Canvas LMS</h2>This page is based on realtime data from the Canvas API.<br>It can take up to about 30 seconds for all graphs to be rendered.
-  <div id="loader"></div></div>
-
-
-<div id="content">
 <h2>Non-Ladok courses published publicly</h2>
+
 <table>
   <thead>
     <tr>
@@ -32,7 +25,9 @@
   <tbody id="public_courses_other">
   </tbody>
 </table>
+
 <h2>Non-Ladok courses published open to KTH</h2>
+
 <table>
   <thead>
     <tr>
@@ -42,8 +37,6 @@
   <tbody id="kth_courses_other">
   </tbody>
 </table>
-
-
 
 <script>
 
@@ -82,46 +75,37 @@ const accounts={
   37:'CBH Manual',
   45:'CBH Sandbox',
 }
-
-
     async function drawGraph(){
-
-
 
 // Fetch global course data for all courses. This data is refreshed only on app restart.
 
     const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
     const myJsonKTHCOURSES = await responseKTHCOURSES.json()
 
-// Fetch global course data for all courses with active enrollments. This data is refreshed only on app restart.
-
-//    const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
-//    const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
+// Filter out courses from relevant non Ladok accounts and that are published with a certain access setting
 
     const KTH_courses_KTH = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id === 15|| k.account_id === 16|| k.account_id === 48|| k.account_id === 18|| k.account_id === 19|| k.account_id === 20|| k.account_id === 21|| k.account_id === 31|| k.account_id === 39|| k.account_id === 32|| k.account_id === 40|| k.account_id === 33|| k.account_id === 41|| k.account_id === 34|| k.account_id === 42|| k.account_id === 35|| k.account_id === 43|| k.account_id === 36|| k.account_id === 44|| k.account_id === 37|| k.account_id === 45)
 
     const KTH_courses_PUBLIC = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id === 15|| k.account_id === 16|| k.account_id === 48|| k.account_id === 18|| k.account_id === 19|| k.account_id === 20|| k.account_id === 21|| k.account_id === 31|| k.account_id === 39|| k.account_id === 32|| k.account_id === 40|| k.account_id === 33|| k.account_id === 41|| k.account_id === 34|| k.account_id === 42|| k.account_id === 35|| k.account_id === 43|| k.account_id === 36|| k.account_id === 44|| k.account_id === 37|| k.account_id === 45)
 
-
-    // 2018-2019
+// 2018-2019
 
     var orderPUBLIC_kth = KTH_courses_KTH;
 
     orderPUBLIC_kth.sort(function(a, b) {
-      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      var nameA = a.name.toUpperCase();
+      var nameB = b.name.toUpperCase();
       if (nameA < nameB) {
         return -1;
       }
       if (nameA > nameB) {
         return 1;
       }
-      // names must be equal
       return 0;
 
     });
 
-    // Create hyperlinked list of Public Courses
+// Create hyperlinked list of Public Courses
 
     var text = "";
     var i;
@@ -132,53 +116,37 @@ const accounts={
     document.getElementById("kth_courses_other").innerHTML = text;
 
 
+    var orderPUBLIC_other = KTH_courses_PUBLIC;
 
-var orderPUBLIC_other = KTH_courses_PUBLIC;
+    orderPUBLIC_other.sort(function(a, b) {
+      var nameA = a.name.toUpperCase();
+      var nameB = b.name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
 
-orderPUBLIC_other.sort(function(a, b) {
-  var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-  var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-  if (nameA < nameB) {
-    return -1;
-  }
-  if (nameA > nameB) {
-    return 1;
-  }
-  // names must be equal
-  return 0;
+      return 0;
 
 });
 
 // Create hyperlinked list of Public Courses
 
-var text = "";
-var i;
-for (i = 0; i < orderPUBLIC_other.length; i++) {
-    text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC_other[i].id + "/\" target=\"_blank\">" + orderPUBLIC_other[i].name + "</a></td><td>" + accounts[''+ orderPUBLIC_other[i].account_id] + "</td></tr>";
-}
+      var text = "";
+      var i;
+      for (i = 0; i < orderPUBLIC_other.length; i++) {
+          text += "<tr><td><a href=\"https://kth.instructure.com/courses/" + orderPUBLIC_other[i].id + "/\" target=\"_blank\">" + orderPUBLIC_other[i].name + "</a></td><td>" + accounts[''+ orderPUBLIC_other[i].account_id] + "</td></tr>";
+      }
 
-document.getElementById("public_courses_other").innerHTML = text;
-
-document.getElementById('load').style.visibility="hidden";
-document.getElementById('content').style.visibility="visible";
-
-
-
-
+      document.getElementById("public_courses_other").innerHTML = text;
 
   }
 
-
-
 drawGraph()
 
-
-
-
-
 </script>
-
-</div>
 
 </body>
 
