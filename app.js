@@ -18,7 +18,7 @@ const accessToken = process.env.accessToken
 const canvasUrl = process.env.canvasUrl
 const canvasApi = new CanvasApi(canvasUrl, accessToken)
 const express = require('express');
-const coursespromise = canvasApi.get('accounts/1/courses?per_page=100')
+const coursespromise = canvasApi.get('https://api.kth.se/api/lms-api/api/courses')
 const coursesenrpromise = canvasApi.get('accounts/1/courses?with_enrollments=true&per_page=100')
 
 async function KTHCOURSES(){
