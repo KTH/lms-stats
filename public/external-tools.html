@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8"/>
+
+<script src="moment.js"></script>
+
+<title>External LTI Tools in KTH LMS Canvas</title>
+
+</head>
+
+<body>
+
+<h1>Installed LTI apps in KTH LMS Canvas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool name</th><th>Description</th>
+    </tr>
+  </thead>
+  <tbody id="external_tools">
+  </tbody>
+</table>
+
+
+
+<script>
+
+// Const accounts
+
+const accounts={
+  14:'ABE',
+  17:'CBH',
+  22:'CBH',
+  23:'EECS',
+  24:'ITM',
+  25:'EECS',
+  26:'EECS',
+  27:'ITM',
+  28:'SCI',
+  29:'CBH'
+}
+
+    async function drawGraph(){
+
+// Fetch global course data for all courses. This data is refreshed only on app restart.
+
+    const responseET = await fetch('/api/lms-stats/kthet')
+    const myJsonET = await responseET.json()
+
+//  Filter out published courses that are published with the right access setting.
+
+//    const ET = myJsonET.filter(k => k.workflow_state === 'public').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2016-07-01', '2017-06-30')  )
+
+// Courses for 2018-2019
+
+    var orderET = myJsonET;
+
+    orderET.sort(function(a, b) {
+      var nameA = a.name.toUpperCase();
+      var nameB = b.name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
+
+    });
+
+// Create hyperlinked list
+
+    var text = "";
+    var i;
+    for (i = 0; i < orderET.length; i++) {
+        text += "<tr><td>" + orderET[i].name + "</td><td>" + orderET[i].description + "</td></tr>";
+    }
+
+    document.getElementById("external_tools").innerHTML = text;
+
+      }
+
+drawGraph()
+
+</script>
+
+
+</body>
+
+</html>
