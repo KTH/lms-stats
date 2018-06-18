@@ -1,5 +1,5 @@
 'use strict'
-// Hej 
+// Hej
 
 const app = require('kth-node-server')
 const config = require('./config/serverSettings')
@@ -18,7 +18,6 @@ const accessToken = process.env.accessToken
 const canvasUrl = process.env.canvasUrl
 const canvasApi = new CanvasApi(canvasUrl, accessToken)
 const express = require('express');
-// const coursespromise = canvasApi.get('/api/lms-api/api/courses')
 const coursespromise = canvasApi.get('accounts/1/courses?per_page=100')
 const coursesenrpromise = canvasApi.get('accounts/1/courses?with_enrollments=true&per_page=100')
 
@@ -44,6 +43,31 @@ return statistics
 
 async function KTHA(){
   const statistics = await canvasApi.get('accounts/1/analytics/current/activity')
+return statistics
+}
+
+async function ABEADM(){
+  const statistics = await canvasApi.get('accounts/14/admins')
+return statistics
+}
+
+async function CBHADM(){
+  const statistics = await canvasApi.get('accounts/17/admins')
+return statistics
+}
+
+async function EECSADM(){
+  const statistics = await canvasApi.get('accounts/23/admins')
+return statistics
+}
+
+async function ITMADM(){
+  const statistics = await canvasApi.get('accounts/27/admins')
+return statistics
+}
+
+async function SCIADM(){
+  const statistics = await canvasApi.get('accounts/28/admins')
 return statistics
 }
 
@@ -227,6 +251,36 @@ app.get('/api/lms-stats/kthenrcourses', async function(req, res){
 
 app.get('/api/lms-stats/kthet', async function(req, res){
   const results= await KTHET()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/abeadm', async function(req, res){
+  const results= await ABEADM()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/cbhadm', async function(req, res){
+  const results= await CBHADM()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/eecsadm', async function(req, res){
+  const results= await EECSADM()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/itmadm', async function(req, res){
+  const results= await ITMADM()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/sciadm', async function(req, res){
+  const results= await SCIADM()
   console.log('kommer skicka:', results)
   res.json(results);
 });
