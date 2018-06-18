@@ -21,7 +21,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>E-mail</th>
+      <th>Name</th><th>Role</th><th>E-mail</th>
     </tr>
   </thead>
   <tbody id="abe">
@@ -33,7 +33,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Role</th>
+      <th>Name</th><th>Role</th><th>E-mail</th>
     </tr>
   </thead>
   <tbody id="cbh">
@@ -46,7 +46,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Role</th>
+      <th>Name</th><th>Role</th><th>E-mail</th>
     </tr>
   </thead>
   <tbody id="eecs">
@@ -58,7 +58,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Role</th>
+      <th>Name</th><th>Role</th><th>E-mail</th>
     </tr>
   </thead>
   <tbody id="itm">
@@ -70,7 +70,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Role</th>
+      <th>Name</th><th>Role</th><th>E-mail</th>
     </tr>
   </thead>
   <tbody id="sci">
@@ -121,7 +121,7 @@ const accounts={
     var text = "";
     var i;
     for (i = 0; i < orderABEADM.length; i++) {
-        text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderABEADM[i].user.id + "/\" target=\"_blank\">" + orderABEADM[i].user.name + "</a></td><td>" + orderABEADM[i].user.login_id + "</td></tr>";
+        text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderABEADM[i].user.id + "/\" target=\"_blank\">" + orderABEADM[i].user.name + "</a></td><td>" + orderABEADM[i].role + "</a></td><td>" + orderABEADM[i].user.login_id + "</td></tr>";
     }
 
     document.getElementById("abe").innerHTML = text;
@@ -152,7 +152,7 @@ const accounts={
         var text = "";
         var i;
         for (i = 0; i < orderCBHADM.length; i++) {
-            text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderCBHADM[i].user.id + "/\" target=\"_blank\">" + orderCBHADM[i].user.name + "</a></td><td>" + orderCBHADM[i].user.login_id + "</td></tr>";
+            text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderCBHADM[i].user.id + "/\" target=\"_blank\">" + orderCBHADM[i].user.name + "</a></td><td>" + orderCBHADM[i].role + "</a></td><td>" + orderCBHADM[i].user.login_id + "</td></tr>";
         }
 
         document.getElementById("cbh").innerHTML = text;
@@ -182,7 +182,7 @@ const accounts={
             var text = "";
             var i;
             for (i = 0; i < orderEECSADM.length; i++) {
-                text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderEECSADM[i].user.id + "/\" target=\"_blank\">" + orderEECSADM[i].user.name + "</a></td><td>" + orderEECSADM[i].user.login_id + "</td></tr>";
+                text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderEECSADM[i].user.id + "/\" target=\"_blank\">" + orderEECSADM[i].user.name + "</a></td><td>" + orderEECSADM[i].role + "</a></td><td>" + orderEECSADM[i].user.login_id + "</td></tr>";
             }
 
             document.getElementById("eecs").innerHTML = text;
@@ -213,7 +213,7 @@ const accounts={
                 var text = "";
                 var i;
                 for (i = 0; i < orderITMADM.length; i++) {
-                    text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderITMADM[i].user.id + "/\" target=\"_blank\">" + orderITMADM[i].user.name + "</a></td><td>" + orderITMADM[i].user.login_id + "</td></tr>";
+                    text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderITMADM[i].user.id + "/\" target=\"_blank\">" + orderITMADM[i].user.name + "</a></td><td>" + orderITMADM[i].role + "</a></td><td>" + orderITMADM[i].user.login_id + "</td></tr>";
                 }
 
                 document.getElementById("itm").innerHTML = text;
@@ -244,7 +244,7 @@ const accounts={
                     var text = "";
                     var i;
                     for (i = 0; i < orderSCIADM.length; i++) {
-                        text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderSCIADM[i].user.id + "/\" target=\"_blank\">" + orderSCIADM[i].user.name + "</a></td><td>" + orderSCIADM[i].user.login_id + "</td></tr>";
+                        text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderSCIADM[i].user.id + "/\" target=\"_blank\">" + orderSCIADM[i].user.name + "</a></td><td>" + orderSCIADM[i].role + "</a></td><td>" + orderSCIADM[i].user.login_id + "</td></tr>";
                     }
 
                     document.getElementById("sci").innerHTML = text;
