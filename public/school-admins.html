@@ -8,15 +8,11 @@
 
 <script src="moment.js"></script>
 
-<title>School admin in Canvas</title>
+<title>Schools admin in KTH Canvas LMS</title>
 
 </head>
 
 <body>
-
-<h1>KTH School admin in KTH LMS Canvas</h1>
-
-<h2>ABE</h2>
 
 <table>
   <thead>
@@ -79,14 +75,16 @@
 
 <script>
 
-// Const accounts
-
-
-
     async function drawGraph(){
+
+// Comments only for the first out of five iterations
+
+// Fetch user data from sub account ABE imported course rounds
 
     const responseABEADM = await fetch('/api/lms-stats/abeadm')
     const myJsonABEADM = await responseABEADM.json()
+
+// Sort users alphabetically
 
     var orderABEADM = myJsonABEADM;
 
@@ -99,154 +97,125 @@
       if (nameA > nameB) {
         return 1;
       }
-
       return 0;
-
     });
 
-// Create hyperlinked list
+// Create hyperlinked user list
 
     var text = "";
     var i;
     for (i = 0; i < orderABEADM.length; i++) {
         text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderABEADM[i].user.id + "/\" target=\"_blank\">" + orderABEADM[i].user.name + "</a></td><td>" + orderABEADM[i].role + "</a></td><td>" + orderABEADM[i].user.login_id + "</td></tr>";
     }
+document.getElementById("abe").innerHTML = text;
 
-    document.getElementById("abe").innerHTML = text;
+// Repeat for next account...
 
+    const responseCBHADM = await fetch('/api/lms-stats/cbhadm')
+    const myJsonCBHADM = await responseCBHADM.json()
 
+    var orderCBHADM = myJsonCBHADM;
 
-        const responseCBHADM = await fetch('/api/lms-stats/cbhadm')
-        const myJsonCBHADM = await responseCBHADM.json()
+    orderCBHADM.sort(function(a, b) {
+      var nameA = a.user.sortable_name.toUpperCase();
+      var nameB = b.user.sortable_name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
 
-        var orderCBHADM = myJsonCBHADM;
+    var text = "";
+    var i;
+    for (i = 0; i < orderCBHADM.length; i++) {
+        text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderCBHADM[i].user.id + "/\" target=\"_blank\">" + orderCBHADM[i].user.name + "</a></td><td>" + orderCBHADM[i].role + "</a></td><td>" + orderCBHADM[i].user.login_id + "</td></tr>";
+    }
 
-        orderCBHADM.sort(function(a, b) {
-          var nameA = a.user.sortable_name.toUpperCase();
-          var nameB = b.user.sortable_name.toUpperCase();
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
+document.getElementById("cbh").innerHTML = text;
 
-          return 0;
+    const responseEECSADM = await fetch('/api/lms-stats/eecsadm')
+    const myJsonEECSADM = await responseEECSADM.json()
 
-        });
+    var orderEECSADM = myJsonEECSADM;
 
-    // Create hyperlinked list
+    orderEECSADM.sort(function(a, b) {
+      var nameA = a.user.sortable_name.toUpperCase();
+      var nameB = b.user.sortable_name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
 
-        var text = "";
-        var i;
-        for (i = 0; i < orderCBHADM.length; i++) {
-            text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderCBHADM[i].user.id + "/\" target=\"_blank\">" + orderCBHADM[i].user.name + "</a></td><td>" + orderCBHADM[i].role + "</a></td><td>" + orderCBHADM[i].user.login_id + "</td></tr>";
-        }
-
-        document.getElementById("cbh").innerHTML = text;
-
-
-            const responseEECSADM = await fetch('/api/lms-stats/eecsadm')
-            const myJsonEECSADM = await responseEECSADM.json()
-
-            var orderEECSADM = myJsonEECSADM;
-
-            orderEECSADM.sort(function(a, b) {
-              var nameA = a.user.sortable_name.toUpperCase();
-              var nameB = b.user.sortable_name.toUpperCase();
-              if (nameA < nameB) {
-                return -1;
-              }
-              if (nameA > nameB) {
-                return 1;
-              }
-
-              return 0;
-
-            });
-
-        // Create hyperlinked list
-
-            var text = "";
-            var i;
-            for (i = 0; i < orderEECSADM.length; i++) {
-                text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderEECSADM[i].user.id + "/\" target=\"_blank\">" + orderEECSADM[i].user.name + "</a></td><td>" + orderEECSADM[i].role + "</a></td><td>" + orderEECSADM[i].user.login_id + "</td></tr>";
-            }
-
-            document.getElementById("eecs").innerHTML = text;
+    var text = "";
+    var i;
+    for (i = 0; i < orderEECSADM.length; i++) {
+        text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderEECSADM[i].user.id + "/\" target=\"_blank\">" + orderEECSADM[i].user.name + "</a></td><td>" + orderEECSADM[i].role + "</a></td><td>" + orderEECSADM[i].user.login_id + "</td></tr>";
+    }
+    document.getElementById("eecs").innerHTML = text;
 
 
+    const responseITMADM = await fetch('/api/lms-stats/itmadm')
+    const myJsonITMADM = await responseITMADM.json()
 
-                const responseITMADM = await fetch('/api/lms-stats/itmadm')
-                const myJsonITMADM = await responseITMADM.json()
+    var orderITMADM = myJsonITMADM;
 
-                var orderITMADM = myJsonITMADM;
+    orderITMADM.sort(function(a, b) {
+      var nameA = a.user.sortable_name.toUpperCase();
+      var nameB = b.user.sortable_name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
 
-                orderITMADM.sort(function(a, b) {
-                  var nameA = a.user.sortable_name.toUpperCase();
-                  var nameB = b.user.sortable_name.toUpperCase();
-                  if (nameA < nameB) {
-                    return -1;
-                  }
-                  if (nameA > nameB) {
-                    return 1;
-                  }
+    var text = "";
+    var i;
+    for (i = 0; i < orderITMADM.length; i++) {
+        text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderITMADM[i].user.id + "/\" target=\"_blank\">" + orderITMADM[i].user.name + "</a></td><td>" + orderITMADM[i].role + "</a></td><td>" + orderITMADM[i].user.login_id + "</td></tr>";
+    }
 
-                  return 0;
+document.getElementById("itm").innerHTML = text;
 
-                });
+    const responseSCIADM = await fetch('/api/lms-stats/sciadm')
+    const myJsonSCIADM = await responseSCIADM.json()
 
-            // Create hyperlinked list
+    var orderSCIADM = myJsonSCIADM;
 
-                var text = "";
-                var i;
-                for (i = 0; i < orderITMADM.length; i++) {
-                    text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderITMADM[i].user.id + "/\" target=\"_blank\">" + orderITMADM[i].user.name + "</a></td><td>" + orderITMADM[i].role + "</a></td><td>" + orderITMADM[i].user.login_id + "</td></tr>";
-                }
+    orderSCIADM.sort(function(a, b) {
+      var nameA = a.user.sortable_name.toUpperCase();
+      var nameB = b.user.sortable_name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
 
-                document.getElementById("itm").innerHTML = text;
+    var text = "";
+    var i;
+    for (i = 0; i < orderSCIADM.length; i++) {
+        text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderSCIADM[i].user.id + "/\" target=\"_blank\">" + orderSCIADM[i].user.name + "</a></td><td>" + orderSCIADM[i].role + "</a></td><td>" + orderSCIADM[i].user.login_id + "</td></tr>";
+    }
 
-
-
-                    const responseSCIADM = await fetch('/api/lms-stats/sciadm')
-                    const myJsonSCIADM = await responseSCIADM.json()
-
-                    var orderSCIADM = myJsonSCIADM;
-
-                    orderSCIADM.sort(function(a, b) {
-                      var nameA = a.user.sortable_name.toUpperCase();
-                      var nameB = b.user.sortable_name.toUpperCase();
-                      if (nameA < nameB) {
-                        return -1;
-                      }
-                      if (nameA > nameB) {
-                        return 1;
-                      }
-
-                      return 0;
-
-                    });
-
-                // Create hyperlinked list
-
-                    var text = "";
-                    var i;
-                    for (i = 0; i < orderSCIADM.length; i++) {
-                        text += "<tr><td><a href=\"https://kth.instructure.com/accounts/1/users/" + orderSCIADM[i].user.id + "/\" target=\"_blank\">" + orderSCIADM[i].user.name + "</a></td><td>" + orderSCIADM[i].role + "</a></td><td>" + orderSCIADM[i].user.login_id + "</td></tr>";
-                    }
-
-                    document.getElementById("sci").innerHTML = text;
-
-
-
-//
+document.getElementById("sci").innerHTML = text;
 
       }
 
 drawGraph()
 
 </script>
-
 
 </body>
 
