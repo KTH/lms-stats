@@ -21,7 +21,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Role</th><th>E-mail</th>
+      <th>Name (linked to Canvas profile)</th><th>Role</th><th>E-mail</th>
     </tr>
   </thead>
   <tbody id="abe">
@@ -33,7 +33,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Role</th><th>E-mail</th>
+      <th>Name (linked to Canvas profile)</th><th>Role</th><th>E-mail</th>
     </tr>
   </thead>
   <tbody id="cbh">
@@ -46,7 +46,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Role</th><th>E-mail</th>
+      <th>Name (linked to Canvas profile)</th><th>Role</th><th>E-mail</th>
     </tr>
   </thead>
   <tbody id="eecs">
@@ -58,7 +58,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Role</th><th>E-mail</th>
+      <th>Name (linked to Canvas profile)</th><th>Role</th><th>E-mail</th>
     </tr>
   </thead>
   <tbody id="itm">
@@ -70,7 +70,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Role</th><th>E-mail</th>
+      <th>Name (linked to Canvas profile)</th><th>Role</th><th>E-mail</th>
     </tr>
   </thead>
   <tbody id="sci">
@@ -81,21 +81,9 @@
 
 // Const accounts
 
-const accounts={
-  14:'ABE',
-  17:'CBH',
-  22:'CBH',
-  23:'EECS',
-  24:'ITM',
-  25:'EECS',
-  26:'EECS',
-  27:'ITM',
-  28:'SCI',
-  29:'CBH'
-}
+
 
     async function drawGraph(){
-
 
     const responseABEADM = await fetch('/api/lms-stats/abeadm')
     const myJsonABEADM = await responseABEADM.json()
@@ -103,8 +91,8 @@ const accounts={
     var orderABEADM = myJsonABEADM;
 
     orderABEADM.sort(function(a, b) {
-      var nameA = a.user.name.toUpperCase();
-      var nameB = b.user.name.toUpperCase();
+      var nameA = a.user.sortable_name.toUpperCase();
+      var nameB = b.user.sortable_name.toUpperCase();
       if (nameA < nameB) {
         return -1;
       }
@@ -134,8 +122,8 @@ const accounts={
         var orderCBHADM = myJsonCBHADM;
 
         orderCBHADM.sort(function(a, b) {
-          var nameA = a.user.name.toUpperCase();
-          var nameB = b.user.name.toUpperCase();
+          var nameA = a.user.sortable_name.toUpperCase();
+          var nameB = b.user.sortable_name.toUpperCase();
           if (nameA < nameB) {
             return -1;
           }
@@ -164,8 +152,8 @@ const accounts={
             var orderEECSADM = myJsonEECSADM;
 
             orderEECSADM.sort(function(a, b) {
-              var nameA = a.user.name.toUpperCase();
-              var nameB = b.user.name.toUpperCase();
+              var nameA = a.user.sortable_name.toUpperCase();
+              var nameB = b.user.sortable_name.toUpperCase();
               if (nameA < nameB) {
                 return -1;
               }
@@ -195,8 +183,8 @@ const accounts={
                 var orderITMADM = myJsonITMADM;
 
                 orderITMADM.sort(function(a, b) {
-                  var nameA = a.user.name.toUpperCase();
-                  var nameB = b.user.name.toUpperCase();
+                  var nameA = a.user.sortable_name.toUpperCase();
+                  var nameB = b.user.sortable_name.toUpperCase();
                   if (nameA < nameB) {
                     return -1;
                   }
@@ -226,8 +214,8 @@ const accounts={
                     var orderSCIADM = myJsonSCIADM;
 
                     orderSCIADM.sort(function(a, b) {
-                      var nameA = a.user.name.toUpperCase();
-                      var nameB = b.user.name.toUpperCase();
+                      var nameA = a.user.sortable_name.toUpperCase();
+                      var nameB = b.user.sortable_name.toUpperCase();
                       if (nameA < nameB) {
                         return -1;
                       }
