@@ -36,9 +36,10 @@
 <a href="#12">1.2. Pageviews/category</a><br>
 <a href="#2">2. Course publishing</a><br>
 <a href="#21">2.1. Publishing over time</a><br>
-<a href="#22">2.2. Ladok course publishing</a><br>
-<a href="#221">2.2.1. KTH 2017/2018</a><br>
-<a href="#222">2.2.2. Schools 2017/2018</a><br>
+<a href="#22">2.2. Ladok course publ. ratio</a><br>
+<a href="#221">2.2.1. Ratio KTH 17/18</a><br>
+<a href="#222">2.2.2. Ratio schools 17/18</a><br>
+<a href="#23">2.3. Total course publishing</a><br>
 <a href="#24">2.4. Open courses</a><br>
 <a href="#241">2.4.1. Open to public</a><br>
 <a href="#242">2.4.2. Open to KTH</a><br>
@@ -187,6 +188,12 @@ Percentage of Ladok courses with at KTH with at least one enrolled user that are
 
 </table>
 <br><hr><br>
+<h2 id="23">2.3. Course publishing</h2>
+Total number of courses created in KTH LMS Canvas and number of published courses in various states.
+<br><br>
+<div id="publcourses"></div>
+<br>
+<br><hr><br>
 
 <h2 id="24">2.4. Ladok courses published 'open'</h2>
 Canvas allows for teachers to set the "visibilty" of courses to a higher level than just registrered students. Below are links to listings of all Ladok courses in Canvas that currently are accessible either on "institution" (all with KTH account) or "public".
@@ -228,6 +235,8 @@ The default setting used to be "activity feed" but was changed to "modules" with
 <br>
 <br><hr><br>
 
+
+
 <h1 id="4">4. User activity</h1>
 Number of accounts that has logged into at least one course. Please observe that the same user can be both student and teacher, the role is set on course level. New schools at KTH also have a slighly increased number of users since they encompass legacy courses that belong to 2 or 3 sub-accounts and thus a user can be counted more than once for ITM (ITM+ECE), CBH (BIO+CHE+STH) and EECS (CSC+EES+ICT).
 <br>
@@ -246,7 +255,7 @@ Number of users with a student role (Admitted and/or Registrered) that has logge
 <br>
 <br><hr><br>
 
-<div class="foot">KTH LMS Stats version 4.1.5 (2018-06-15) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
+<div class="foot">KTH LMS Stats version 4.2.0 (2018-06-25) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></div>
 
 
@@ -264,8 +273,8 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
 
 // Fetch global course data for all courses. This data is refreshed only on app restart.
 
-//    const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
-//    const myJsonKTHCOURSES = await responseKTHCOURSES.json()
+const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
+const myJsonKTHCOURSES = await responseKTHCOURSES.json()
 
 // Fetch global course data for all courses with active enrollments. This data is refreshed only on app restart.
 
@@ -314,7 +323,6 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
     const responseUF = await fetch('/api/lms-stats/ufs')
     const myJsonUF = await responseUF.json()
 
-
 // Create constants for use in graphs making the code slightly easier to read.
 
 // ABE school (simple 1-1 account mapping)
@@ -326,12 +334,24 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
 // P3 XXXY-01-01 - XXXY-02-28
 // P3 XXXY-03-01 - XXXY-05-31
 
+const KTH_courses_publ_syl_kth = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.public_syllabus_to_auth === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
+const KTH_courses_publ_syl_public = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.public_syllabus === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
+const KTH_courses_publ_public = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
+const KTH_courses_publ_kth = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
+
+const KTH_ladok_courses = myJsonKTHCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
+const KTH_courses_publ = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').length
+const KTH_ladok_courses_publ = myJsonKTHCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => k.workflow_state === 'available').length
+const KTH_ladok_courses_enr = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
+
 
 const KTH_ladok_courses_publ_settings_wiki = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.default_view === 'wiki').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
 const KTH_ladok_courses_publ_settings_feed = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.default_view === 'feed').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
 const KTH_ladok_courses_publ_settings_modules = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.default_view === 'modules').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
 const KTH_ladok_courses_publ_settings_syllabus = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.default_view === 'syllabus').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
 const KTH_ladok_courses_publ_settings_assignments = myJsonKTHENRCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.default_view === 'assignments').filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
+
+
 
 const KTH_ladok_courses_20172018_enr = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2017-08-01', '2018-06-01')  ).length
 const KTH_ladok_courses_20182019_enr = myJsonKTHENRCOURSES.filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).filter(k => moment(k.start_at).isBetween('2018-08-01', '2019-06-01')  ).length
@@ -668,22 +688,56 @@ var chart = c3.generate({
 
 // Usage bar
 
+var chart = c3.generate({
+          bindto: '#publcourses',
+          padding: {
+            bottom: 35,
+          },
+          data: {
+                x : 'x',
+              columns: [
+    ['x', 'Total number of courses', 'Total number of Ladok courses', 'Total number of Ladok courses with enrollments', 'Total number of published courses', 'Total number of published Ladok courses', 'Total number of published Ladok courses with syllabus open to public','Total number of published Ladok courses with syllabus open to KTH', 'Total number of published Ladok courses open to public','Total number of published Ladok courses open to KTH'],
+    ['Courses', myJsonKTHCOURSES.length, KTH_ladok_courses, KTH_ladok_courses_enr, KTH_courses_publ, KTH_ladok_courses_publ, KTH_courses_publ_syl_public, KTH_courses_publ_syl_kth, KTH_courses_publ_public , KTH_courses_publ_kth]
+
+              ],
+
+              order: null,
+              type: 'bar',
+              labels: true
+          },
+          bar: {
+              space: 0.25,
+              width: {
+                ratio: 1.0 // this makes bar width 50% of length between ticks
+                }
+            },
+            legend: {
+              show: false
+            },
+            tooltip: {
+              show: false
+            },
+          axis: {
+              x: {
+                  type: 'category' // this needed to load string x value
+                },
+              y: {
+                  tick: {
+                    format: d3.format('.2s')
+                  }
+              }
+          }
+      });
+
+
 
 var chart = c3.generate({
           bindto: '#pageviews',
           data: {
                 x : 'x',
               columns: [
-                  ['x', 'Pageviews'],
-                  ['Announcements', myJsonKTHA[0].by_category[0].views],
-                  ['Assignments', myJsonKTHA[0].by_category[1].views],
-                  ['Discussions', myJsonKTHA[0].by_category[4].views],
-                  ['Files', myJsonKTHA[0].by_category[5].views],
-                  ['Grades', myJsonKTHA[0].by_category[7].views],
-                  ['Groups', myJsonKTHA[0].by_category[8].views],
-                  ['Modules', myJsonKTHA[0].by_category[9].views],
-                  ['Pages', myJsonKTHA[0].by_category[11].views],
-                  ['Quizzes', myJsonKTHA[0].by_category[12].views],
+                  ['x', 'Announcements','Assignments','Discussions','Files','Grades','Groups','Modules','Pages','Quizzes'],
+                  ['Pageviews', myJsonKTHA[0].by_category[0].views, myJsonKTHA[0].by_category[1].views, myJsonKTHA[0].by_category[4].views,myJsonKTHA[0].by_category[5].views, myJsonKTHA[0].by_category[7].views, myJsonKTHA[0].by_category[8].views,myJsonKTHA[0].by_category[9].views, myJsonKTHA[0].by_category[11].views, myJsonKTHA[0].by_category[12].views]
               ],
 
               order: null,
