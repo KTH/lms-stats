@@ -74,7 +74,7 @@ const accounts={
 
 // Fetch global course data for all courses. This data is refreshed only on app restart.
 
-    const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
+    const responseKTHCOURSES = await fetch('https://api.kth.se/api/lms-stats/kthcourses')
     const myJsonKTHCOURSES = await responseKTHCOURSES.json()
 
 // Filter out courses that are published and with the relevant access setting
