@@ -1,5 +1,5 @@
 'use strict'
-// Hej
+// Hej !!
 
 const app = require('kth-node-server')
 const config = require('./config/serverSettings')
