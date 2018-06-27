@@ -1,7 +1,3 @@
-body {
-      margin: 0;
-      padding: 0;
-    }
 
 .sidenav {
     background: #eee;
@@ -43,12 +39,14 @@ table#legend {
     border: 1px #f2f2f2;
 }
 
+.c3-chart-arcs-background{fill:#e0e0e0;stroke:none}
+
 table#legend td {
     width: 33%;
 }
 
 table#courses {
-    width: 80%;
+    width: 90%;
 }
 
 table.ratiotable {
@@ -59,8 +57,8 @@ table.ratiotable td {
     width: 16%;
 }
 
-td, th {
-    text-align: center;
+th {
+    text-align: left;
 }
 
 tr:nth-child(odd) {
