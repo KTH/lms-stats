@@ -32,6 +32,11 @@ table#legend td {
     width: 33%;
 }
 
+table#legend th {
+    width: 33%;
+    text-align: center;
+}
+
 table#courses {
     width: 100%;
 }
