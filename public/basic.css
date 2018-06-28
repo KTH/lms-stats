@@ -1,21 +1,8 @@
 
-.sidenav {
-    background: #eee;
-    width: 200px;
-    position: fixed;
-    z-index: 1;
-    top: 20px;
-    left: 10px;
-    overflow-x: hidden;
-    padding: 8px;
-    border: #777 2px solid;
-    font-size: small;
-}
-
-.main {
-    top: 20px;
-    margin-left: 250px;
-    padding: 8px;
+body {
+   margin: 0;
+   padding: 0;
+   font-size: smaller;
 }
 
 .c3-chart-arcs-background{fill:#e0e0e0!important;stroke:#222}
@@ -34,7 +21,7 @@ table {
 
 table#legend {
     width: 100%;
-    font-size: small;
+    font-size: smaller;
     font-weight: normal;
     border: 1px #f2f2f2;
 }
@@ -47,7 +34,6 @@ table#legend td {
 
 table#courses {
     width: 100%;
-    font-size: smaller;
 }
 
 table.ratiotable {
@@ -56,6 +42,11 @@ table.ratiotable {
 
 table.ratiotable td {
     width: 16%;
+    text-align: center;
+}
+
+table.ratiotable th {
+    text-align: center;
 }
 
 th {
@@ -82,7 +73,7 @@ tr:nth-child(odd) {
 #loader {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 300px;
   z-index: 1;
   width: 150px;
   height: 150px;
