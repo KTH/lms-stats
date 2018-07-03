@@ -232,9 +232,6 @@ async function UFA(){
 return statistics
 }
 
-
-
-
 app.use('/api/lms-stats/',express.static('public'))
 
 app.get('/api/lms-stats/kthcourses', async function(req, res){
