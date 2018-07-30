@@ -1,8 +1,6 @@
 'use strict'
 // Hej
 
-
-
 const app = require('kth-node-server')
 const config = require('./config/serverSettings')
 const logger = require('./server/logger')
