@@ -12,6 +12,7 @@ app.start({
   logger
 })
 
+
 const CanvasApi = require('kth-canvas-api')
 const accessToken = process.env.accessToken
 const canvasUrl = process.env.canvasUrl
