@@ -16,8 +16,19 @@ const accessToken = process.env.accessToken
 const canvasUrl = process.env.canvasUrl
 const canvasApi = new CanvasApi(canvasUrl, accessToken)
 const express = require('express');
-const coursespromise = canvasApi.get('accounts/1/courses?per_page=100')
-const coursesenrpromise = canvasApi.get('accounts/1/courses?with_enrollments=true&per_page=100')
+let coursespromise = canvasApi.get('accounts/1/courses?per_page=100')
+let coursesenrpromise = canvasApi.get('accounts/1/courses?with_enrollments=true&per_page=100')
+
+setInterval(()=>{
+  console.log('------ Hämtar nya kurser ------')
+  canvasApi.get('accounts/1/courses?per_page=100').then(courses =>{
+      coursespromise = Promise.resolve(courses)
+  })
+
+  canvasApi.get('accounts/1/courses?with_enrollments=true&per_page=100').then(courses =>{
+      coursesenrpromise = Promise.resolve(courses)
+  })
+}, 1000 * 60 * 15)
 
 async function KTHCOURSES(){
   const statistics = await coursespromise
