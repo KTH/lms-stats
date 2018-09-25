@@ -80,8 +80,8 @@ setInterval(()=>{
       eesspromise = Promise.resolve(eess)
   })
   
-        canvasApi.get('accounts/9/analytics/current/statistics').then(itcs =>{
-      ictspromise = Promise.resolve(itcs)
+        canvasApi.get('accounts/9/analytics/current/statistics').then(icts =>{
+      ictspromise = Promise.resolve(icts)
   })
   
         canvasApi.get('accounts/11/analytics/current/statistics').then(itms =>{
@@ -247,7 +247,7 @@ return statistics
 }
 
 async function ICTS(){
-  const statistics = await itcspromise
+  const statistics = await ictspromise
 return statistics
 }
 
