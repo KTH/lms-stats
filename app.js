@@ -31,7 +31,7 @@ setInterval(()=>{
   })
 
   canvasApi.get('accounts/1/external_tools').then(et =>{
-      external_tools = Promise.resolve(et)
+      etpromise = Promise.resolve(et)
   })
 
 
@@ -48,7 +48,7 @@ return statistics
 }
 
 async function KTHET(){
-  const statistics = await canvasApi.get('accounts/1/external_tools')
+  const statistics = await kthet
 return statistics
 }
 
