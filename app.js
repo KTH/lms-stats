@@ -19,6 +19,8 @@ const express = require('express');
 let coursespromise = canvasApi.get('accounts/1/courses?per_page=100')
 let coursesenrpromise = canvasApi.get('accounts/1/courses?with_enrollments=true&per_page=100')
 let etpromise = canvasApi.get('accounts/1/external_tools')
+let kthapromise = canvasApi.get('accounts/1/analytics/current/activity')
+let kthspromise = canvasApi.get('accounts/1/analytics/current/statistics')
 
 setInterval(()=>{
   console.log('------ Hämtar nya kurser ------')
@@ -32,6 +34,14 @@ setInterval(()=>{
 
   canvasApi.get('accounts/1/external_tools').then(et =>{
       etpromise = Promise.resolve(et)
+  })
+  
+    canvasApi.get('accounts/1/analytics/current/activity').then(ktha =>{
+      kthapromise = Promise.resolve(ktha)
+  })
+  
+    canvasApi.get('accounts/1/analytics/current/statistics').then(kths =>{
+      kthspromise = Promise.resolve(kths)
   })
 
 
@@ -53,12 +63,12 @@ return statistics
 }
 
 async function KTHS(){
-  const statistics = await canvasApi.get('accounts/1/analytics/current/statistics')
+  const statistics = await kthspromise
 return statistics
 }
 
 async function KTHA(){
-  const statistics = await canvasApi.get('accounts/1/analytics/current/activity')
+  const statistics = await kthapromise
 return statistics
 }
 
