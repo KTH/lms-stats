@@ -18,7 +18,7 @@ const canvasApi = new CanvasApi(canvasUrl, accessToken)
 const express = require('express');
 let coursespromise = canvasApi.get('accounts/1/courses?per_page=100')
 let coursesenrpromise = canvasApi.get('accounts/1/courses?with_enrollments=true&per_page=100')
-let promiseet = canvasApi.get('accounts/1/external_tools')
+let etpromise = canvasApi.get('accounts/1/external_tools')
 
 setInterval(()=>{
   console.log('------ Hämtar nya kurser ------')
@@ -31,7 +31,7 @@ setInterval(()=>{
   })
 
   canvasApi.get('accounts/1/external_tools').then(et =>{
-      promiseet = Promise.resolve(et)
+      etpromise = Promise.resolve(et)
   })
 
 
