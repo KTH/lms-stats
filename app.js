@@ -31,7 +31,7 @@ setInterval(()=>{
   })
 
   canvasApi.get('accounts/1/external_tools').then(et =>{
-      etpromise = Promise.resolve(et)
+      promiseet = Promise.resolve(et)
   })
 
 
