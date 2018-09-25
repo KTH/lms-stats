@@ -22,6 +22,18 @@ let etpromise = canvasApi.get('accounts/1/external_tools')
 let kthapromise = canvasApi.get('accounts/1/analytics/current/activity')
 let kthspromise = canvasApi.get('accounts/1/analytics/current/statistics')
 
+let abespromise = canvasApi.get('accounts/3/analytics/current/statistics')
+let biospromise = canvasApi.get('accounts/6/analytics/current/statistics')
+let chespromise = canvasApi.get('accounts/7/analytics/current/statistics')
+let cscspromise = canvasApi.get('accounts/10/analytics/current/statistics')
+let ecespromise = canvasApi.get('accounts/4/analytics/current/statistics')
+let eesspromise = canvasApi.get('accounts/5/analytics/current/statistics')
+let ictspromise = canvasApi.get('accounts/9/analytics/current/statistics')
+let itmspromise = canvasApi.get('accounts/11/analytics/current/statistics')
+let scispromise = canvasApi.get('accounts/12/analytics/current/statistics')
+let sthspromise = canvasApi.get('accounts/29/analytics/current/statistics')
+let ufspromise = canvasApi.get('accounts/13/analytics/current/statistics')
+
 setInterval(()=>{
   console.log('------ Hämtar nya kurser ------')
   canvasApi.get('accounts/1/courses?per_page=100').then(courses =>{
@@ -44,6 +56,52 @@ setInterval(()=>{
       kthspromise = Promise.resolve(kths)
   })
 
+      canvasApi.get('accounts/3/analytics/current/statistics').then(abes =>{
+      abespromise = Promise.resolve(abes)
+  })
+  
+        canvasApi.get('accounts/6/analytics/current/statistics').then(bios =>{
+      biospromise = Promise.resolve(bios)
+  })
+  
+        canvasApi.get('accounts/7/analytics/current/statistics').then(ches =>{
+      chespromise = Promise.resolve(ches)
+  })
+  
+        canvasApi.get('accounts/10/analytics/current/statistics').then(cscs =>{
+      cscspromise = Promise.resolve(cscs)
+  })
+  
+        canvasApi.get('accounts/4/analytics/current/statistics').then(eces =>{
+      ecespromise = Promise.resolve(eces)
+  })
+  
+        canvasApi.get('accounts/5/analytics/current/statistics').then(eess =>{
+      eesspromise = Promise.resolve(eess)
+  })
+  
+        canvasApi.get('accounts/9/analytics/current/statistics').then(itcs =>{
+      ictspromise = Promise.resolve(itcs)
+  })
+  
+        canvasApi.get('accounts/11/analytics/current/statistics').then(itms =>{
+      itmspromise = Promise.resolve(itms)
+  })
+  
+        canvasApi.get('accounts/12/analytics/current/statistics').then(scis =>{
+      scispromise = Promise.resolve(scis)
+  })
+  
+        canvasApi.get('accounts/29/analytics/current/statistics').then(sths =>{
+      sthspromise = Promise.resolve(sths)
+  })
+  
+        canvasApi.get('accounts/13/analytics/current/statistics').then(ufs =>{
+      ufspromise = Promise.resolve(ufs)
+  })
+  
+  
+  
 
 }, 1000 * 60 * 15)
 
@@ -98,7 +156,7 @@ return statistics
 }
 
 async function ABES(){
-  const statistics = await canvasApi.get('accounts/3/analytics/current/statistics')
+  const statistics = await abespromise
 return statistics
 }
 
@@ -113,7 +171,7 @@ return statistics
 }
 
 async function BIOS(){
-  const statistics = await canvasApi.get('accounts/6/analytics/current/statistics')
+  const statistics = await biospromise
 return statistics
 }
 
@@ -128,7 +186,7 @@ return statistics
 }
 
 async function CHES(){
-  const statistics = await canvasApi.get('accounts/7/analytics/current/statistics')
+  const statistics = await chespromise
 return statistics
 }
 
@@ -143,7 +201,7 @@ return statistics
 }
 
 async function CSCS(){
-  const statistics = await canvasApi.get('accounts/10/analytics/current/statistics')
+  const statistics = await cscspromise
 return statistics
 }
 
@@ -158,7 +216,7 @@ return statistics
 }
 
 async function ECES(){
-  const statistics = await canvasApi.get('accounts/4/analytics/current/statistics')
+  const statistics = await ecespromise
 return statistics
 }
 
@@ -174,7 +232,7 @@ return statistics
 
 
 async function EESS(){
-  const statistics = await canvasApi.get('accounts/5/analytics/current/statistics')
+  const statistics = await eesspromise
 return statistics
 }
 
@@ -189,7 +247,7 @@ return statistics
 }
 
 async function ICTS(){
-  const statistics = await canvasApi.get('accounts/9/analytics/current/statistics')
+  const statistics = await itcspromise
 return statistics
 }
 
@@ -204,7 +262,7 @@ return statistics
 }
 
 async function ITMS(){
-  const statistics = await canvasApi.get('accounts/11/analytics/current/statistics')
+  const statistics = await itmspromise
 return statistics
 }
 
@@ -219,7 +277,7 @@ return statistics
 }
 
 async function SCIS(){
-  const statistics = await canvasApi.get('accounts/12/analytics/current/statistics')
+  const statistics = await scispromise
 return statistics
 }
 
@@ -244,12 +302,12 @@ return statistics
 }
 
 async function STHSL(){
-  const statistics = await canvasApi.get('accounts/29/analytics/current/statistics')
+  const statistics = await sthspromise
 return statistics
 }
 
 async function UFS(){
-  const statistics = await canvasApi.get('accounts/13/analytics/current/statistics')
+  const statistics = await ufspromise
 return statistics
 }
 
