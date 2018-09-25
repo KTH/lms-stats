@@ -18,7 +18,7 @@ const canvasApi = new CanvasApi(canvasUrl, accessToken)
 const express = require('express');
 let coursespromise = canvasApi.get('accounts/1/courses?per_page=100')
 let coursesenrpromise = canvasApi.get('accounts/1/courses?with_enrollments=true&per_page=100')
-let external_tools = canvasApi.get('accounts/1/external_tools')
+let etpromise = canvasApi.get('accounts/1/external_tools')
 
 setInterval(()=>{
   console.log('------ Hämtar nya kurser ------')
@@ -48,7 +48,7 @@ return statistics
 }
 
 async function KTHET(){
-  const statistics = await kthet
+  const statistics = await etpromise
 return statistics
 }
 
