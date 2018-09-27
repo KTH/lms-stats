@@ -22,15 +22,15 @@ let etpromise = canvasApi.get('accounts/1/external_tools')
 let kthapromise = canvasApi.get('accounts/1/analytics/current/activity')
 let kthspromise = canvasApi.get('accounts/1/analytics/current/statistics')
 
-let abespromise = canvasApi.get('accounts/3/analytics/current/statistics')
-let biospromise = canvasApi.get('accounts/6/analytics/current/statistics')
-let chespromise = canvasApi.get('accounts/7/analytics/current/statistics')
-let cscspromise = canvasApi.get('accounts/10/analytics/current/statistics')
-let ecespromise = canvasApi.get('accounts/4/analytics/current/statistics')
-let eesspromise = canvasApi.get('accounts/5/analytics/current/statistics')
-let ictspromise = canvasApi.get('accounts/9/analytics/current/statistics')
-let itmspromise = canvasApi.get('accounts/11/analytics/current/statistics')
-let scispromise = canvasApi.get('accounts/12/analytics/current/statistics')
+let abespromise = canvasApi.get('accounts/14/analytics/current/statistics')
+let biospromise = canvasApi.get('accounts/17/analytics/current/statistics')
+let chespromise = canvasApi.get('accounts/22/analytics/current/statistics')
+let cscspromise = canvasApi.get('accounts/23/analytics/current/statistics')
+let ecespromise = canvasApi.get('accounts/24/analytics/current/statistics')
+let eesspromise = canvasApi.get('accounts/25/analytics/current/statistics')
+let ictspromise = canvasApi.get('accounts/26/analytics/current/statistics')
+let itmspromise = canvasApi.get('accounts/27/analytics/current/statistics')
+let scispromise = canvasApi.get('accounts/28/analytics/current/statistics')
 let sthspromise = canvasApi.get('accounts/29/analytics/current/statistics')
 let ufspromise = canvasApi.get('accounts/13/analytics/current/statistics')
 
@@ -56,39 +56,39 @@ setInterval(()=>{
       kthspromise = Promise.resolve(kths)
   })
 
-      canvasApi.get('accounts/3/analytics/current/statistics').then(abes =>{
+      canvasApi.get('accounts/14/analytics/current/statistics').then(abes =>{
       abespromise = Promise.resolve(abes)
   })
   
-        canvasApi.get('accounts/6/analytics/current/statistics').then(bios =>{
+        canvasApi.get('accounts/17/analytics/current/statistics').then(bios =>{
       biospromise = Promise.resolve(bios)
   })
   
-        canvasApi.get('accounts/7/analytics/current/statistics').then(ches =>{
+        canvasApi.get('accounts/22/analytics/current/statistics').then(ches =>{
       chespromise = Promise.resolve(ches)
   })
   
-        canvasApi.get('accounts/10/analytics/current/statistics').then(cscs =>{
+        canvasApi.get('accounts/23/analytics/current/statistics').then(cscs =>{
       cscspromise = Promise.resolve(cscs)
   })
   
-        canvasApi.get('accounts/4/analytics/current/statistics').then(eces =>{
+        canvasApi.get('accounts/24/analytics/current/statistics').then(eces =>{
       ecespromise = Promise.resolve(eces)
   })
   
-        canvasApi.get('accounts/5/analytics/current/statistics').then(eess =>{
+        canvasApi.get('accounts/25/analytics/current/statistics').then(eess =>{
       eesspromise = Promise.resolve(eess)
   })
   
-        canvasApi.get('accounts/9/analytics/current/statistics').then(icts =>{
+        canvasApi.get('accounts/26/analytics/current/statistics').then(icts =>{
       ictspromise = Promise.resolve(icts)
   })
   
-        canvasApi.get('accounts/11/analytics/current/statistics').then(itms =>{
+        canvasApi.get('accounts/27/analytics/current/statistics').then(itms =>{
       itmspromise = Promise.resolve(itms)
   })
   
-        canvasApi.get('accounts/12/analytics/current/statistics').then(scis =>{
+        canvasApi.get('accounts/28/analytics/current/statistics').then(scis =>{
       scispromise = Promise.resolve(scis)
   })
   
@@ -564,5 +564,3 @@ app.get('/api/lms-stats/ufs', async function(req, res){
   console.log('kommer skicka:', results)
   res.json(results);
 });
-
-
