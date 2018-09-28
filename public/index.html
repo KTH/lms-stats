@@ -760,14 +760,8 @@ var chart = c3.generate({
             ['Assignments', KTH_ladok_courses_publ_settings_assignments]
         ],
         type : 'pie',
+        onmouseover: function (d, i) { console.log("onmouseover", d, i); }
     },
-   pie: {
-        label: {
-            format: function (value, ratio, id) {
-                return d3.format('$')(value);
-            }
-        }
-    }
 });
 
 // Usage bar
