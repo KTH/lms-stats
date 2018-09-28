@@ -333,12 +333,12 @@ Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/l
 //    const responseKTHS = await fetch('/api/lms-stats/kths')
 //    const myJsonKTHS = await responseKTHS.json()
 
-// Fetch global course data for all courses. This data is refreshed only on app restart.
+// Fetch global course data for all courses. 
 
 const responseKTHCOURSES = await fetch('/api/lms-stats/kthcourses')
 const myJsonKTHCOURSES = await responseKTHCOURSES.json()
 
-// Fetch global course data for all courses with active enrollments. This data is refreshed only on app restart.
+// Fetch global course data for all courses with active enrollments.
 
     const responseKTHENRCOURSES = await fetch('/api/lms-stats/kthenrcourses')
     const myJsonKTHENRCOURSES = await responseKTHENRCOURSES.json()
@@ -760,6 +760,7 @@ var chart = c3.generate({
             ['Assignments', KTH_ladok_courses_publ_settings_assignments]
         ],
         type : 'pie',
+        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
     }
 });
 
