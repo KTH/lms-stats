@@ -315,7 +315,7 @@ Number of users with a student role (Admitted and/or Registrered) that has logge
 <br>
 <br><hr><br>
 
-<div class="foot">KTH LMS Stats version 0.6 (2018-09-25) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
+<div class="foot">KTH LMS Stats version 0.61 (2018-10-04) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></div>
 
 
@@ -939,7 +939,7 @@ var chart = c3.generate({
             data: {
                 x : 'x',
                 columns: [
-                    ['x', 'Discussion topics', 'Media objects recorded', 'Uploaded files', 'Assignment submissions'],
+                    ['x', 'Discussion topics', 'Media objects recorded', 'Uploaded files', 'Assignments created by teachers'],
                     ['ABE', myJsonABES[0].discussion_topics, myJsonABES[0].media_objects, myJsonABES[0].attachments, myJsonABES[0].assignments],
                     ['CBH', myJsonCHES[0].discussion_topics+myJsonBIOS[0].discussion_topics+myJsonSTHS[0].discussion_topics, myJsonCHES[0].media_objects+myJsonBIOS[0].media_objects+myJsonSTHS[0].media_objects, myJsonCHES[0].attachments+myJsonBIOS[0].attachments+myJsonSTHS[0].attachments, myJsonCHES[0].assignments+myJsonBIOS[0].assignments+myJsonSTHS[0].assignments],
                     ['EECS', myJsonCSCS[0].discussion_topics+myJsonEESS[0].discussion_topics+myJsonICTS[0].discussion_topics, myJsonCSCS[0].media_objects+myJsonEESS[0].media_objects+myJsonICTS[0].media_objects, myJsonCSCS[0].attachments+myJsonEESS[0].attachments+myJsonICTS[0].attachments, myJsonCSCS[0].assignments+myJsonEESS[0].assignments+myJsonICTS[0].assignments],
