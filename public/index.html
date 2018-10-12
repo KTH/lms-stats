@@ -315,7 +315,7 @@ Number of users with a student role (Admitted and/or Registrered) that has logge
 <br>
 <br><hr><br>
 
-<div class="foot">KTH LMS Stats version 0.61 (2018-10-04) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
+<div class="foot">KTH LMS Stats version 0.62 (2018-10-12) - <a href="mailto:jfridell@kth.se">jfridell@kth.se</a><br>
 Source code: <a href="https://github.com/KTH/lms-stats">https://github.com/KTH/lms-stats</a></div>
 
 
@@ -396,7 +396,7 @@ const myJsonKTHCOURSES = await responseKTHCOURSES.json()
 // P3 XXXY-01-01 - XXXY-02-28
 // P3 XXXY-03-01 - XXXY-05-31
 
-const KTH_courses_publ_syl_kth = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.public_syllabus_to_auth === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
+const KTH_courses_publ_syl_kth = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available'|| k.workflow_state === 'completed').filter(k => k.public_syllabus_to_auth === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
 const KTH_courses_publ_syl_public = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.public_syllabus === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
 const KTH_courses_publ_public = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
 const KTH_courses_publ_kth = myJsonKTHCOURSES.filter(k => k.workflow_state === 'available').filter(k => k.is_public_to_auth_users === true).filter(k => k.account_id=== 14|| k.account_id === 17|| k.account_id === 22|| k.account_id === 23|| k.account_id === 24|| k.account_id === 25|| k.account_id === 26|| k.account_id === 27|| k.account_id === 28|| k.account_id === 29).length
