@@ -17,8 +17,8 @@
   },
   "optionalDependencies": {},
   "devDependencies": {
-    "cross-env": "^5.1.4",
-    "nodemon": "^1.17.2",
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.7",
     "standard": "^12.0.1"
   }
 }
