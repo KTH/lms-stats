@@ -33,6 +33,9 @@ let itmspromise = canvasApi.get('accounts/27/analytics/current/statistics')
 let scispromise = canvasApi.get('accounts/28/analytics/current/statistics')
 let sthspromise = canvasApi.get('accounts/29/analytics/current/statistics')
 let ufspromise = canvasApi.get('accounts/13/analytics/current/statistics')
+let gvsspromise = canvasApi.get('accounts/67/analytics/current/statistics')
+let cbhspromise = canvasApi.get('accounts/63/analytics/current/statistics')
+let eecssspromise = canvasApi.get('accounts/59/analytics/current/statistics')
 
 setInterval(()=>{
   console.log('------ Hämtar nya kurser ------')
@@ -100,7 +103,16 @@ setInterval(()=>{
       ufspromise = Promise.resolve(ufs)
   })
   
+          canvasApi.get('accounts/67/analytics/current/statistics').then(gvss =>{
+      ufspromise = Promise.resolve(gvss)
+  })
+        canvasApi.get('accounts/63/analytics/current/statistics').then(cbhs =>{
+      ufspromise = Promise.resolve(cbhs)
+  })  
   
+          canvasApi.get('accounts/59/analytics/current/statistics').then(eecss =>{
+      ufspromise = Promise.resolve(eecss)
+  })
   
 
 }, 1000 * 60 * 15)
@@ -561,6 +573,60 @@ app.get('/api/lms-stats/sthsl', async function(req, res){
 
 app.get('/api/lms-stats/ufs', async function(req, res){
   const results= await UFS()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/gvsa', async function(req, res){
+  const results= await GVSA()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/gvss', async function(req, res){
+  const results= await GVSS()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/gvssl', async function(req, res){
+  const results= await GVSSL()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/cbha', async function(req, res){
+  const results= await CBHA()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/cbhs', async function(req, res){
+  const results= await CBHS()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/cbhsl', async function(req, res){
+  const results= await CBHSL()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/eecsa', async function(req, res){
+  const results= await EECSA()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/eecss', async function(req, res){
+  const results= await EECSS()
+  console.log('kommer skicka:', results)
+  res.json(results);
+});
+
+app.get('/api/lms-stats/eecssl', async function(req, res){
+  const results= await EECSL()
   console.log('kommer skicka:', results)
   res.json(results);
 });
