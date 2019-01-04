@@ -646,3 +646,4 @@ app.get('/api/lms-stats/eecssl', async function(req, res){
   console.log('kommer skicka:', results)
   res.json(results);
 });
+
