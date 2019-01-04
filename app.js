@@ -35,7 +35,7 @@ let sthspromise = canvasApi.get('accounts/29/analytics/current/statistics')
 let ufspromise = canvasApi.get('accounts/13/analytics/current/statistics')
 let gvsspromise = canvasApi.get('accounts/67/analytics/current/statistics')
 let cbhspromise = canvasApi.get('accounts/63/analytics/current/statistics')
-let eecssspromise = canvasApi.get('accounts/59/analytics/current/statistics')
+let eecsspromise = canvasApi.get('accounts/59/analytics/current/statistics')
 
 setInterval(()=>{
   console.log('------ Hämtar nya kurser ------')
@@ -325,6 +325,22 @@ return statistics
 
 async function UFA(){
   const statistics = await canvasApi.get('accounts/13/analytics/current/activity')
+return statistics
+}
+
+
+async function CBHS(){
+  const statistics = await cbhspromise
+return statistics
+}
+
+async function EECSS(){
+  const statistics = await eecsspromise
+return statistics
+}
+
+async function GVSS(){
+  const statistics = await gvsspromise
 return statistics
 }
 
