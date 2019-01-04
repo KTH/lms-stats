@@ -370,6 +370,16 @@ const myJsonKTHCOURSES = await responseKTHCOURSES.json()
     const myJsonSTHS = await responseSTHS.json()
     const responseUF = await fetch('/api/lms-stats/ufs')
     const myJsonUF = await responseUF.json()
+    
+    const responseGVSS = await fetch('/api/lms-stats/gvss')
+    const myJsonGVSS = await responseGVSS.json()
+    
+    const responseCBHS = await fetch('/api/lms-stats/cbhs')
+    const myJsonCBHS = await responseCBHS.json()
+    
+    const responseEECSS = await fetch('/api/lms-stats/eecss')
+    const myJsonEECSS = await responseEECSS.json()
+    
 
 // Create constants for use in graphs making the code slightly easier to read.
 
