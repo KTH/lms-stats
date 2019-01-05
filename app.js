@@ -34,7 +34,7 @@ let itmspromise = canvasApi.get('accounts/27/analytics/current/statistics')
 let scispromise = canvasApi.get('accounts/28/analytics/current/statistics')
 let sthspromise = canvasApi.get('accounts/29/analytics/current/statistics')
 let ufspromise = canvasApi.get('accounts/13/analytics/current/statistics')
-let gvsspromise = canvasApi.get('accounts/67/analytics/current/statistics')
+let gvsspromise = canvasApi.get('accounts/49/analytics/current/statistics')
 let cbhspromise = canvasApi.get('accounts/63/analytics/current/statistics')
 let eecsspromise = canvasApi.get('accounts/59/analytics/current/statistics')
 
