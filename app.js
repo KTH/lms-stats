@@ -4,7 +4,6 @@ const config = require('./config/serverSettings')
 const logger = require('./server/logger')
 require('dotenv').config()
 
-
 app.use('/api/lms-stats/', require('./server/systemroutes'))
 
 app.start({
