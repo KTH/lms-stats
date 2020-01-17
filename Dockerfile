@@ -1,4 +1,4 @@
-FROM node:8-buster-slim
+FROM node:8-buster
 
 RUN mkdir -p /npm && \
     mkdir -p /application
