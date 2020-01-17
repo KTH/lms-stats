@@ -1,4 +1,4 @@
-FROM node:8.9-wheezy
+FROM node:8-alpine
 
 RUN mkdir -p /npm && \
     mkdir -p /application
