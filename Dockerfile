@@ -1,4 +1,4 @@
-FROM node:8-buster
+FROM node:8-wheezy
 
 RUN mkdir -p /npm && \
     mkdir -p /application
