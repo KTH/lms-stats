@@ -1,4 +1,4 @@
-FROM node:8-alpine
+FROM node:8-buster-slim
 
 RUN mkdir -p /npm && \
     mkdir -p /application
